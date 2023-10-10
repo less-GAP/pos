@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+    app:
+        image: registry.digitalocean.com/lessgap/unify:latest
+        working_dir: /app
+        depends_on:
+            - redis
+        volumes:
+            - app-volume:/app
+            - ./.env:/app/.env
+            - ./storage:/app/storage
+            - ./storage/upload:/app/public/upload
+    nginx:
+        build: ./docker/nginx
+        volumes:
+            - app-volume:/app
+            - ./docker/nginx/conf.d/server.conf:/etc/nginx/conf.d/server.conf
+            - ./storage/upload:/app/public/upload
+            - ./public/static:/app/public/static
+        environment:
+            NGINX_NO_CACHE: 0
+            NGINX_PAGESPEED: 1
+            NGINX_PAGESPEED_IMG: 1
+            NGINX_PAGESPEED_JS: 1
+            NGINX_PAGESPEED_CSS: 1
+        restart: on-failure
+        depends_on:
+            - app
+        ports:
+            - ${APP_PORT}:9100
+    redis:
+        image: 'redis'
+        restart: unless-stopped
+        environment:
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+volumes:
+    app-volume:
+        driver: local
+
