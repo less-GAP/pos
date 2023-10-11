@@ -2,7 +2,7 @@ import {
   createRouter,
   createWebHashHistory
 } from "vue-router";
-import Home from "@/views/HomeView.vue";
+import Home from "@/modules/HomeView.vue";
 import {
   useAuthStore
 } from "@/stores/auth";
@@ -28,11 +28,11 @@ let routes = [
     },
     path: "/login",
     name: "login",
-    component: () => import("@/views/LoginView.vue"),
+    component: () => import("@/modules/LoginView.vue"),
   },
 ];
 const modules =
-  import.meta.globEager('./../views/**/router.js');
+  import.meta.globEager('./../modules/**/router.js');
 
 Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {};

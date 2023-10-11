@@ -3,12 +3,11 @@ import {reactive, ref, h, watch} from "vue";
 import {mdiBallotOutline, mdiDelete} from "@mdi/js";
 import {Modal, DataTable} from "@/components";
 import router from "@/router";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 
 import {UseEloquentRouter} from "@/utils/UseEloquentRouter";
 import {UseDataTable} from "@/utils/UseDataTable";
 
-const prefix = '/staff/permission'
+const prefix = '/staff/permission-group'
 const routePath = prefix
 const {
   getListApi,
@@ -16,7 +15,6 @@ const {
   deleteApi,
   updateApi
 } = UseEloquentRouter(prefix,{
-  include: 'group'
 })
 const isShowModal = ref(false)
 
@@ -50,30 +48,13 @@ const listActions = [
   }
 ]
 const columns = [
+
   {
-    title: 'Group',
-    key: 'group.name',
-  },
-  {
-    title: 'Name',
+    title: 'Group Name',
     key: 'name',
 
   },
 
-  {
-    title: 'Description',
-    key: 'description',
-
-  },
-  {
-    title: 'Status',
-    key: 'status',
-    width: 100
-  }, {
-    title: 'Group',
-    key: 'is_group',
-    width: 100
-  },
   {
     title: 'Created at',
     key: 'created_at',
@@ -103,7 +84,6 @@ function registerTable({reload}) {
 </script>
 
 <template>
-  <LayoutAuthenticated>
 
     <DataTable @register="registerTable" v-bind="tableConfig">
       <template #cellAction[delete]="{item,actionMethod}">
@@ -143,12 +123,8 @@ function registerTable({reload}) {
         <a-switch @change="updateApi(item.id,{status:item.status})" checkedValue="active" unCheckedValue="inactive"
                   v-model:checked="item.status"/>
       </template>
-      <template #cell[is_group]="{item,column}">
-        <a-switch @change="updateApi(item.id,{is_group:item.is_group})" :checkedValue="1" :unCheckedValue="0"
-                  v-model:checked="item.is_group"/>
-      </template>
+
     </DataTable>
-  </LayoutAuthenticated>
 
   <router-view></router-view>
 

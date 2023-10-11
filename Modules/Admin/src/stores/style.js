@@ -6,7 +6,7 @@ import Format from "@/utils/Format";
 export const useStyleStore = defineStore("style", {
   state: () => ({
     theme: {
-      headerHeight: '75px',
+      headerHeight: '60px',
       sidebarWidth: '255px',
       sidebarCollapsedWidth: '100px',
     },
@@ -15,7 +15,7 @@ export const useStyleStore = defineStore("style", {
       , 'updated_at': Format.formatDateTime
     },
     menu: {
-      iconSize: 28
+      iconSize: 25
     },
     antdv: {
       autoInsertSpaceInButton: true,

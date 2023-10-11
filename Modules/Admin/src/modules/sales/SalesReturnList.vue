@@ -1,12 +1,11 @@
 <script setup>
 import {ref} from "vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {DataTable} from "@/components";
 import router from "@/router";
 import {UseEloquentRouter} from "@/utils/UseEloquentRouter";
 import {UseDataTable} from "@/utils/UseDataTable";
 
-const routePrefix = 'sales-order' // register api prefix in Admin/routes.php
+const routePrefix = 'sales/order' // register api prefix in Admin/routes.php
 const reloadVersion = 'sales_orders' // table name for check live reload
 const {
   getListApi,
@@ -92,7 +91,6 @@ const tableConfig = UseDataTable(getListApi, {
 </script>
 
 <template>
-  <LayoutAuthenticated>
     <div class="content">
       <div class="page-header">
         <div class="page-title">
@@ -100,30 +98,12 @@ const tableConfig = UseDataTable(getListApi, {
           <h6>Manage your sales</h6>
         </div>
         <div class="page-btn">
-          <router-link to="/sales-order/new" class="btn btn-added"><img src="@/assets/img/icons/plus.svg" alt="img"
-                                                                        class="mr-1">Add
-            Sales
-          </router-link>
+          <a href="add-sales.html" class="btn btn-added"><img src="@/assets/img/icons/plus.svg" alt="img" class="mr-1">Add
+            Sales</a>
         </div>
       </div>
       <DataTable v-bind="tableConfig">
-        <template #listActions="{selectedItems}">
-          <ul>
-            <li>
-              <a title="pdf"><img
-                src="@/assets/img/icons/pdf.svg" alt="img"></a>
-            </li>
-            <li>
-              <a title="excel"><img
-                src="@/assets/img/icons/excel.svg" alt="img"></a>
-            </li>
-            <li>
-              <a title="print"><img
-                src="@/assets/img/icons/printer.svg" alt="img"></a>
-            </li>
-          </ul>
-        </template>
-        <template #advanceSearch="{reload,filter,toggleSearch,loading}">
+        <template #advanceSearch="{reload,filter,toggleSearch}">
           <div class="row">
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
@@ -142,21 +122,14 @@ const tableConfig = UseDataTable(getListApi, {
                   <option data-select2-id="3">Completed</option>
                   <option>Paid</option>
                 </select>
-
               </div>
-
             </div>
-            <a-space class="form-group">
-              <a-button outline @click="toggleSearch">
-                Close
-              </a-button>
-              <a-button :loading="loading" type="primary" @click="reload">
-                <template #icon>
-                  <i class="fa fa-search mr-3"></i>
-                </template>
-                Filter
-              </a-button>
-            </a-space>
+            <div class="col-lg-3 col-sm-6 col-12">
+              <div class="form-group">
+                <a @click="reload" class="btn btn-filters ml-auto"><img src="@/assets/img/icons/search-whites.svg"
+                                                                        alt="img"></a>
+              </div>
+            </div>
           </div>
         </template>
         <template #cell[order_status]="{ item, column, index }">
@@ -175,7 +148,5 @@ const tableConfig = UseDataTable(getListApi, {
         </template>
       </DataTable>
     </div>
-    <router-view></router-view>
-  </LayoutAuthenticated>
 
 </template>

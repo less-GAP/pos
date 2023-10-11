@@ -81,7 +81,7 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
             ]
         )->routes(function () {
         });
-    EloquentRouter::prefix('sales-order')
+    EloquentRouter::prefix('sales/order')
         ->handle(
             \App\Models\SalesOrder::class,
             [
@@ -178,12 +178,21 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
                 'allowedFilters' => [
                     AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name'),
                     AllowedFilter::exact('status'),
-                    AllowedFilter::exact('is_group'),
-                    AllowedFilter::callback('not_id', function ($query, $value) {
-                        $query->whereNot('id', $value);
-                    }),
+                    AllowedFilter::exact('group_id'),
+
                 ],
                 'allowedIncludes' => ['group']
+            ]
+        );
+    EloquentRouter::prefix('/staff/permission-group')
+
+        ->handle(
+            \App\Models\PermissionGroup::class,
+            [
+                'allowedFilters' => [
+                    AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name'),
+                ],
+                'allowedIncludes' => ['items']
             ]
         );
     Route::get('notifications', \Modules\Admin\Actions\Notification\GetNotifications::class . '@handle');

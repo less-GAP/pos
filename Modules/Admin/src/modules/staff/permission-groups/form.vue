@@ -8,15 +8,14 @@ import Api from "@/utils/Api";
 import DataListEdit from "@/components/DataListEdit.vue";
 import RemoteSelect from "@/components/RemoteSelect.vue";
 
-const prefix = '/staff/permission'
+const prefix = '/staff/permission-group'
+
 const routePath = prefix
 const {
   getDetailApi,
   createApi,
   // updateApi
-} = UseEloquentRouter(prefix, {
-  include: 'group'
-})
+} = UseEloquentRouter(prefix, {})
 
 const loading = ref(false);
 
@@ -26,8 +25,8 @@ const formRef = ref();
 const emit = defineEmits(["close"]);
 const formState = reactive({
   name: '',
+  items: [],
   status: 'active',
-  is_group: 0,
   description: '',
 });
 
@@ -65,7 +64,7 @@ const closeDetail = function () {
 <template>
   <a-drawer body-style="padding:0" :closable="false"
             style="position:relative;display:flex;flex-direction:column;height:100vh;"
-            @close="closeDetail" :open="true" width="500px">
+            @close="closeDetail" :open="true" width="80vw">
     <a-form class="w-full h-full bg-gray-100 !p-5 " layout="vertical" v-bind="$config.formConfig" ref="formRef"
             :model="formState"
             @finish="submit">
@@ -84,47 +83,15 @@ const closeDetail = function () {
       </a-card>
       <div style="height:calc(100% - 70px);margin-top:15px;overflow: auto;padding:0;" :gutter="20">
         <a-card>
+
           <a-form-item label="Name"
                        name="name"
                        :rules="[{ required: true }]"
           >
             <a-input v-model:value="formState.name" placeholder="Name.."/>
           </a-form-item>
-          <a-row>
-            <a-col :span="12">
-              <a-form-item label="Is Group"
-                           name="is_group"
-              >
-                <a-switch :checkedValue="1" :unCheckedValue="0" v-model:checked="formState.is_group"/>
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item label="Status"
-                           name="status"
-              >
-                <a-switch checkedValue="active" unCheckedValue="inactive" v-model:checked="formState.status"/>
-              </a-form-item>
-            </a-col>
-          </a-row>
-
-          <a-form-item v-if="!formState.is_group" label="Group"
-                       name="group_id"
-                       :rules="[{ required: true }]"
-          >
-            <RemoteSelect labelKey="name" valueKey="id"
-                          :url="'staff/permission/all?filter[is_group]=1&filter[not_id]='+(formState.id?formState.id:'')"
-                          v-model:value="formState.group_id"
-                          placeholder="Group.."/>
-          </a-form-item>
-          <a-form-item label="Description"
-                       name="description"
-          >
-            <a-textarea rows="5" v-model:value="formState.description"/>
-          </a-form-item>
-
 
         </a-card>
-
 
       </div>
 

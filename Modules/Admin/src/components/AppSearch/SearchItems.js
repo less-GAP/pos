@@ -35,7 +35,7 @@ const SearchItems = [
     permission: 'order.list',
     search: function (term) {
       return new Promise(resolve => {
-          Api.get('/sales-order/all?limit=10&filter[search]=' + (term ? term : '')).then(rs => {
+          Api.get('/sales/order/all?limit=10&filter[search]=' + (term ? term : '')).then(rs => {
             resolve(rs.data.map(item => {
               return {
                 label: item.order_code,

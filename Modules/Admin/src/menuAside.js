@@ -19,46 +19,15 @@ export default [{
     },
     icon: mdiStore,
     permission: 'pos',
-    path: "/pos",
+    path: "/sales/pos",
   },
   {
     permission: 'sale.list',
     icon: mdiCart,
-    path: "/sales-order",
+    path: "/sales",
     meta: {
       title: "Sales",
-    },
-    children: [
-      {
-        meta: {
-          title: "Sales List",
-        },
-        path: "/sales-order",
-      },
-
-      {
-        meta: {
-          title: "New Sales",
-        },
-        path: "/sales-order/new",
-      },
-      {
-        meta: {
-          title: "Sales Return List",
-        },
-        path: "/sales-return-list",
-      }, {
-        meta: {
-          title: "New Sales Return",
-        },
-        path: "/new-sales-return",
-      }
-    ]
-  },
-  {
-    meta: {
-      title: "System",
-    },
+    }
   },
   {
     meta: {
@@ -66,25 +35,6 @@ export default [{
     },
     icon: mdiStore,
     permission: 'Admin',
-    path: "/staff/user",
-    children: [
-      {
-        meta: {
-          title: "Users",
-        },
-        path: "/staff/user",
-      }, {
-        meta: {
-          title: "Roles",
-        },
-        path: "/staff/role",
-      },
-      {
-        meta: {
-          title: "Permissions",
-        },
-        path: "/staff/permission",
-      }
-    ]
+    path: "/staff",
   },
 ];

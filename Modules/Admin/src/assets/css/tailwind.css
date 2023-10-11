@@ -146,7 +146,7 @@
 
   .pass-group .toggle-password,
   .pass-group .toggle-passworda, .profile-set .profile-top .profileupload a, .profile-set .profile-top .profile-contentimg, .profile-set .profile-top .profile-content, .profile-set .profile-top, .productset .productsetimg, .productset.active .check-product, .order-list .actionproducts > ul > li .deletebg, .order-list .actionproducts > ul, .order-list, .totalitem, .btn-scanner-set, .product-details, .invoice-load-btn .btn, .header-menuset ul li a, .header-menuset ul li, .header-menuset ul, .calculator-set ul, .btn-pos ul, .actionproduct ul, .owl-product .owl-nav button, .tab-set ul, .productimg .productlinkset, .productimg .productcontet h4, .productimg, .increment-decrement .input-groups input[type=button], .increment-decrement .input-groups, .product-lists, .setvalue ul li, .setvaluecash ul li a, .setvaluecash ul, .btn-totallabel, .select-split .btn-filters, .select-split, .product-view .product-viewimg, .productviewset .productviewscontent a, .image-upload-new .productviewscontent a, .image-upload-new .productviewscontent, .card-sales-split, .total-order ul li, .add-icon span, .add-icon a, .slider-product-details .owl-carousel .owl-nav button, .input-checkset ul, .bar-code-view, .product-list ul li .productviews .productviewscontent a, .product-list ul li .productviews .productviewscontent, .product-list ul li .productviews, .product-list ul, .login-wrapper .login-content .form-sociallink ul li a, .login-wrapper .login-content .form-sociallink ul, .login-wrapper .login-content .toggle-passwords, .login-wrapper .login-content .toggle-password, .graph-sets > ul, .graph-sets, .dash-count, .dash-widget .dash-widgetimg span, .dash-widget, .image-upload.image-upload-new .image-uploads, .wordset ul, .search-set .btn-filter, .search-set, .table-top, .page-header .btn-added, .page-header .btn-filter, .page-header, .chat-cont-right ul.list-unstyled .media.received .chat-msg-info, .chat-cont-right ul.list-unstyled .media.sent .media-body .chat-msg-info, .chat-search .input-group .input-group-prepend, .switch-wrapper #dark-mode-toggle .light-mode, .switch-wrapper #dark-mode-toggle .dark-mode, .switch-wrapper #dark-mode-toggle, .sidebar-content .sidebar-header, .modal .modal-footer .btn-print, .modal .close,
-  .modal .btn-close, .modal-barcode ul, .productimgname, .sidebar .sub-menu a, .sidebar .nav-link, .sidebar .sidebar-menu > ul > li > a, div#global-loader, .sidebar.sidebar-four .sidebar-menu ul li a, .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a, .searchinputs .search-addon span, .user-menu.nav > li.flag-nav a, .user-menu.nav > li > a .badge, .header-split .header-menu ul li a, .header-split .header-menu ul, .header-split, .header-pos .header .user-menu.nav li, .header-pos.header .topnav-dropdown-footer, .header-pos.header .topnav-dropdown-header, .searchpart .searchhead, .header .menu-drop-user .dropdown-item, .header .userset, .header .header-left, .error-page, .icons-items .icons-list li, .icons-list li, .form-group .btn-filters, .input-group .scanner-set, .btn-white, .avatar .avatar-title {
+  .modal .btn-close, .modal-barcode ul, .productimgname, .sidebar .sub-menu a, .sidebar .nav-link, .sidebar-menu > ul > li > a, div#global-loader, .sidebar.sidebar-four .sidebar-menu ul li a, .sidebar.sidebar-two .sidebar-menu .submenu ul li a, .searchinputs .search-addon span, .user-menu.nav > li.flag-nav a, .user-menu.nav > li > a .badge, .header-split .header-menu ul li a, .header-split .header-menu ul, .header-split, .header-pos .header .user-menu.nav li, .header-pos.header .topnav-dropdown-footer, .header-pos.header .topnav-dropdown-header, .searchpart .searchhead, .header .menu-drop-user .dropdown-item, .header .userset, .header .header-left, .error-page, .icons-items .icons-list li, .icons-list li, .form-group .btn-filters, .input-group .scanner-set, .btn-white, .avatar .avatar-title {
     @apply items-center
   }
 
@@ -168,7 +168,7 @@
 
   .pass-group .toggle-password,
   .pass-group .toggle-passworda, .profile-set .profile-top .profileupload a, .profile-set .profile-top .profile-contentimg, .profile-set .profile-top .profile-content, .profile-set .profile-top, .productset .productsetimg, .productset.active .check-product, .order-list .actionproducts > ul > li .deletebg, .order-list .actionproducts > ul, .order-list, .totalitem, .btn-scanner-set, .product-details, .header-menuset ul li a, .header-menuset ul li, .header-menuset ul, .calculator-set ul, .btn-pos ul li a.btn, .btn-pos ul, .actionproduct ul, .owl-product .owl-nav button, .tab-set ul, .productimg .productlinkset, .productimg .productcontet h4, .productimg, .increment-decrement .input-groups input[type=button], .increment-decrement .input-groups, .product-lists, .setvalue ul li, .setvaluecash ul li a, .setvaluecash ul, .btn-totallabel, .select-split .btn-filters, .select-split, .product-view .product-viewimg, .productviewset .productviewscontent a, .image-upload-new .productviewscontent a, .image-upload-new .productviewscontent, .card-sales-split ul, .card-sales-split, .total-order ul li, .add-icon span, .add-icon a, .slider-product-details .owl-carousel .owl-nav button, .productdetails > ul > li, .input-checkset ul, .bar-code-view, .product-list ul li .productviews .productviewscontent a, .product-list ul li .productviews .productviewscontent, .product-list ul li .productviews, .product-list ul, .login-wrapper .login-content .form-sociallink ul li a, .login-wrapper .login-content .form-sociallink ul, .login-wrapper .login-content .toggle-passwords, .login-wrapper .login-content .toggle-password, .login-wrapper, .graph-sets > ul, .graph-sets, .dash-count, .dash-widget .dash-widgetimg span, .dash-widget, .image-upload.image-upload-new .image-uploads, .wordset ul, .search-set .btn-filter, .search-set, .table-top, .page-header .btn-added, .page-header .btn-filter, .page-header, .chat-cont-right ul.list-unstyled .media.received .chat-msg-attachments, .chat-cont-right ul.list-unstyled .media.received .chat-msg-info, .chat-cont-right ul.list-unstyled .media.sent .media-body .chat-msg-info, .chat-cont-right ul.list-unstyled .media.sent .media-body .chat-msg-attachments, .chat-cont-right ul.list-unstyled .media.sent .media-body, .chat-cont-left .chat-scroll .media .media-body, .chat-search .input-group .input-group-prepend, .sidebar-content .sidebar-header, .customizer-links, .modal .modal-footer .btn-print, .modal .close,
-  .modal .btn-close, .modal-barcode ul, .productimgname, .sidebar .nav-items .nav-link, .sidebar .sub-menu a, .sidebar .nav-link, .sidebar .sidebar-menu > ul > li > a, .sidebar, div#global-loader, .sidebar.sidebar-four .sidebar-menu ul li a, .searchinputs .search-addon span, .user-menu.nav > li.flag-nav a, .user-menu.nav > li > a .badge, .profilename .profileset, .header-split .header-menu ul li a, .header-split .header-menu ul, .header-split, .header-pos.header .user-menu.nav li, .header-pos.header .topnav-dropdown-footer, .header-pos.header .topnav-dropdown-header, .searchpart .searchhead, .header .menu-drop-user .dropdown-item, .header .userset, .header .header-left, .error-page .main-wrapper, .error-page, .icons-items .icons-list li, .icons-items .icons-list, .icons-list li, .icons-list, .form-group .btn-filters, .input-group, .input-group .scanner-set, .dropdown-menu .dropdown-item, .btn-white, .avatar .avatar-title {
+  .modal .btn-close, .modal-barcode ul, .productimgname, .sidebar .nav-items .nav-link, .sidebar .sub-menu a, .sidebar .nav-link, .sidebar-menu > ul > li > a, .sidebar, div#global-loader, .sidebar.sidebar-four .sidebar-menu ul li a, .searchinputs .search-addon span, .user-menu.nav > li.flag-nav a, .user-menu.nav > li > a .badge, .profilename .profileset, .header-split .header-menu ul li a, .header-split .header-menu ul, .header-split, .header-pos.header .user-menu.nav li, .header-pos.header .topnav-dropdown-footer, .header-pos.header .topnav-dropdown-header, .searchpart .searchhead, .header .menu-drop-user .dropdown-item, .header .userset, .header .header-left, .error-page .main-wrapper, .error-page, .icons-items .icons-list li, .icons-items .icons-list, .icons-list li, .icons-list, .form-group .btn-filters, .input-group, .input-group .scanner-set, .dropdown-menu .dropdown-item, .btn-white, .avatar .avatar-title {
     @apply flex
   }
 
@@ -1698,29 +1698,29 @@
     @apply border-2 border-[#97A2D2]
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li.submenu ul {
+  body[data-theme=dark].sidebar-menu .submenu ul {
     @apply bg-[#141432]
     rounded-[5px]
     py-[10px] px-0
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li.submenu ul li a {
+  body[data-theme=dark].sidebar-menu .submenu ul li a {
     @apply text-[#8ea0af]
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li a img {
+  body[data-theme=dark].sidebar-menu > ul > li a img {
     filter: brightness(0) saturate(100%) invert(65%) sepia(27%) saturate(206%) hue-rotate(165deg) brightness(93%) contrast(88%);
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li a span {
+  body[data-theme=dark].sidebar-menu > ul > li a span {
     @apply text-[#8ea0af]
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li a:hover img {
+  body[data-theme=dark].sidebar-menu > ul > li a:hover img {
     @apply text-[#8ea0af]
   }
 
-  body[data-theme=dark] .sidebar .sidebar-menu > ul > li a:hover svg {
+  body[data-theme=dark].sidebar-menu > ul > li a:hover svg {
     filter: brightness(0) saturate(100%) invert(65%) sepia(27%) saturate(206%) hue-rotate(165deg) brightness(93%) contrast(88%);
   }
 
@@ -1845,27 +1845,27 @@
     filter: brightness(0) saturate(100%) invert(65%) sepia(27%) saturate(206%) hue- rotate(165deg) brightness(93%) contrast(88%);
   }
 
-  body[data-theme=dark] .new-header .sidebar-menu > ul > li.submenu ul {
+  body[data-theme=dark] .new-header .sidebar-menu .submenu ul {
     @apply bg-[#141432]
   }
 
-  body[data-theme=dark] .new-header .sidebar-menu > ul > li.submenu ul li a {
+  body[data-theme=dark] .new-header .sidebar-menu .submenu ul li a {
     @apply text-[#8ea0af]
   }
 
-  body[data-theme=dark] .new-header .sidebar-menu > ul > li.submenu ul li img, body[data-theme=dark] .new-header .sidebar-menu > ul > li.submenu ul li svg {
+  body[data-theme=dark] .new-header .sidebar-menu .submenu ul li img, body[data-theme=dark] .new-header .sidebar-menu .submenu ul li svg {
     filter: brightness(0) saturate(100%) invert(65%) sepia(27%) saturate(206%) hue-rotate(165deg) brightness(93%) contrast(88%) !important;
   }
 
-  body[data-theme=dark] .new-header .sidebar-menu > ul > li.submenu ul li > ul {
+  body[data-theme=dark] .new-header .sidebar-menu .submenu ul li > ul {
     @apply shadow-transparent
   }
 
-  body[data-theme=dark] .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a svg {
+  body[data-theme=dark] .sidebar.side-three.new-header .sidebar-menu .submenu a svg {
     filter: brightness(0) saturate(100%) invert(65%) sepia(27%) saturate(206%) hue-rotate(165deg) brightness(93%) contrast(88%);
   }
 
-  body[data-theme=dark] .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu ul li a {
+  body[data-theme=dark] .sidebar.side-three.new-header .sidebar-menu .submenu ul li a {
     @apply text-[#8ea0af]
   }
 
@@ -3646,14 +3646,12 @@
 
   .header .header-left {
     @apply float-left
-    h-[60px]
     relative
     text-center
     w-[260px]
     z-[1]
     py-0 px-5
     transition-all ease-in-out duration-[0.2s]
-    border-r border-[#E8EBED]
   }
 
   .header-left .logo {
@@ -3661,7 +3659,7 @@
     leading-[0]
   }
 
-  .header-left .logo  img {
+  .header-left .logo img {
     @apply w-[140px]
   }
 
@@ -3674,30 +3672,31 @@
     @apply media-max-w-md:w-[140px]
   }
 
-   .header-left .logo-small {
+  .header-left .logo-small {
     @apply hidden
   }
 
-   .header-left {
+  .header-left {
     @apply media-max-w-md:absolute
     media-max-w-md:w-full
   }
 
-   #toggle_btn {
+  #toggle_btn {
     @apply media-max-w-md:hidden
   }
 
-   #toggle_btn {
+  #toggle_btn {
     @apply media-min-w-md:float-left
     media-min-w-md:text-[26px]
     media-min-w-md:leading-[50px]
   }
 
-   #toggle_btn .bar-icon {
+  #toggle_btn .bar-icon {
     @apply media-min-w-md:inline-block
     media-min-w-md:w-[21px]
   }
-   #toggle_btn .bar-icon span {
+
+  #toggle_btn .bar-icon span {
     @apply media-min-w-md:bg-white
     media-min-w-md:block
     media-min-w-md:float-left
@@ -3707,7 +3706,7 @@
     media-min-w-md:rounded-[50px]
   }
 
-   #toggle_btn .bar-icon span:nth-child(2) {
+  #toggle_btn .bar-icon span:nth-child(2) {
     @apply media-min-w-md:w-[15px]
   }
 
@@ -4412,134 +4411,130 @@
 
   .logo-white {
     @apply !hidden
-  }
+  } {
+  @apply fixed
+  w-full
+  h-[68px]
+  bg-white
+  border-t border-[#D9D9D9]
+  z-[9]
+} {
+  box-shadow: 0px 4px 14px rgba(198, 198, 198, 0.25);
+}
 
-  .sidebar.new-header {
-    @apply fixed
-    w-full
-    h-[68px]
-    bg-white
-    border-t border-[#D9D9D9]
-    z-[9]
-  }
-
-  .sidebar.new-header {
-    box-shadow: 0px 4px 14px rgba(198, 198, 198, 0.25);
-  }
-
-  .sidebar.new-header .sidebar-menu {
+  .sidebar-menu {
     @apply py-0 px-[15px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li {
+  .sidebar-menu > ul > li {
     @apply mb-0
     mr-5
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li > a {
-    padding: 22px 15px;
+  .sidebar-menu > ul > li > a {
+    padding: 0;
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li > a:hover {
+  .sidebar-menu > ul > li > a:hover {
     @apply bg-transparent
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li > a:hover span {
+  .sidebar-menu > ul > li > a:hover span {
     @apply text-themePrimary
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li > a:hover img, .sidebar.new-header .sidebar-menu > ul > li > a:hover svg {
+  .sidebar-menu > ul > li > a:hover img, .sidebar-menu > ul > li > a:hover svg {
     filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(5676%) hue-rotate(326deg) brightness(105%) contrast(112%);
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li > a img {
+  .sidebar-menu > ul > li > a img {
     @apply !top-0
     w-auto
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li a {
+  .sidebar-menu > ul > li a {
     @apply font-medium
     text-[15px]
     text-[#637381]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li a img {
+  .sidebar-menu > ul > li a img {
     @apply relative
     top-[3px]
     w-[18px]
     mr-[7px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li a svg {
+  .sidebar-menu > ul > li a svg {
     @apply w-[18px]
     mr-[7px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li .menu-arrow {
+  .sidebar-menu > ul > li .menu-arrow {
     position: initial;
     transform: rotate(90deg);
     margin-left: 15px;
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li .menu-arrow::before {
+  .sidebar-menu > ul > li .menu-arrow::before {
     content: "\f105";
     font-weight: 900;
     font-family: "Font Awesome 5 Free";
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul {
+  .sidebar-menu > ul > li ul {
     @apply absolute
     w-[250px]
     h-auto
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu a {
+  .sidebar-menu .submenu a {
     @apply !py-2 px-[15px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu a .menu-arrow {
+  .sidebar-menu .submenu a .menu-arrow {
     @apply float-right
     mr-[15px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu a i {
+  .sidebar-menu .submenu a i {
     @apply mr-[7px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu a img {
+  .sidebar-menu .submenu a img {
     @apply relative
     top-[3px]
     w-[18px]
     mr-[7px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu a svg {
+  .sidebar-menu .submenu a svg {
     @apply w-[18px]
     mr-[7px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu ul {
+  .sidebar-menu .submenu ul {
     box-shadow: 0px 4px 14px rgba(198, 198, 198, 0.25);
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu ul {
+  .sidebar-menu .submenu ul {
     @apply relative
     p-0
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li.submenu ul li a {
+  .sidebar-menu .submenu ul li a {
     padding: 8px 10px 8px 40px !important;
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li a {
+  .sidebar-menu > ul > li ul li a {
     @apply !py-2 px-[15px]
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li ul li a::after {
+  .sidebar-menu > ul > li ul li a::after {
     content: none !important;
   }
 
-  .sidebar.new-header .sidebar-menu > ul > li {
+  .sidebar-menu > ul > li {
     @apply media-max-w-lg:mr-0
   }
 
@@ -4581,27 +4576,27 @@
     border-0
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li a {
     @apply !flex
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a img {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li a img {
     @apply w-[18px]
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a span {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li a span {
     @apply ml-[10px]
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a::after {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li a::after {
     @apply content-none
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li a .menu-arrow {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li a .menu-arrow {
     @apply top-[10px]
   }
 
-  .sidebar.sidebar-two .sidebar-menu > ul > li.submenu ul li ul li a {
+  .sidebar.sidebar-two .sidebar-menu .submenu ul li ul li a {
     padding: 8px 8px 8px 64px;
   }
 
@@ -4766,54 +4761,54 @@
     bg-[#1B2950]
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a {
     @apply !py-2 px-[15px]
     text-white
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a .menu-arrow {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a .menu-arrow {
     @apply float-right
     mr-[15px]
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a i {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a i {
     @apply mr-[7px]
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a img {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a img {
     @apply relative
     top-[3px]
     w-[18px]
     mr-[7px]
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a svg {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a svg {
     @apply w-[18px]
     mr-[7px]
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a:hover {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a:hover {
     @apply text-themePrimary
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu a:hover img {
+  .sidebar.side-three.new-header .sidebar-menu .submenu a:hover img {
     filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(5676%) hue-rotate(326deg) brightness(105%) contrast(112%);
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu ul {
+  .sidebar.side-three.new-header .sidebar-menu .submenu ul {
     @apply shadow-transparent
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu ul {
+  .sidebar.side-three.new-header .sidebar-menu .submenu ul {
     @apply relative
     p-0
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu ul li a {
+  .sidebar.side-three.new-header .sidebar-menu .submenu ul li a {
     padding: 8px 10px 8px 40px !important;
   }
 
-  .sidebar.side-three.new-header .sidebar-menu > ul > li ul li.submenu ul li a {
+  .sidebar.side-three.new-header .sidebar-menu .submenu ul li a {
     @apply text-white
   }
 
@@ -5198,78 +5193,75 @@
     bg-white media-max-w-xs:!w-full
   }
 
-  .sidebar .sidebar-menu {
+  .sidebar-menu {
     @apply p-5
   }
 
-  .sidebar .sidebar-menu > ul > li {
+  .sidebar-menu > ul > li {
     @apply mb-[10px]
   }
 
-  .sidebar .sidebar-menu > ul > li.active a {
+  .sidebar-menu > ul > li.active a {
     @apply text-white
   }
 
-  .sidebar .sidebar-menu > ul > li > a {
-    @apply py-[10px] px-[15px]
-    relative
+  .sidebar-menu > ul > li > a {
+    @apply relative
     text-[#212B36]
   }
 
-  .sidebar .sidebar-menu > ul > li > a svg {
+  .sidebar-menu > ul > li > a svg {
     @apply w-[18px]
     text-[#637381]
   }
 
-  .sidebar .sidebar-menu > ul > li > a img {
+  .sidebar-menu > ul > li > a img {
     @apply w-[18px]
     text-[#637381]
   }
 
-  .sidebar .sidebar-menu > ul > li > a:hover {
+  .sidebar-menu > ul > li > a:hover {
+    color: rgb(99 115 129 / var(--tw-text-opacity))
+  }
+
+  .sidebar-menu > ul > li > a:hover img {
+    filter: brightness(0) invert(1);
+  }
+
+  .sidebar-menu > ul > li > a:hover span {
+    color: rgb(255 159 67 / var(--tw-bg-opacity))
+  }
+
+  .sidebar-menu > ul > li > a:hover svg {
+    @apply text-white
+  }
+
+  .sidebar-menu > ul > li > a.active {
     @apply bg-[#1B2850]
     text-white
     rounded-[5px]
   }
 
-  .sidebar .sidebar-menu > ul > li > a:hover img {
+  .sidebar-menu > ul > li > a.active svg {
+    @apply text-white
+  }
+
+  .sidebar-menu > ul > li > a.active img {
     filter: brightness(0) invert(1);
   }
 
-  .sidebar .sidebar-menu > ul > li > a:hover span {
+  .sidebar-menu > ul > li > a.active span {
     @apply text-white
   }
 
-  .sidebar .sidebar-menu > ul > li > a:hover svg {
-    @apply text-white
-  }
-
-  .sidebar .sidebar-menu > ul > li > a.active {
-    @apply bg-[#1B2850]
-    text-white
-    rounded-[5px]
-  }
-
-  .sidebar .sidebar-menu > ul > li > a.active svg {
-    @apply text-white
-  }
-
-  .sidebar .sidebar-menu > ul > li > a.active img {
-    filter: brightness(0) invert(1);
-  }
-
-  .sidebar .sidebar-menu > ul > li > a.active span {
-    @apply text-white
-  }
-
-  .sidebar .sidebar-menu > ul > li > a span {
+  .sidebar-menu > ul > li > a span {
     @apply ml-[10px]
     text-[15px]
     font-medium
     text-[#637381]
   }
 
-  .sidebar .sidebar-menu > ul > li > a .menu-arrow {
+  .sidebar-menu > ul > li > a .menu-arrow {
     font-family: "Font Awesome 5 Free";
     text-rendering: auto;
     transform: translate(0, 0);
@@ -5277,7 +5269,7 @@
     -ms-transform: translate(0, 0);
   }
 
-  .sidebar .sidebar-menu > ul > li > a .menu-arrow {
+  .sidebar-menu > ul > li > a .menu-arrow {
     @apply inline-block
     text-lg
     leading-[18px]
@@ -5287,39 +5279,39 @@
     transition-all ease-in-out duration-[0.2s]
   }
 
-  .sidebar .sidebar-menu > ul > li > a .menu-arrow::before {
+  .sidebar-menu > ul > li > a .menu-arrow::before {
     content: "\f105";
     font-weight: 900;
     font-family: "Font Awesome 5 Free";
   }
 
-  .sidebar .sidebar-menu > ul > li > a.subdrop .menu-arrow {
+  .sidebar-menu > ul > li > a.subdrop .menu-arrow {
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
   }
 
-  .sidebar .sidebar-menu > ul > li > a.router-link-active {
-    @apply bg-[#1B2850]
-    rounded-[5px]
+  .sidebar-menu > ul > li > a.router-link-active {
+    @apply text-[#1B2850]
+
   }
 
-  .sidebar .sidebar-menu > ul > li a.router-link-active img {
+  .sidebar-menu li a.router-link-active img {
     filter: brightness(0) invert(1);
   }
 
-  .sidebar .sidebar-menu > ul > li a.router-link-active span {
-    @apply text-white
+  .sidebar-menu a.router-link-active span {
+    --tw-text-opacity: 1;
+    color: rgb(27 40 80 / var(--tw-text-opacity));
+    @apply font-bold
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul {
-    @apply bg-[#FAFBFE]
-    rounded-[5px]
-    py-[10px] px-0
-    hidden
+  .submenu ul li a:hover {
+    --tw-text-opacity: 1;
+    color: rgb(255 159 67 / var(--tw-text-opacity));
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a {
+  .sidebar-menu .submenu ul li a {
     @apply font-medium
     text-sm
     text-[#212B36]
@@ -5328,16 +5320,16 @@
     pt-2 pr-2 pb-2 pl-10
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a.active {
+  .sidebar-menu .submenu ul li a.active {
     @apply text-[#092C4C]
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a.active:after {
+  .sidebar-menu .submenu ul li a.active:after {
     @apply bg-[#092C4C]
     border border-[#092C4C]
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a::after {
+  .sidebar-menu .submenu ul li a::after {
     @apply content-[""]
     border border-[#a1a1a1]
     w-[10px]
@@ -5348,11 +5340,11 @@
     left-[16px]
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a:hover {
+  .sidebar-menu .submenu ul li a:hover {
     @apply text-themePrimary
   }
 
-  .sidebar .sidebar-menu > ul > li.submenu ul li a:hover:after {
+  .sidebar-menu .submenu ul li a:hover:after {
     @apply bg-themePrimary
     border border-[#FF9F43]
   }
@@ -5549,11 +5541,11 @@
     @apply media-min-w-md:hidden
   }
 
-  .mini-sidebar .sidebar .sidebar-menu ul li a {
+  .mini-sidebar.sidebar-menu ul li a {
     @apply media-min-w-md:p-[10px]
   }
 
-  .mini-sidebar .sidebar .sidebar-menu ul li a span {
+  .mini-sidebar.sidebar-menu ul li a span {
     @apply media-min-w-md:hidden
   }
 
@@ -5570,11 +5562,11 @@
     @apply media-min-w-md:w-[260px]
   }
 
-  .expand-menu .sidebar .sidebar-menu ul > li > a {
+  .expand-menu.sidebar-menu ul > li > a {
     @apply media-min-w-md:py-[10px] media-min-w-md:px-[15px]
   }
 
-  .expand-menu .sidebar .sidebar-menu ul > li > a span {
+  .expand-menu.sidebar-menu ul > li > a span {
     @apply media-min-w-md:block
   }
 

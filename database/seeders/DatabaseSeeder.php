@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\PermissionGroup;
 use App\Models\Product;
 use App\Models\ProductFile;
 use App\Models\SalesOrder;
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\MasterData::truncate();
         Role::truncate();
         Permission::truncate();
+        PermissionGroup::truncate();
         $admin = \App\Models\User::factory()->create([
             'full_name' => 'Admin',
             'username' => 'admin',
@@ -54,21 +56,35 @@ class DatabaseSeeder extends Seeder
         Permission::findOrCreate('*');
 
 
-        Permission::findOrCreate('user.*');
-        Permission::findOrCreate('user.list');
-        Permission::findOrCreate('user.create');
-        Permission::findOrCreate('user.edit');
-        Permission::findOrCreate('user.delete');
+        $permissionGroupNames = [
+            'Sales Order' => ['Order.select', 'Order.create', 'Order.update', 'Order.delete', 'Order.invoice'],
+            'Sales Order Return' => ['OrderReturn.select', 'OrderReturn.create', 'OrderReturn.update', 'OrderReturn.delete'],
+            'Staff User' => ['User.select', 'User.delete', 'User.update', 'User.create'],
+            'Staff Role' => ['Role.select', 'Role.delete', 'Role.update', 'Role.create'],
+            'Staff Permission' => ['Permission.select', 'Permission.delete', 'Permission.update', 'Permission.create'],
+        ];
+        foreach ($permissionGroupNames as $permissionGroupName => $permissionNames) {
 
+            PermissionGroup::factory()
+                ->count(1)
+                ->create(
+                    [
+                        'name' => $permissionGroupName
+                        , 'guard_name' => 'admin'
+                    ]
+                )->each(function ($group) use ($permissionNames) {
+                    echo $group->name.PHP_EOL;
+                    foreach ($permissionNames as $permissionName) {
 
-        Permission::findOrCreate('log.list');
+                        \App\Models\Permission::factory()->create([
+                            'name' => $permissionName
+                            , 'group_id' => $group->id
+                            , 'guard_name' => 'admin'
 
-        Permission::findOrCreate('file.*');
-
-        Permission::findOrCreate('Seller');
-        Permission::findOrCreate('Seller Manager');
-        Permission::findOrCreate('Admin');
-
+                        ]);
+                    }
+                });
+        }
         $role_admin->givePermissionTo('*');
 
 
@@ -80,47 +96,7 @@ class DatabaseSeeder extends Seeder
             'data' => json_encode([["label" => "Potential Patient", "value" => "potential_patient", "color" => "#fff", "background_color" => "#5b3286"], ["value" => "insurance_pending", "label" => "Insurance Pending", "color" => "#000", "background_color" => "#c0e1f6"], ["label" => "New Patient", "value" => "new_patient", "color" => "#000", "background_color" => "#e8eaed"], ["label" => "New Supply Request", "value" => "new_supply_request", "color" => "#000", "background_color" => "#d0d2d5"], ["label" => "Urgent", "value" => "urgent", "color" => "#fff", "background_color" => "#b10202"], ["label" => "Pending", "value" => "pending", "color" => "#000", "background_color" => "#ffe59f"], ["background_color" => "#ffe59f", "color" => "#000", "value" => "renewal", "label" => "Renewal"], ["label" => "Code", "value" => "code", "active" => "1", "color" => "#fff", "background_color" => "#116743"], ["label" => "PAR pending", "value" => "par_pending", "active" => "1", "color" => "#000", "background_color" => "#c0e1f6"], ["label" => "PAR", "value" => "par", "active" => "1", "color" => "#fff", "background_color" => "#0953a8"], ["background_color" => "#0953a8", "color" => "#fff", "label" => "Kepro", "value" => "kepro"], ["background_color" => "#0953a8#0953a8", "color" => "#fff", "value" => "pending_kepro", "label" => "Pending Kepro"], ["background_color" => "#ffc8aa", "color" => "#000", "value" => "outbound_document", "label" => "Outbound document"], ["label" => "Review", "value" => "review", "color" => "#fff", "background_color" => "#116743"], ["label" => "Done", "value" => "done", "color" => "#fff", "background_color" => "#116743"], ["value" => "drop_off", "label" => "Dropoff", "color" => "#fff", "background_color" => "#ffad0d"], ["value" => "new_supply_request", "label" => "New Supply Request", "color" => "#000", "background_color" => "#e8eaed"], ["value" => "ready_to_bill", "label" => "Ready to bill", "color" => "#000", "background_color" => "#d4edbb"]]),
             'created_by' => 'admin',
         ]);
-        \App\Models\MasterData::factory()->create([
-            'list_key' => 'insurance',
-            'data' => json_encode([
-                [
-                    'value' => 'medicaid',
-                    'label' => 'Medicaid',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'medicare_a',
-                    'label' => 'Medicare A',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'medicare_b',
-                    'label' => 'Medicare B',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'hcbs_elderly_blind_&_disabled_waiver',
-                    'label' => 'HCBS Elderly, Blind & Disabled Waiver',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'specified_low_income_medicare_beneficiary',
-                    'label' => 'Specified Low-Income Medicare Beneficiary',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'behavioral_health_benefits',
-                    'label' => 'Behavioral Health Benefits',
-                    'status' => 1,
-                ],
-                [
-                    'value' => 'bha_benefit_plan',
-                    'label' => 'BHA Benefit Plan',
-                    'status' => 1,
-                ],
-            ]),
-            'created_by' => 'admin',
-        ]);
+
         Category::truncate();
         SalesOrder::truncate();
         ProductFile::truncate();

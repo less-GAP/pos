@@ -15,7 +15,7 @@ class Category extends Model
      *
      * @var array<int, string>
      */
-    use HasFactory, HasFactory, HasRealtimeData;
+    use HasFactory, HasRealtimeData;
 
     protected $table = 'categories';
 

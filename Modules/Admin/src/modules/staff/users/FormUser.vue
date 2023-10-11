@@ -10,7 +10,7 @@ import {notification} from "ant-design-vue";
 import {RemoteSelect} from "@/components";
 import Api from "@/utils/Api";
 
-const prefix = 'staff/user'
+const prefix = '/staff/user'
 const {
   getDetailApi,
   createApi,

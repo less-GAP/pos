@@ -166,15 +166,23 @@ const toggleSearch = function () {
               <span><img src="@/assets/img/icons/closes.svg" alt="img"></span>
             </a>
           </div>
-          <div class="search-input">
-            <a class="btn btn-searchset"><img src="@/assets/img/icons/search-white.svg" alt="img"></a>
-            <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-              <a-input type="search" class="" @keyup.enter.native="reload" v-model:value="filter.search"
-                       placeholder="Search..."
-              />
-            </label>
-            </div>
-          </div>
+          <a-form layout="inline">
+            <a-space>
+              <div><label>
+                <a-input allow-clear @change="reload"  @keyup.enter.native="reload"
+                         v-model:value="filter.search"
+                         placeholder="Search..."
+                >
+                  <template #prefix>
+                    <img src="@/assets/img/icons/search-white.svg" alt="img">
+                  </template>
+                </a-input>
+              </label>
+              </div>
+              <slot name="lineSearch" v-bind="{reload,filter,toggleSearch,loading}"></slot>
+            </a-space>
+
+          </a-form>
         </div>
         <div class="wordset">
           <slot name="listActions" v-bind="{selectedItems}"></slot>
@@ -226,8 +234,8 @@ const toggleSearch = function () {
                 <slot :name="'cell[' + column.key + ']'" v-bind="{ item, column, index }">
                   {{
                     $style["format"][column.key]
-                      ? $style["format"][column.key]($format.getObjValue(item,column.key))
-                      : $format.getObjValue(item,column.key)
+                      ? $style["format"][column.key]($format.getObjValue(item, column.key))
+                      : $format.getObjValue(item, column.key)
                   }}
                 </slot>
               </td>

@@ -1,9 +1,8 @@
 <script setup>
 import {getCurrentInstance, inject, reactive, ref} from "vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {UseEloquentRouter} from "@/utils/UseEloquentRouter";
 const { proxy } = getCurrentInstance();
-const prefix = 'sales-order'
+const prefix = 'sales/order'
 const {
   getDetailApi,
   updateApi
@@ -28,7 +27,6 @@ fetch();
 </script>
 
 <template>
-  <LayoutAuthenticated>
     <div class="content">
       <div class="page-header">
         <div class="page-title">
@@ -252,6 +250,4 @@ fetch();
         </div>
       </div>
     </div>
-  </LayoutAuthenticated>
-
 </template>

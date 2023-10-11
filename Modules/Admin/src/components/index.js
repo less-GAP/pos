@@ -6,8 +6,6 @@ import {
   Alert,
   Avatar,
   Badge,
-  Breadcrumb,
-  BreadcrumbItem,
   Button,
   ButtonGroup,
   Carousel,
@@ -71,7 +69,9 @@ import DataListEdit from "./DataListEdit.vue"
 import InsuranceListEdit from "./InsuranceListEdit.vue"
 import ApiData from "./ApiData.vue"
 import AsyncData from "./AsyncData.vue"
+import Breadcrumb from "./Breadcrumb.vue"
 export {
+  Breadcrumb,
   AsyncData,
   ApiData,
   InsuranceListEdit,
@@ -93,8 +93,6 @@ export {
   Alert,
   Avatar,
   Badge,
-  Breadcrumb,
-  BreadcrumbItem,
   Button,
   ButtonGroup,
   Carousel,

@@ -1,7 +1,5 @@
 <script setup>
 import {reactive, ref, h, watch} from "vue";
-import SectionMain from "@/components/SectionMain.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {DataTable} from "@/components";
 import router from "@/router";
 import {UseEloquentRouter} from "@/utils/UseEloquentRouter";
@@ -97,7 +95,6 @@ function registerTable({reload}) {
 </script>
 
 <template>
-  <LayoutAuthenticated>
     <div class="content" data-select2-id="15">
       <div class="page-header">
         <div class="page-title">
@@ -277,6 +274,4 @@ function registerTable({reload}) {
         </div>
       </div>
     </div>
-  </LayoutAuthenticated>
-
 </template>

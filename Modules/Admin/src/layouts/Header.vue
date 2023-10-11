@@ -9,10 +9,30 @@ import AppNotification from "@/components/AppNotification/AppNotification.vue";
 <template>
   <div class="header flex content-center justify-between">
 
-    <!-- Logo -->
+    <div :class="$appState.showMenu?'active':''" class="header-left  relative w-full " style="
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+">
 
-    <!-- /Logo -->
-    <span></span>
+      <a href="/" class="logo logo-normal">
+        <img src="@/assets/img/logo.png" alt="">
+      </a>
+      <a href="/" class="logo logo-white">
+        <img src="@/assets/img/logo-white.png" alt="">
+      </a>
+      <a href="/" class="logo-small">
+        <img src="@/assets/img/logo-small.png" alt="">
+      </a>
+
+      <button @click="$appState.showMenu = !$appState.showMenu" :class="$appState.showMenu?'active':''"
+              class="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
     <a id="mobile_btn" class="mobile_btn" href="#sidebar">
 					<span class="bar-icon">
 						<span></span>
@@ -30,27 +50,40 @@ import AppNotification from "@/components/AppNotification/AppNotification.vue";
       <!-- /Search -->
 
       <!-- Flag -->
-      <li class="nav-item dropdown has-arrow flag-nav">
-        <a class="nav-link dropdown-toggle focus:bg-[#eeeeee]" data-dropdown-toggle="dropdown"
-           href="javascript:void(0);" role="button">
-          <img src="@/assets/img/flags/us1.png" alt="" height="20">
-        </a>
-        <div id="dropdown"
-             class="hidden dropdown-menu dropdown-menu-right !translate-x-0 !translate-y-0 !top-[60px] bg-white">
-          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">
-            <img src="@/assets/img/flags/us.png" alt="" height="16"> English
-          </a>
-          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">
-            <img src="@/assets/img/flags/fr.png" alt="" height="16"> French
-          </a>
-          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">
-            <img src="@/assets/img/flags/es.png" alt="" height="16"> Spanish
-          </a>
-          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">
-            <img src="@/assets/img/flags/de.png" alt="" height="16"> German
-          </a>
-        </div>
-      </li>
+<!--      <li class="nav-item dropdown">-->
+<!--        <a href="javascript:void(0);" class="dropdown-toggle focus:bg-[#eeeeee] nav-link">-->
+<!--          <button-->
+<!--            class="btn h-full w-8  active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5 text-slate-500 dark:text-navy-100" fill="none"-->
+<!--                 viewBox="0 0 24 24" stroke="currentColor">-->
+<!--              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"-->
+<!--                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>-->
+<!--            </svg>-->
+<!--          </button>-->
+<!--        </a>-->
+
+<!--      </li>-->
+<!--      <li class="nav-item dropdown has-arrow flag-nav">-->
+<!--        <a class="nav-link dropdown-toggle focus:bg-[#eeeeee]" data-dropdown-toggle="dropdown"-->
+<!--           href="javascript:void(0);" role="button">-->
+<!--          <img src="@/assets/img/flags/us1.png" alt="" height="20">-->
+<!--        </a>-->
+<!--        <div id="dropdown"-->
+<!--             class="hidden dropdown-menu dropdown-menu-right !translate-x-0 !translate-y-0 !top-[60px] bg-white">-->
+<!--          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">-->
+<!--            <img src="@/assets/img/flags/us.png" alt="" height="16"> English-->
+<!--          </a>-->
+<!--          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">-->
+<!--            <img src="@/assets/img/flags/fr.png" alt="" height="16"> French-->
+<!--          </a>-->
+<!--          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">-->
+<!--            <img src="@/assets/img/flags/es.png" alt="" height="16"> Spanish-->
+<!--          </a>-->
+<!--          <a href="javascript:void(0);" class="dropdown-item hover:bg-[#eeeeee]">-->
+<!--            <img src="@/assets/img/flags/de.png" alt="" height="16"> German-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </li>-->
       <!-- /Flag -->
 
       <!-- Notifications -->
@@ -191,3 +224,48 @@ import AppNotification from "@/components/AppNotification/AppNotification.vue";
     <!-- /Mobile Menu -->
   </div>
 </template>
+<style>
+.menu-toggle span {
+  --tw-translate-x: 0px;
+  background-color: currentColor;
+  height: 2px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-duration: .15s;
+  transition-duration: .25s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  width: 1.25rem;
+}
+
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-bottom: calc(0.375rem * var(--tw-space-y-reverse));
+  margin-top: calc(0.375rem * (1 - var(--tw-space-y-reverse)));
+}
+
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-bottom: calc(0.375rem * var(--tw-space-y-reverse));
+  margin-top: calc(0.375rem * (1 - var(--tw-space-y-reverse)));
+}
+
+.menu-toggle span:nth-child(2) {
+  width: 0.75rem;
+}
+
+.menu-toggle.active span:first-child {
+  --tw-rotate: -45deg;
+  width: 0.75rem;
+
+}
+
+.menu-toggle.active span:nth-child(2) {
+  display: none;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  --tw-rotate: 45deg;
+  width: 0.75rem;
+
+}
+</style>

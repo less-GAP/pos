@@ -24,7 +24,7 @@
       </div>
     </a-space>
     <div class="relative border-b border-slate-200/60">
-      <a-input autofocus v-model:value="term" allow-clear ref="searchInput" type="search"
+      <a-input autofocus v-model:value="term" allow-clear ref="searchInput"
              class="form-control border-0 shadow-none focus:ring-0 !mt-5 px-12"
              placeholder="Quick Search...">
         <template #prefix>
@@ -53,7 +53,7 @@
                  class="flex bg-gray-200 hover:bg-gray-200 pl-2 pr-2 rounded items-center mt-3 first:mt-0">
                 <div
                   v-if="item.icon"
-                  class="w-7 h-7 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full">
+                  class="w-7 h-7 flex items-center justify-center rounded-full">
                   <BaseIcon :path="item.icon"></BaseIcon>
                 </div>
                 <div class="ml-3 truncate">{{ item.label }}</div>
