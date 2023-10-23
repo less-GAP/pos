@@ -9,6 +9,7 @@ import {
 import {
   useAppStateStore
 } from "@/stores/appState";
+import Api from "@/utils/Api";
 
 const publicPages = ['/login'];
 
@@ -30,6 +31,10 @@ let routes = [
     name: "login",
     component: () => import("@/modules/LoginView.vue"),
   },
+  // {
+  //   path: '/:pathMatch(.*)*', component: () =>
+  //     import('@/modules/plugin/PluginLayout.vue')
+  // }
 ];
 const modules =
   import.meta.globEager('./../modules/**/router.js');
@@ -38,6 +43,32 @@ Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {};
   routes = [...routes, ...mod]
 });
+
+function getApiRoutes(name, routes, isChildren = false) {
+  let result = []
+  for (let path in routes) {
+    const route = routes[path]
+    const newRoute = {
+      path: path,
+      component: !isChildren ? () => import('@/modules/plugin/PluginRoot.vue') : () => import('@/modules/plugin/PluginView.vue'),
+      name: route.name,
+      children: route.children ? getApiRoutes(name, route.children, true) : [],
+      meta: {plugin: name, ...route.meta}
+    }
+    result.push(newRoute)
+  }
+  return result
+
+}
+
+const rs = await Api.get('/plugin/routes')
+const pluginRoutes = rs.data
+
+for (const name in pluginRoutes) {
+  routes = [...routes, ...getApiRoutes(name, pluginRoutes[name])]
+}
+console.log(333, pluginRoutes)
+console.log(999, routes)
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
@@ -47,6 +78,7 @@ const router = createRouter({
     };
   },
 });
+
 router.beforeEach(async (to) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const auth = useAuthStore();

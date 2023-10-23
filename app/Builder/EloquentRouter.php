@@ -73,6 +73,9 @@ class EloquentRouter
                 Route::middleware($middlewares['update'] ?? [])->put('{id}', function (Request $request) {
                     return $this->update($request);
                 });
+                Route::middleware($middlewares['create'] ?? [])->post('{id}', function (Request $request) {
+                    return $this->updateOrCreate($request);
+                });
             }
             if (in_array('detail', $apiList)) {
                 Route::middleware($middlewares['detail'] ?? [])->get('{id}', function (Request $request) {
@@ -204,6 +207,7 @@ class EloquentRouter
         $model = new $this->model;
         $data = $request->all();
         $result = $this->model::where([$model->getKeyName() => $request->input($model->getKeyName())])->first();
+        dd($result);
         if ($result) {
             $result->fill($data)->save();
         } else {

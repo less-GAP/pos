@@ -26,6 +26,7 @@
         "@mdi/js": "^7.2.96",
         "@protonemedia/laravel-splade": "^1.4.15",
         "ant-design-vue": "^4.0.0",
+        "feather-route-matcher": "^4.0.0",
         "pinia": "^2.1.4",
         "pinia-plugin-persist": "^1.0.0"
     }

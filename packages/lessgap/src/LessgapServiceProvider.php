@@ -16,12 +16,7 @@ class LessgapServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->singleton(EmailService::class, function (Application $app) {
-            return new EmailService();
-        });
-        $this->app->singleton(RealtimeService::class, function (Application $app) {
-            return new RealtimeService();
-        });
+
     }
 
     /**
@@ -29,6 +24,21 @@ class LessgapServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(EmailService::class, function (Application $app) {
+            return new EmailService();
+        });
+        $this->app->singleton(PluginManager::class, function (Application $app) {
+            return new PluginManager();
+        });
+        $this->app->singleton(RealtimeService::class, function (Application $app) {
+            return new RealtimeService();
+        });
 
+        $activePlugins = ['Sale','Staff'];
+        $pluginDir = base_path('/plugins');
+        foreach ($activePlugins as $activePlugin) {
+            $config = include($pluginDir . '/' . $activePlugin . '/index.php');
+            app(PluginManager::class)->add($activePlugin, $config);
+        }
     }
 }

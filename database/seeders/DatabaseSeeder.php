@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Category;
-use App\Models\Customer;
+use Plugins\Sale\Models\Category;
+use Plugins\Sale\Models\Customer;
 use App\Models\PermissionGroup;
-use App\Models\Product;
-use App\Models\ProductFile;
-use App\Models\SalesOrder;
+use Plugins\Sale\Models\Product;
+use Plugins\Sale\Models\ProductFile;
+use Plugins\Sale\Models\SalesOrder;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;

@@ -51,5 +51,6 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+define('ADMIN_ROUTE_PREFIX', env('ADMIN_ROUTE_PREFIX', '/admin/api'));
 
 return $app;

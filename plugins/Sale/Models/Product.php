@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace Plugins\Sale\Models;
+
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\Sale\Factories\ProductFactory;
 
 class Product extends Model
 {
@@ -76,5 +78,12 @@ class Product extends Model
     public function files()
     {
         return $this->hasMany(ProductFile::class, 'product_id');
+    }
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
     }
 }

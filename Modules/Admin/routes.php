@@ -1,12 +1,9 @@
 <?php
 
 use App\Builder\EloquentRouter;
-use App\Models\EmailTemplate;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Lessgap\Models\EventSetting;
 use Modules\Admin\Actions\GetUserInfoAction;
-use Modules\Admin\Actions\User\DeleteUserAction;
 use Modules\Admin\Actions\Customer\DeleteCustomerAction;
 use Modules\Admin\Middleware\AdminIsAuthenticated;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -16,6 +13,7 @@ Route::get('/', function () {
 });
 Route::post('auth/login', \Modules\Admin\Actions\Auth\PostLoginAction::class . '@handle');
 Route::post('submit-patient', \Modules\Admin\Actions\SubmitPatientAction::class . '@handle');
+Route::get('plugin/routes', \Modules\Admin\Actions\Plugin\GetRoutesAction::class . '@handle');
 
 EloquentRouter::prefix('master-data')
     ->handle(
@@ -39,22 +37,7 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
     Route::prefix('/auth')->group(function () {
         Route::get('userInfo', GetUserInfoAction::class . '@handle');
     });
-    EloquentRouter::prefix('staff/user')
-        ->routes(function () {
-            Route::get('/options', \Modules\Admin\Actions\User\GetUserOptionsAction::class . '@handle');
-            Route::get('list', \Modules\Admin\Actions\User\GetUserListAction::class . '@handle');
-            Route::post('{id?}', \Modules\Admin\Actions\User\PostUserAction::class . '@handle');
-            // Route::delete('{id}', \Modules\Admin\Actions\User\DeleteUserAction::class . '@handle');
-        })
-        ->handle(
-            \App\Models\User::class,
-            [
-                'allowedIncludes' => ['roles', 'roles.permissions', 'permissions', 'logs'],
-                'allowedFilters' => [
-                    AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'full_name,username'), AllowedFilter::custom('roles.name', new \App\Builder\Filters\SearchRelationShip, 'roles.name')
-                ]
-            ]
-        );
+
 
 
     EloquentRouter::prefix('logs')
@@ -81,15 +64,7 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
             ]
         )->routes(function () {
         });
-    EloquentRouter::prefix('sales/order')
-        ->handle(
-            \App\Models\SalesOrder::class,
-            [
-                'allowedIncludes' => ['products', 'customer'],
-                'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
-            ]
-        )->routes(function () {
-        });
+
 
 
     EloquentRouter::prefix('activity')
@@ -158,43 +133,14 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
     });
 
 
-    EloquentRouter::prefix('/staff/role')
-        ->handle(
-            \App\Models\Role::class,
-            [
-                'allowedFilters' => [
-                    AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name')
-                ],
-                'allowedIncludes' => ['permissions']
-            ]
-        );
-    EloquentRouter::prefix('/staff/permission')
-        ->routes(function () {
-            Route::get('groups', \Modules\Admin\Actions\Staff\GetGroupPermission::class . '@handle');
-        })
-        ->handle(
-            \App\Models\Permission::class,
-            [
-                'allowedFilters' => [
-                    AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name'),
-                    AllowedFilter::exact('status'),
-                    AllowedFilter::exact('group_id'),
 
-                ],
-                'allowedIncludes' => ['group']
-            ]
-        );
-    EloquentRouter::prefix('/staff/permission-group')
-
-        ->handle(
-            \App\Models\PermissionGroup::class,
-            [
-                'allowedFilters' => [
-                    AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name'),
-                ],
-                'allowedIncludes' => ['items']
-            ]
-        );
     Route::get('notifications', \Modules\Admin\Actions\Notification\GetNotifications::class . '@handle');
     Route::post('notification/read', \Modules\Admin\Actions\Notification\ReadAction::class . '@handle');
+    Route::prefix('plugin')->group(function () {
+        Route::get('/detail/{plugin}', \Modules\Admin\Actions\Plugin\GetPluginDetailAction::class . '@handle');
+        Route::get('/menus', \Modules\Admin\Actions\Plugin\GetMenusAction::class . '@handle');
+        Route::get('/configs', \Modules\Admin\Actions\Plugin\GetConfigAction::class . '@handle');
+        Route::get('{plugin}/view/{view}', \Modules\Admin\Actions\Plugin\GetViewAction::class . '@handle');
+        Route::get('{plugin}/sideMenus', \Modules\Admin\Actions\Plugin\GetSideMenusAction::class . '@handle');
+    });
 });

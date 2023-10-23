@@ -20,6 +20,7 @@
     "axios": "^0.27.0",
     "chart.js": "^3.6.0",
     "emotion": "^10.0.27",
+    "feather-route-matcher": "^4.0.0",
     "flowbite": "^1.7.0",
     "flowbite-vue": "^0.0.16",
     "jodit": "^4.0.0-beta.61",
@@ -33,7 +34,9 @@
     "surrealdb.js": "^0.9.1",
     "unws": "^0.2.4",
     "vue": "^3.0.0",
+    "vue-live": "^2.5.4",
     "vue-router": "^4.0.0",
+    "vue3-runtime-template": "^1.0.2",
     "vue3-signature": "^0.2.2",
     "vuedraggable": "^4.1.0",
     "ws": "^8.14.2"

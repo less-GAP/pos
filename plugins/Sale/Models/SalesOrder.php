@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace Plugins\Sale\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\Sale\Factories\SalesOrderFactory;
 
-class ProductFile extends Model
+class SalesOrder extends Model
 {
 
     /**
@@ -15,17 +16,21 @@ class ProductFile extends Model
      *
      * @var array<int, string>
      */
-    use HasFactory, HasRealtimeData;
+    use HasFactory, HasFactory, HasRealtimeData;
 
-    protected $table = 'product_file';
+    protected $table = 'sales_orders';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'product_id',
-        'file_path',
-        'type',
-        'is_primary',
+        'customer_id',
+        'company_id',
+        'order_code',
+        'order_status',
+        'payment_status',
+        'total_price',
+        'total_paid',
+        'sale_id',
     ];
 
     /**
@@ -49,16 +54,20 @@ class ProductFile extends Model
     ];
 
     protected $appends = [
-        'file_url'
     ];
 
-    public function getFileUrlAttribute()
+    public function products()
     {
-        return env('APP_URL') . '/' . $this->file_path;
+        return $this->belongsToMany(Product::class, 'sales_order_product', 'sale_orders_id', 'product_id','id','id');
     }
-
-    public function product()
+    public function customer(){
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
     {
-        return $this->belongsTo(Product::class,'product_id');
+        return SalesOrderFactory::new();
     }
 }

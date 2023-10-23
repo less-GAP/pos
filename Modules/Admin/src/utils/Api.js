@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {useAuthStore} from "@/stores/auth";
 import {message} from 'ant-design-vue';
+import router from "@/router";
 
 const Api = axios.create({
   baseURL: import.meta.env.VITE_API_HOST ? import.meta.env.VITE_API_HOST : '' + '/api/',
@@ -37,7 +38,11 @@ Api.interceptors.response.use((response) => {
 }, (error) => {
   message.error({content: error.response?.data?.message || 'Error!', key, duration: 1});
   if (error.response.status == 401) {
-    useAuthStore().logout()
+    try {
+      useAuthStore().logout()
+    } catch (e) {
+      window.location.href='/#/login'
+    }
   }
   return Promise.reject(error);
 });

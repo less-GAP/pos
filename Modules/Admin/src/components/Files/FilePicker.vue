@@ -2,7 +2,6 @@
 import {computed, ref, h, toRaw} from "vue";
 import {useMainStore} from "@/stores/main";
 import {mdiEye, mdiTrashCan} from "@mdi/js";
-import {Button, Input} from "@/components";
 import BaseIcon from "@/components/BaseIcon.vue";
 import FileViewDetail from "./FileViewDetail.vue";
 import {

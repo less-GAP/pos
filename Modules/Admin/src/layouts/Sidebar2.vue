@@ -2,7 +2,24 @@
 import {BaseIcon} from "@/components";
 import menuAside from "@/menuAside.js";
 import router from "@/router";
+import {mdiStore} from "@mdi/js";
+import {ref} from "vue"
+import {getMenus} from "@/utils/PluginManager";
 
+const pluginMenus = ref([]);
+const menus = getMenus().then(menus => {
+  menus.map(menu => {
+    pluginMenus.value.push({
+      meta: {
+        title: menu.label,
+        view: menu.view,
+      },
+      icon: mdiStore,
+      permission: menu.permission,
+      path: menu.path,
+    },)
+  })
+})
 
 </script>
 <template>
@@ -11,7 +28,7 @@ import router from "@/router";
     <div
       class="flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-gray-100 dark:bg-gray-900 dark:border-gray-700">
 
-      <template v-for="(menu, key) in menuAside" :key="key">
+      <template v-for="(menu, key) in pluginMenus.concat(menuAside)" :key="key">
 
         <router-link :to="menu.path?menu.path:'/'"
                      :class="$route.matched.filter(matched=>matched.path == menu.path).length?'!text-blue-500  !bg-blue-100 dark:!text-blue-400 dark:!bg-gray-800':''"

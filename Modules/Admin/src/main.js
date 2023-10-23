@@ -21,11 +21,21 @@ import Format from "@/utils/Format";
 import Vue3Signature from "vue3-signature"
 import * as config from "@/config";
 import {useProfileState} from "@/lessgap/stores/ProfileStore";
+import {ApiSelect, ApiStore, DataTable, PluginSideBar} from "@/components";
+import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+
 /* Init Pinia */
 const pinia = createPinia();
 pinia.use(piniaPersist)
 /* Create Vue app */
-const myApp = createApp(App).use(Vue3Signature).use(router).use(pinia)
+const myApp = createApp(App).use(Vue3Signature)
+  .use(router)
+  .use(pinia)
+  .component('LayoutAuthenticated', LayoutAuthenticated)
+  .component('SideBar', PluginSideBar)
+  .component('ApiStore', ApiStore)
+  .component('ApiSelect', ApiSelect)
+  .component('DataTable', DataTable)
 /* Init Pinia stores */
 const mainStore = useMainStore(pinia);
 const styleStore = useStyleStore(pinia);
@@ -45,7 +55,8 @@ myApp.config.globalProperties.$appState = appState;
 myApp.config.globalProperties.$profileState = profileState;
 myApp.config.globalProperties.__ = translation.__;
 myApp.config.globalProperties.$url = url;
-myApp.use(Antd).mount("#app");
+myApp.use(Antd)
+  .mount("#app");
 /* Fetch sample data */
 // mainStore.fetch("clients");
 // mainStore.fetch("history");

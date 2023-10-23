@@ -6,7 +6,8 @@ import http from "http";
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "",
-  plugins: [vue(),,tailwindcss()],
+  runtimeCompiler: true,
+  plugins: [vue(),tailwindcss()],
   server: {
     port:9200,
     proxy: {
@@ -24,10 +25,17 @@ export default defineConfig({
   build: {
     outDir: 'public'
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        vue$: "vue/dist/vue.common"
+      }
+    }
+  },
   resolve: {
     alias: {
+      vue$: "vue/dist/vue.common",
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-
 });

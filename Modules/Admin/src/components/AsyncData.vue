@@ -18,14 +18,14 @@ export default defineComponent({
       default: []
     },
   },
-  emits: ['load'],
+  emits: ['onload'],
 
   setup(props, {emit}) {
     const data = ref([]);
     if (props.async) {
       props.async.then(rs => {
         data.value = rs
-        emit('load',data.value)
+        emit('onload',data.value)
       })
     }
     return {

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace Plugins\Sale\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\Sale\Factories\CategoryFactory;
 
-class SalesOrder extends Model
+class Category extends Model
 {
 
     /**
@@ -15,21 +16,15 @@ class SalesOrder extends Model
      *
      * @var array<int, string>
      */
-    use HasFactory, HasFactory, HasRealtimeData;
+    use HasFactory, HasRealtimeData;
 
-    protected $table = 'sales_orders';
+    protected $table = 'categories';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'customer_id',
-        'company_id',
-        'order_code',
-        'order_status',
-        'payment_status',
-        'total_price',
-        'total_paid',
-        'sale_id',
+        'name',
+        'description',
     ];
 
     /**
@@ -55,11 +50,11 @@ class SalesOrder extends Model
     protected $appends = [
     ];
 
-    public function products()
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
     {
-        return $this->belongsToMany(Product::class, 'sales_order_product', 'sale_orders_id', 'product_id','id','id');
-    }
-    public function customer(){
-        return $this->belongsTo(Customer::class,'customer_id');
+        return CategoryFactory::new();
     }
 }

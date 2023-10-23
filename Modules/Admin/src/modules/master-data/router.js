@@ -6,7 +6,7 @@ export default [{
   permission:'Admin',
   name: "master-data",
   redirect: '/master-data/task-status',
-  component: () => import("@/views/master-data/Layout.vue"),
+  component: () => import("./Layout.vue"),
   children: [
     {
       meta: {

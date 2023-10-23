@@ -1,10 +1,9 @@
 import {useAppStateStore} from "@/stores/appState";
 
-export function UseDataTable(fetchListApi, _tableConfig = {}) {
+export function UseDataTable( _tableConfig = {}) {
   const appState = useAppStateStore();
 
   const tableConfig = {
-    api: fetchListApi,
     filter: {..._tableConfig.filter},
     pagination: {
       page: 1,

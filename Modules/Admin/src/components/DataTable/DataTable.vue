@@ -73,6 +73,7 @@ const props = defineProps({
     default: [],
   },
   api: Function,
+  store: Object,
   addAction: Function,
 });
 const tableConfig = {
@@ -99,34 +100,22 @@ function getFilter() {
 }
 
 function reload(showLoading = false) {
-  if (props.api) {
-    if (showLoading) {
-      loading.value = true;
-    }
-    props
-      .api({
-        perPage: props.pagination.perPage,
-        sort: orderBy.value,
-        page: props.pagination.page,
-        ...props.params,
-        ...getFilter(),
-      })
-      .then((rs) => {
-        if (rs.data?.total) {
-          tableData.value = rs.data;
-          data.value = rs.data.data;
-          props.pagination.total = rs.data?.total ? rs.data.total : 0;
-        } else {
-          data.value = rs.data;
-        }
-      })
-      .finally(() => {
-        checkAll.value = false;
-        if (showLoading) {
-          loading.value = false;
-        }
-      });
+  if (showLoading) {
+    loading.value = true;
   }
+  props.store.fetch({
+    perPage: props.pagination.perPage,
+    sort: orderBy.value,
+    page: props.pagination.page,
+    ...props.params,
+    ...getFilter(),
+  })
+    .finally(() => {
+      checkAll.value = false;
+      if (showLoading) {
+        loading.value = false;
+      }
+    });
 }
 
 emit("register", {reload, filter});
@@ -142,14 +131,11 @@ function toggleCheckAll() {
   }
 }
 
-watch(() => appState.versions[props.reloadVersion], () => {
-  reload()
-})
-reload(true);
 const showAdvanceSearch = ref(false)
 const toggleSearch = function () {
   showAdvanceSearch.value = !showAdvanceSearch.value
 }
+reload()
 </script>
 
 <template>
@@ -169,7 +155,7 @@ const toggleSearch = function () {
           <a-form layout="inline">
             <a-space>
               <div><label>
-                <a-input allow-clear @change="reload"  @keyup.enter.native="reload"
+                <a-input allow-clear @change="reload" @keyup.enter.native="reload"
                          v-model:value="filter.search"
                          placeholder="Search..."
                 >
@@ -194,7 +180,7 @@ const toggleSearch = function () {
         </div>
       </div>
 
-      <div v-if="data?.length" class="table-responsive">
+      <div v-if="store.data?.data?.length" class="table-responsive">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
           <table class="table datanew dataTable no-footer" id="DataTables_Table_0" role="grid"
                  aria-describedby="DataTables_Table_0_info">
@@ -223,7 +209,7 @@ const toggleSearch = function () {
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item, index) in data" :class="{ 'odd': index % 2 === 0 }">
+            <tr v-for="(item, index) in store.data?.data" :class="{ 'odd': index % 2 === 0 }">
               <td v-if="showSelection" class="sorting_1">
                 <label class="checkboxs">
                   <input :id="item[tableConfig.item_key]" v-model="selectedItems" :value="item" type="checkbox">
@@ -291,7 +277,7 @@ const toggleSearch = function () {
 
             </tbody>
           </table>
-          <a-pagination v-if="showPagination && data && pagination?.total > pagination.perPage"
+          <a-pagination v-if="showPagination && store.data && pagination?.total > pagination.perPage"
                         v-model:current="pagination.page" v-model:pageSize="pagination.perPage" style="height: 40px"
                         class="pt-2 !mt-5"
                         :show-size-changer="showSizeChanger" :total="pagination.total" @change="reload">

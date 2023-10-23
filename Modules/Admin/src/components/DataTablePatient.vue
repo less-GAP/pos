@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, toRaw, watch, h } from "vue";
-import { Input } from "@/components/index";
 import { ReloadOutlined } from "@ant-design/icons-vue";
 import { fetchListStatusPatientApi, fetchListDoctorsApi } from "@/utils/Patient";
 import Api from "@/utils/Api";

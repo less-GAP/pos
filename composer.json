@@ -41,6 +41,8 @@
         "psr-4": {
             "App\\": "app/",
             "Modules\\": "Modules/",
+            "Plugins\\": "plugins/",
+            "Lessgap\\": "packages/lessgap/src/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
