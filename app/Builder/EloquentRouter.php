@@ -207,7 +207,6 @@ class EloquentRouter
         $model = new $this->model;
         $data = $request->all();
         $result = $this->model::where([$model->getKeyName() => $request->input($model->getKeyName())])->first();
-        dd($result);
         if ($result) {
             $result->fill($data)->save();
         } else {

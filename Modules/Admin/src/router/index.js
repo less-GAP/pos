@@ -51,7 +51,7 @@ function getApiRoutes(name, routes, isChildren = false) {
     const newRoute = {
       path: path,
       component: !isChildren ? () => import('@/modules/plugin/PluginRoot.vue') : () => import('@/modules/plugin/PluginView.vue'),
-      name: route.name,
+      name: path,
       children: route.children ? getApiRoutes(name, route.children, true) : [],
       meta: {plugin: name, ...route.meta}
     }
@@ -67,8 +67,6 @@ const pluginRoutes = rs.data
 for (const name in pluginRoutes) {
   routes = [...routes, ...getApiRoutes(name, pluginRoutes[name])]
 }
-console.log(333, pluginRoutes)
-console.log(999, routes)
 const router = createRouter({
   history: createWebHashHistory(),
   routes,

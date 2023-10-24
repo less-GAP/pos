@@ -34,7 +34,7 @@ class LessgapServiceProvider extends ServiceProvider
             return new RealtimeService();
         });
 
-        $activePlugins = ['Sale','Staff'];
+        $activePlugins = ['Staff'];
         $pluginDir = base_path('/plugins');
         foreach ($activePlugins as $activePlugin) {
             $config = include($pluginDir . '/' . $activePlugin . '/index.php');

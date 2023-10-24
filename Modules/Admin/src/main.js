@@ -21,8 +21,10 @@ import Format from "@/utils/Format";
 import Vue3Signature from "vue3-signature"
 import * as config from "@/config";
 import {useProfileState} from "@/lessgap/stores/ProfileStore";
-import {ApiSelect, ApiStore, DataTable, PluginSideBar} from "@/components";
+import {ApiData, ApiSelect, ApiStore, DataTable, PluginSideBar} from "@/components";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+import {createApiStore} from "@/stores/apiStore";
+import {EloquentRouter} from "@/utils/EloquentRouter";
 
 /* Init Pinia */
 const pinia = createPinia();
@@ -32,8 +34,9 @@ const myApp = createApp(App).use(Vue3Signature)
   .use(router)
   .use(pinia)
   .component('LayoutAuthenticated', LayoutAuthenticated)
-  .component('SideBar', PluginSideBar)
+  .component('PluginSideBar', PluginSideBar)
   .component('ApiStore', ApiStore)
+  .component('ApiData', ApiData)
   .component('ApiSelect', ApiSelect)
   .component('DataTable', DataTable)
 /* Init Pinia stores */
@@ -53,6 +56,8 @@ myApp.config.globalProperties.$format = Format;
 myApp.config.globalProperties.$style = styleStore;
 myApp.config.globalProperties.$appState = appState;
 myApp.config.globalProperties.$profileState = profileState;
+myApp.config.globalProperties.$createApiStore = createApiStore;
+myApp.config.globalProperties.$eloquentRouter = EloquentRouter();
 myApp.config.globalProperties.__ = translation.__;
 myApp.config.globalProperties.$url = url;
 myApp.use(Antd)

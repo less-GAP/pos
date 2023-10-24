@@ -14,7 +14,8 @@ const menus = getMenus().then(menus => {
         title: menu.label,
         view: menu.view,
       },
-      icon: mdiStore,
+      icon: menu.icon,
+      order: menu.order,
       permission: menu.permission,
       path: menu.path,
     },)
@@ -27,8 +28,9 @@ const menus = getMenus().then(menus => {
          class="flex z-[1000] relative">
     <div
       class="flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-gray-100 dark:bg-gray-900 dark:border-gray-700">
-
-      <template v-for="(menu, key) in pluginMenus.concat(menuAside)" :key="key">
+      <template v-for="(menu, key) in pluginMenus.concat(menuAside).sort(function(a, b) {
+    return parseFloat(a.order) - parseFloat(b.order);
+})" :key="key">
 
         <router-link :to="menu.path?menu.path:'/'"
                      :class="$route.matched.filter(matched=>matched.path == menu.path).length?'!text-blue-500  !bg-blue-100 dark:!text-blue-400 dark:!bg-gray-800':''"
@@ -36,7 +38,7 @@ const menus = getMenus().then(menus => {
                      class="p-1.5 text-gray-500 relative focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-100">
           <a-tooltip placement="right">
             <template #title>{{ menu.meta?.title }}</template>
-            <BaseIcon :w="'w-' + $style.menu.iconSize" :size="$style.menu.iconSize" :path="menu.icon"></BaseIcon>
+            <i style="font-size:30px" :class="menu.icon"></i>
           </a-tooltip>
           <i v-if="$route.matched.filter(matched=>matched.path == menu.path).length" style="position: absolute;
     right: -16px;

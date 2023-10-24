@@ -1,10 +1,11 @@
 <script setup>
 import {mdiCart} from "@mdi/js";
 import {BaseIcon} from "@/components";
-import menus from "./menus";
+
+const props = defineProps(['menus', 'title'])
 </script>
 <template>
-  <h1 class="px-5   text-2xl text-bold text-primary dark:text-white">Staff</h1>
+  <h1 class="px-5   text-2xl text-bold text-primary dark:text-white">{{ title }}</h1>
   <div class="my-3 mx-4 h-px border-b dark:bg-navy-500"></div>
   <div id="sidebar-menu" class="sidebar-menu mt-5  ">
     <ul>

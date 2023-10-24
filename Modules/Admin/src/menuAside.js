@@ -1,40 +1,21 @@
 // https://pictogrammers.com/library/mdi/
-import {
-  mdiStore,
-  mdiMonitor,
-  mdiCardAccountDetails,
-  mdiCart
-} from "@mdi/js";
+
 
 export default [{
   path: "/",
-  icon: mdiMonitor,
+  icon: 'fa fa-tachometer',
+  order: 0,
   meta: {
     title: "Dashboard",
   },
 },
   {
     meta: {
-      title: "POS",
+      title: "System",
     },
-    icon: mdiStore,
-    permission: 'pos',
-    path: "/sales/pos",
-  },
-  {
-    permission: 'sale.list',
-    icon: mdiCart,
-    path: "/sales",
-    meta: {
-      title: "Sales",
-    }
-  },
-  {
-    meta: {
-      title: "Staff",
-    },
-    icon: mdiStore,
+    order: 99,
+    icon: 'fa fa-cogs',
     permission: 'Admin',
-    path: "/staff",
+    path: "/system",
   },
 ];

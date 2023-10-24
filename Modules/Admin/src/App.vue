@@ -2,11 +2,10 @@
   <a-config-provider v-bind="$style.antdv" :getPopupContainer="getPopupContainer">
     <c-reset/>
     <a-style-provider hash-priority="high">
-
       <router-view v-slot="{ Component }">
         <transition>
           <keep-alive :max="10">
-            <component :key="$route?.matched.length==1?$route.fullPath:$route?.matched[0]?.path" :is="Component"/>
+            <component :key="$route?.matched.length==1?$route.fullPath:$route?.matched[0]?.fullPath" :is="Component"/>
           </keep-alive>
         </transition>
       </router-view>

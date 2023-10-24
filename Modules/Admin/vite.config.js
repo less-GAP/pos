@@ -1,5 +1,5 @@
-import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
+import {fileURLToPath, URL} from "node:url";
+import {defineConfig} from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from 'tailwindcss';
 import http from "http";
@@ -7,17 +7,17 @@ import http from "http";
 export default defineConfig({
   base: "",
   runtimeCompiler: true,
-  plugins: [vue(),tailwindcss()],
+  plugins: [vue(), tailwindcss()],
   server: {
-    port:9200,
+    port: 9200,
     proxy: {
       // string shorthand: http://localhost:5173/foo -> http://localhost:4567/foo
       '/api':
         {
-          target:  'http://172.17.0.1:9100/cpn1234',
+          target: 'http://172.17.0.1:9100/cpn1234',
           changeOrigin: true,
           secure: false,
-          headers: { cookie: 'Laravel_session=FRCm9jB1wsuNd4sRhPrxsGVF' },
+          headers: {cookie: 'Laravel_session=FRCm9jB1wsuNd4sRhPrxsGVF'},
         },
 
     }
@@ -34,7 +34,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      vue$: "vue/dist/vue.common",
+      vue$: 'vue/dist/vue.esm-bundler.js',
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },

@@ -85,8 +85,9 @@ const menuClick = (event, item) => {
       <div class="flex-1 w-full h-full overflow-y-auto p-5 pt-3">
         <Breadcrumb v-if="!$appState.showMenu&&breadcrumb?.length" :items="breadcrumb"></Breadcrumb>
         <div class="content mt-3">
-
-          <slot/>
+          <div>
+            <slot/>
+          </div>
         </div>
       </div>
 

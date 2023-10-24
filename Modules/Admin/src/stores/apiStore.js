@@ -18,18 +18,23 @@ export function createApiStore(url, config = {
       version: 1
     }),
     actions: {
-      async submitUpdate(newUrl = null) {
+      async submitUpdate(newUrl = null, data = null) {
         if (!newUrl) {
           newUrl = url
+        }
+        if (!data) {
+          data = this.data
         }
 
         this.loading = true
         return Api.post(newUrl,
-          this.data
+          data
         )
           .then((rs) => {
-            this.data = rs.data.result
-            this.originalData = {...rs.data.result}
+            if (rs.data?.result) {
+              this.data = rs.data.result
+              this.originalData = {...rs.data.result}
+            }
           })
           .catch((error) => {
             return false;
@@ -38,16 +43,15 @@ export function createApiStore(url, config = {
           });
       },
       async fetch(params = null) {
-        return Api.request(url,
-          {...config, params}
+        return Api.get(url,
+          {params: {...config.params, ...params}}
         )
           .then((rs) => {
             this.data = rs.data
             this.originalData = {...rs.data}
+            return rs
           })
-          .catch((error) => {
-            return false;
-          });
+
       },
       async init(params) {
         if (this.loaded) {

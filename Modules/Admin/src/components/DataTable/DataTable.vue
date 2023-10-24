@@ -29,7 +29,7 @@ const props = defineProps({
   },
   showReload: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   showSelection: {
     type: Boolean,
@@ -109,6 +109,10 @@ function reload(showLoading = false) {
     page: props.pagination.page,
     ...props.params,
     ...getFilter(),
+  }) .then((rs) => {
+    if (rs.data?.total) {
+      props.pagination.total = rs.data?.total ? rs.data.total : 0;
+    }
   })
     .finally(() => {
       checkAll.value = false;
@@ -155,7 +159,7 @@ reload()
           <a-form layout="inline">
             <a-space>
               <div><label>
-                <a-input allow-clear @change="reload" @keyup.enter.native="reload"
+                <a-input allow-clear  @keyup.enter.native="reload"
                          v-model:value="filter.search"
                          placeholder="Search..."
                 >

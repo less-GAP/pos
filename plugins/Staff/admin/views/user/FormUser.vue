@@ -1,6 +1,6 @@
 <script>function main(props) {
     let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router} = props;
-    var self = this;
+    const self = this;
     Object.assign(this, props);
     this.closeDetail = function () {
         router.replace('/staff/user')

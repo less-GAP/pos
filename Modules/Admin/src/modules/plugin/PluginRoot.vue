@@ -1,14 +1,26 @@
 <script setup>
-import {ref} from "vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SideBar from "./SideBar.vue";
+import {compile, computed, h, onActivated, onDeactivated, reactive, ref} from "vue";
 import PluginView from "./PluginView.vue";
-import menus from "./menus";
+import PluginSideBar from "./PluginSideBar.vue";
+import {getPlugin} from "@/utils/PluginManager";
+import router from "@/router";
+import Api from "@/utils/Api";
+
+const plugin = ref()
+getPlugin(router.currentRoute?.value?.meta?.plugin).then(_plugin => {
+  plugin.value = _plugin
+})
 
 </script>
 
 <template>
-  <div>
-      <PluginView :name="$route.matched[0].meta.plugin" :path="$route.matched[0].path" :key="$route.matched[0].path"></PluginView>
-  </div>
+  <LayoutAuthenticated v-if="plugin" :breadcrumb="plugin.sideMenus()">
+    <template #moduleSidebar>
+      <PluginSideBar :title="plugin.getTitle()" :menus="plugin.sideMenus()"></PluginSideBar>
+    </template>
+    <router-view>
+        <PluginView :hasChildRoute="true" :plugin="plugin" :path="$route?.matched[1].path"
+                    :key="$route?.matched[1].path"/>
+    </router-view>
+  </LayoutAuthenticated>
 </template>
