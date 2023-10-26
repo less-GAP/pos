@@ -4,12 +4,54 @@ namespace Lessgap\Plugins;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Lessgap\Models\PluginData;
 
 class LessgapPlugin
 {
+
     public function __construct(private $name, private array $config)
     {
         $this->loadRoutes();
+    }
+
+    public function getData()
+    {
+        $data = PluginData::where('name', $this->name)->first();
+        if (!$data) {
+            $data = PluginData::create(['name' => $this->name]);
+        }
+        return $data;
+    }
+
+    public function toArray()
+    {
+        return [
+            'config' => $this->config,
+            'data' => $this->getData(),
+        ];
+    }
+
+    public function reset()
+    {
+        $this->rollback();
+        $this->migrate();
+    }
+
+    public function install()
+    {
+        $data = $this->getData();
+        if ($data && $data->is_installed) {
+            return $data;
+        }
+        $this->migrate();
+        $this->publish();
+        $data->update(['is_installed' => 1, 'status' => 'active']);
+        return $data;
+    }
+
+    public function publish()
+    {
+        shell_exec("cp -r " . $this->getDir() . '/public' . " " . public_path('/plugins/' . strtolower($this->name)));
     }
 
     public function getConfigs($prefix)

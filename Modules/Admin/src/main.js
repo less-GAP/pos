@@ -9,6 +9,8 @@ import {darkModeKey, styleKey} from "@/config.js";
 
 import "./assets/css/tailwind.css";
 import "./css/main.css";
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 import {useAuthStore} from "@/stores/auth";
 import piniaPersist from 'pinia-plugin-persist'
@@ -32,6 +34,7 @@ pinia.use(piniaPersist)
 /* Create Vue app */
 const myApp = createApp(App).use(Vue3Signature)
   .use(router)
+  .use(VueSweetalert2)
   .use(pinia)
   .component('LayoutAuthenticated', LayoutAuthenticated)
   .component('PluginSideBar', PluginSideBar)

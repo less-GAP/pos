@@ -138,7 +138,9 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
     Route::post('notification/read', \Modules\Admin\Actions\Notification\ReadAction::class . '@handle');
     Route::prefix('plugin')->group(function () {
         Route::get('/detail/{plugin}', \Modules\Admin\Actions\Plugin\GetPluginDetailAction::class . '@handle');
+        Route::any('/install', \Modules\Admin\Actions\Plugin\PostInstallPluginAction::class . '@handle');
         Route::get('/menus', \Modules\Admin\Actions\Plugin\GetMenusAction::class . '@handle');
+        Route::get('/list', \Modules\Admin\Actions\Plugin\GetPluginsAction::class . '@handle');
         Route::get('/configs', \Modules\Admin\Actions\Plugin\GetConfigAction::class . '@handle');
         Route::get('{plugin}/view/{view}', \Modules\Admin\Actions\Plugin\GetViewAction::class . '@handle');
         Route::get('{plugin}/sideMenus', \Modules\Admin\Actions\Plugin\GetSideMenusAction::class . '@handle');

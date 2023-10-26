@@ -20,7 +20,11 @@ class PluginManager
 
     public function getPlugins()
     {
-        return $this->plugins;
+        $result = [];
+        foreach ($this->plugins as $plugin) {
+            $result[] = $plugin->toArray();
+        }
+        return $result;
     }
 
     public function menus($prefix)
@@ -32,6 +36,7 @@ class PluginManager
         }
         return $result;
     }
+
     public function routes($prefix)
     {
         $result = [];

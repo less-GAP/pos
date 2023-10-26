@@ -11,6 +11,14 @@ export default [{
 },
   {
     meta: {
+      title: "Plugins",
+    },
+    order: 98,
+    icon: 'fa fa-plug',
+    permission: 'Plugin',
+    path: "/plugin",
+  }, {
+    meta: {
       title: "System",
     },
     order: 99,

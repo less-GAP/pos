@@ -12,7 +12,6 @@ return [
             , 'order' => 1
         ]
     ],
-
     'routes' => [
         $prefix => [
             'meta' => [
