@@ -82,7 +82,7 @@ myApp.use(Antd)
 // }
 
 /* Default title tag */
-const defaultDocumentTitle = "Unify";
+const defaultDocumentTitle = "POS System";
 
 /* Set document title from route meta */
 router.afterEach((to) => {

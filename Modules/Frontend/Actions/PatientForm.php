@@ -11,7 +11,7 @@ class PatientForm
 
     public function handle(Request $request)
     {
-        $data['title'] = 'Unifymedsupply';
+        $data['title'] = 'POS System';
         $data['logo'] = asset('images/logo.png');
         $data['states'] = json_encode($this->get_states());
         $data['insuranceCoverages'] = json_encode($this->get_insuranceCoverages());
