@@ -10,6 +10,12 @@ class GetPluginsAction
 {
     public function handle()
     {
-        return app(PluginManager::class)->getPlugins();
+        $pluginDir = base_path('/plugins');
+        $result = [];
+        foreach (glob($pluginDir . '/*', GLOB_ONLYDIR) as $pluginName) {
+            $result[] = app(PluginManager::class)
+                ->loadPlugin(basename($pluginName))->toArray();
+        }
+        return $result;
     }
 }

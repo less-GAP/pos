@@ -12,7 +12,7 @@ class PostInstallPluginAction
     public function handle(Request $request)
     {
         return app(PluginManager::class)
-            ->plugin($request->input('name'))
+            ->loadPlugin($request->input('name'))
             ->install();
     }
 }

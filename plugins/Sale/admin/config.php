@@ -1,59 +1,55 @@
 <?php
 
-$prefix = '/plugin/sale';
+$prefix = '/sales';
 return [
-    'pluginName' => 'Sales',
     'prefix' => $prefix,
+    'title' => 'Sales',
     'menus' => [
         [
             'path' => $prefix . '/order'
-            , 'label' => 'Sale Order'
+            , 'icon' => 'fa fa-money'
+            , 'label' => 'Sale'
             , 'order' => 1
         ]
     ],
-
     'routes' => [
-        $prefix . '/order' => [
-            'label' => 'Sale Order'
-            , 'view' => 'index'
-            , 'children'=>[
-
+        $prefix => [
+            'meta' => [
+                'title' => 'Salse',
             ]
-        ],
-        $prefix . '/order/:id' => [
-            'label' => 'Sale Order Detail'
-            , 'view' => 'detail'
+            , 'redirect' => $prefix . '/order'
+            , 'children' => [
+                $prefix . '/order' => [
+                    'meta' => [
+                        'title' => 'Sale Order',
+                    ],
+                    'view' => 'order.index'
+                ],
+                $prefix . '/order/:id' => [
+                    'meta' => [
+                        'title' => 'Sale Order Detail',
+                    ],
+                    'view' => 'order.detail'
+                ]
+            ],
+
         ]
     ],
     'views' => [
-        'index' => 'SalesOrder.vue'
-        , 'detail' => 'SalesOrderDetail.vue'
+        'order.index' => '/order/index.vue'
+        , 'order.detail' => '/order/form.vue'
+
     ],
     'sideMenus' => [
         [
             'meta' => [
-                'title' => "Sales Orders",
+                'title' => "Manage Orders",
             ],
             'permission' => 'Sales.order',
-            'path' =>$prefix . '/order'
+            'path' => $prefix . '/order'
         ],
 
-        [
-            'meta' => [
-                'title' => "New Sales",
-            ],
-            'path' => "/sales/order/new",
-        ],
-        [
-            'meta' => [
-                'title' => "Sales Return List",
-            ],
-            'path' => "/sales/return-list",
-        ], [
-            'meta' => [
-                'title' => "New Sales Return",
-            ],
-            'path' => "/sales/return-list/new",
-        ]
     ]
 ];
+
+

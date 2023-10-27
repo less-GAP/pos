@@ -9,7 +9,7 @@ return [
             'path' => $prefix . '/user'
             , 'icon' => 'fa fa-building-o'
             , 'label' => 'Staff'
-            , 'order' => 1
+            , 'order' => 11
         ]
     ],
     'routes' => [

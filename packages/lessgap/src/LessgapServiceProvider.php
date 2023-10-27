@@ -33,8 +33,7 @@ class LessgapServiceProvider extends ServiceProvider
         $this->app->singleton(RealtimeService::class, function (Application $app) {
             return new RealtimeService();
         });
-
-        $activePlugins = ['Staff'];
+        $activePlugins = \DB::table('plugins')->where('status', 'active')->pluck('name');
         $pluginDir = base_path('/plugins');
         foreach ($activePlugins as $activePlugin) {
             $config = include($pluginDir . '/' . $activePlugin . '/index.php');

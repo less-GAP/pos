@@ -1,5 +1,5 @@
 <script setup>
-import {compile, computed, h, onActivated, onDeactivated, reactive, ref} from "vue";
+import {compile, computed, h, onActivated, onDeactivated, reactive, ref, watch} from "vue";
 import PluginView from "./PluginView.vue";
 import PluginSideBar from "./PluginSideBar.vue";
 import {getPlugin} from "@/utils/PluginManager";
@@ -10,17 +10,22 @@ const plugin = ref()
 getPlugin(router.currentRoute?.value?.meta?.plugin).then(_plugin => {
   plugin.value = _plugin
 })
-
+watch(router.currentRoute, (data) => {
+  getPlugin(router.currentRoute?.value?.meta?.plugin).then(_plugin => {
+    plugin.value = _plugin
+  })
+});
 </script>
 
 <template>
-  <LayoutAuthenticated v-if="plugin" :breadcrumb="plugin.sideMenus()">
+  <LayoutAuthenticated  v-if="plugin" :breadcrumb="plugin.sideMenus()">
     <template #moduleSidebar>
-      <PluginSideBar :title="plugin.getTitle()" :menus="plugin.sideMenus()"></PluginSideBar>
+      <PluginSideBar :key="plugin?.getName()" :title="plugin.getTitle()" :menus="plugin.sideMenus()"></PluginSideBar>
     </template>
     <router-view>
-        <PluginView :hasChildRoute="true" :plugin="plugin" :path="$route?.matched[1].path"
-                    :key="$route?.matched[1].path"/>
+
+      <PluginView v-if="$route?.matched[1]" :hasChildRoute="true" :plugin="plugin" :path="$route?.matched[1]?.path"
+                  :key="plugin?.getName()+$route?.fullPath"/>
     </router-view>
   </LayoutAuthenticated>
 </template>

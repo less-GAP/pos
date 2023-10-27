@@ -33,8 +33,33 @@ class LessgapPlugin
 
     public function reset()
     {
+
         $this->rollback();
         $this->migrate();
+        $this->publish();
+        return $this->getData();
+
+    }
+
+    public function disable()
+    {
+        $data = $this->getData();
+        $data->update(['is_installed' => 1, 'status' => 'disable']);
+        return $data;
+    }
+    public function active()
+    {
+        $data = $this->getData();
+        $data->update(['is_installed' => 1, 'status' => 'active']);
+        return $data;
+    }
+
+    public function uninstall()
+    {
+        $data = $this->getData();
+        $this->rollback();
+        $data->update(['is_installed' => 0, 'status' => 'disable']);
+        return $data;
     }
 
     public function install()
@@ -51,7 +76,7 @@ class LessgapPlugin
 
     public function publish()
     {
-        shell_exec("cp -r " . $this->getDir() . '/public' . " " . public_path('/plugins/' . strtolower($this->name)));
+        shell_exec("cp -r " . $this->getDir() . '/public/*' . " " . public_path('/plugins/' . strtolower($this->name)).'/');
     }
 
     public function getConfigs($prefix)

@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import Api from "@/utils/Api";
 import createMatcher from 'feather-route-matcher';
+import {url} from "@/utils/Url";
 
 export async function createPluginStore(pluginName, config = {cache: false, autoload: true, versionKey: null}) {
   const apiPrefix = '/plugin/' + pluginName
@@ -57,6 +58,9 @@ export async function createPluginStore(pluginName, config = {cache: false, auto
       },
       url($path) {
         return this.config.prefix + $path
+      },
+      assets($path) {
+        return url('plugins/'+this.getName()+$path)
       },
       prefix() {
         return this.config.prefix

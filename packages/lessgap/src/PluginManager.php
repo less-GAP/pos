@@ -13,6 +13,13 @@ class PluginManager
         $this->plugins[strtolower($name)] = new LessgapPlugin($name, $config);
     }
 
+    public function loadPlugin($name)
+    {
+        $pluginDir = base_path('/plugins');
+        $config = include($pluginDir . '/' . $name . '/index.php');
+        return new LessgapPlugin($name, $config);
+    }
+
     public function plugin($name)
     {
         return $this->plugins[strtolower($name)] ?? null;
@@ -30,9 +37,8 @@ class PluginManager
     public function menus($prefix)
     {
         $result = [];
-
         foreach ($this->plugins as $plugin) {
-            $result = $plugin->getMenus($prefix);
+            $result = array_merge($result, $plugin->getMenus($prefix));
         }
         return $result;
     }
@@ -42,7 +48,7 @@ class PluginManager
         $result = [];
 
         foreach ($this->plugins as $plugin) {
-            $result = $plugin->getRoutes($prefix);
+            $result = array_merge($result, $plugin->getRoutes($prefix));
         }
         return $result;
     }
