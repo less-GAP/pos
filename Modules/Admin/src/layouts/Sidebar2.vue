@@ -24,7 +24,8 @@ const menus = getMenus().then(menus => {
 
 </script>
 <template>
-  <aside @mouseover="$appState.hoverSideBar = true" @mouseleave="$appState.hoverSideBar = false"
+<!--  <aside @mouseover="$appState.hoverSideBar = true" @mouseleave="$appState.hoverSideBar = false"-->
+  <aside
          class="flex z-[1000] relative">
     <div
       class="flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-gray-100 dark:bg-gray-900 dark:border-gray-700">

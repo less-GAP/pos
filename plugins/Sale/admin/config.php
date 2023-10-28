@@ -15,32 +15,47 @@ return [
     'routes' => [
         $prefix => [
             'meta' => [
-                'title' => 'Salse',
+                'title' => 'Sales',
             ]
             , 'redirect' => $prefix . '/order'
             , 'children' => [
+                $prefix . '/pos' => [
+                    'meta' => [
+                        'title' => 'Pos',
+                    ],
+                    'view' => '/pos/index.vue'
+                ],
                 $prefix . '/order' => [
                     'meta' => [
                         'title' => 'Sale Order',
                     ],
-                    'view' => 'order.index'
+                    'view' => '/order/index.vue'
                 ],
                 $prefix . '/order/:id' => [
                     'meta' => [
                         'title' => 'Sale Order Detail',
                     ],
-                    'view' => 'order.detail'
+                    'view' => 'order.form'
+                ],
+                $prefix . '/order/:id/detail' => [
+                    'meta' => [
+                        'title' => 'Sale Order Detail',
+                    ],
+                    'view' => '/order/detail.vue'
                 ]
             ],
 
         ]
     ],
-    'views' => [
-        'order.index' => '/order/index.vue'
-        , 'order.detail' => '/order/form.vue'
 
-    ],
     'sideMenus' => [
+        [
+            'meta' => [
+                'title' => "POS",
+            ],
+            'permission' => 'Sales.pos',
+            'path' => $prefix . '/pos'
+        ],
         [
             'meta' => [
                 'title' => "Manage Orders",

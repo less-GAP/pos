@@ -29,44 +29,7 @@ return new class extends Migration {
             $table->bigInteger('product_id');
             $table->bigInteger('sale_orders_id');
         });
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            $table->bigInteger('brand_id')->nullable();
-            $table->bigInteger('price')->nullable();
-            $table->bigInteger('price_discount')->nullable();
-            $table->string('status')->default('active')->index();
-            $table->string('unit')->nullable();
-            $table->string('product_code')->nullable();
-            $table->string('short_description')->nullable();
-            $table->longText('description')->nullable();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->timestamps();
-        });
-        Schema::create('product_file', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('product_id')->index();
-            $table->string('file_path')->index();
-            $table->string('type')->default('image');
-            $table->tinyInteger('is_primary')->default(0);
-            $table->timestamps();
 
-        });
-        Schema::create('product_category', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('product_id')->index();
-            $table->bigInteger('category_id')->index();
-        });
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->index();
-            $table->text('description')->index();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->timestamps();
-
-        });
     }
 
     /**
@@ -76,9 +39,5 @@ return new class extends Migration {
     {
         Schema::dropIfExists('sales_orders');
         Schema::dropIfExists('sales_order_product');
-        Schema::dropIfExists('product_file');
-        Schema::dropIfExists('products');
-        Schema::dropIfExists('product_category');
-        Schema::dropIfExists('categories');
     }
 };

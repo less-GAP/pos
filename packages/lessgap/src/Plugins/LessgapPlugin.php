@@ -47,6 +47,7 @@ class LessgapPlugin
         $data->update(['is_installed' => 1, 'status' => 'disable']);
         return $data;
     }
+
     public function active()
     {
         $data = $this->getData();
@@ -76,7 +77,7 @@ class LessgapPlugin
 
     public function publish()
     {
-        shell_exec("cp -r " . $this->getDir() . '/public/*' . " " . public_path('/plugins/' . strtolower($this->name)).'/');
+        shell_exec("cp -r " . $this->getDir() . '/public/*' . " " . public_path('/plugins/' . strtolower($this->name)) . '/');
     }
 
     public function getConfigs($prefix)
@@ -134,13 +135,10 @@ class LessgapPlugin
         return $result;
     }
 
-    public function view($prefix, $name)
+    public function view($prefix, $path)
     {
 
-        if (!($this->config[$prefix]['views'][$name] ?? null)) {
-            return '';
-        }
-        $code = $this->loadFile($prefix . '/views/' . $this->config[$prefix]['views'][$name]);
+        $code = $this->loadFile($prefix . '/views/' . $path);
         preg_match_all("#<template>(.+)?<\/template>#s", $code, $templates);
         preg_match_all("#<script>(.+)?<\/script>#s", $code, $scripts);
         return [

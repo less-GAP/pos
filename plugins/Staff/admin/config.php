@@ -23,13 +23,13 @@ return [
                     'meta' => [
                         'title' => 'Manage User',
                     ]
-                    , 'view' => 'user.index'
+                    , 'view' => '/user/index.vue'
                     , 'children' => [
                         $prefix . '/user/:id' => [
                             'meta' => [
                                 'title' => 'User Detail'
                             ]
-                            , 'view' => 'user.detail'
+                            , 'view' => '/user/FormUser.vue'
                         ]
                     ]
                 ],
@@ -37,18 +37,20 @@ return [
                     'meta' => [
                         'title' => 'Manage Role',
                     ]
-                    , 'view' => 'role.index'
+                    , 'view' => '/role/index.vue'
                     , 'children' => [
                         $prefix . '/role/:id' => [
                             'meta' => [
                                 'title' => 'Role Detail'
                             ]
-                            , 'view' => 'role.detail'
+                            , 'view' => '/role/form.vue'
+
                         ], $prefix . '/role/:id/permissions' => [
                             'meta' => [
                                 'title' => 'Role Permissions'
                             ]
-                            , 'view' => 'role.permissions'
+                            , 'view' => '/role/permissions.vue'
+
                         ]
                     ]
                 ],
@@ -56,13 +58,15 @@ return [
                     'meta' => [
                         'title' => 'Manage Permission',
                     ]
-                    , 'view' => 'permission.index'
+                    , 'view' => '/permission/index.vue'
+
                     , 'children' => [
                         $prefix . '/permission/:id' => [
                             'meta' => [
                                 'title' => 'Role Detail'
                             ]
-                            , 'view' => 'permission.detail'
+                            , 'view' => '/permission/form.vue'
+
                         ]
                     ]
                 ],
@@ -70,32 +74,23 @@ return [
                     'meta' => [
                         'title' => 'Manage Role',
                     ]
-                    , 'view' => 'permission-group.index'
+                    , 'view' => '/permission-group/index.vue'
+
                     , 'children' => [
                         $prefix . '/permission-group/:id' => [
                             'meta' => [
                                 'title' => 'Permission Group Detail'
                             ]
-                            , 'view' => 'permission-group.detail'
+                            , 'view' => '/permission-group/form.vue'
+
                         ],
                     ]
                 ]
             ]
         ],
 
+    ],
 
-    ],
-    'views' => [
-        'user.index' => '/user/index.vue'
-        , 'user.detail' => '/user/FormUser.vue'
-        , 'role.index' => '/role/index.vue'
-        , 'role.detail' => '/role/form.vue'
-        , 'role.permissions' => '/role/permissions.vue'
-        , 'permission.index' => '/permission/index.vue'
-        , 'permission.detail' => '/permission/form.vue'
-        , 'permission-group.index' => '/permission-group/index.vue'
-        , 'permission-group.detail' => '/permission-group/form.vue'
-    ],
     'sideMenus' => [
         [
             'meta' => [

@@ -13,6 +13,6 @@ class GetViewAction
     {
         return app(PluginManager::class)
             ->plugin($request->route('plugin'))
-            ->view('admin', $request->route('view'));
+            ->view('admin', $request->input('path'));
     }
 }

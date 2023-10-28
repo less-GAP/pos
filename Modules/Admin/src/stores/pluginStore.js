@@ -60,7 +60,7 @@ export async function createPluginStore(pluginName, config = {cache: false, auto
         return this.config.prefix + $path
       },
       assets($path) {
-        return url('plugins/'+this.getName()+$path)
+        return url('plugins/' + this.getName() + $path)
       },
       prefix() {
         return this.config.prefix
@@ -74,7 +74,7 @@ export async function createPluginStore(pluginName, config = {cache: false, auto
             props: {}
           }
         }
-        const {data} = await Api.get(apiPrefix + '/view/' + route.value.view)
+        const {data} = await Api.get(apiPrefix + '/view/?path=' + route.value.view)
         const main = parseFunction(data.script.trim())
 
         return {

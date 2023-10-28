@@ -7,7 +7,6 @@ import {useMainStore} from "@/stores/main.js";
 import {useStyleStore} from "@/stores/style.js";
 import {darkModeKey, styleKey} from "@/config.js";
 
-import "./assets/css/tailwind.css";
 import "./css/main.css";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';

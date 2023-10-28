@@ -143,7 +143,7 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
         Route::get('/menus', \Modules\Admin\Actions\Plugin\GetMenusAction::class . '@handle');
         Route::get('/list', \Modules\Admin\Actions\Plugin\GetPluginsAction::class . '@handle');
         Route::get('/configs', \Modules\Admin\Actions\Plugin\GetConfigAction::class . '@handle');
-        Route::get('{plugin}/view/{view}', \Modules\Admin\Actions\Plugin\GetViewAction::class . '@handle');
+        Route::get('{plugin}/view', \Modules\Admin\Actions\Plugin\GetViewAction::class . '@handle');
         Route::get('{plugin}/sideMenus', \Modules\Admin\Actions\Plugin\GetSideMenusAction::class . '@handle');
     });
 });
