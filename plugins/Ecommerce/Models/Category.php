@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Sale\Models;
+namespace Plugins\Ecommerce\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
@@ -18,7 +18,7 @@ class Category extends Model
      */
     use HasFactory, HasRealtimeData;
 
-    protected $table = 'categories';
+    protected $table = 'ecommerce_categories';
 
     public $timestamps = true;
 

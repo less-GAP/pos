@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('ecommerce_products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->bigInteger('brand_id')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->string('updated_by')->nullable();
             $table->timestamps();
         });
-        Schema::create('product_file', function (Blueprint $table) {
+        Schema::create('ecommerce_product_file', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->index();
             $table->string('file_path')->index();
@@ -35,12 +35,12 @@ return new class extends Migration {
             $table->timestamps();
 
         });
-        Schema::create('product_category', function (Blueprint $table) {
+        Schema::create('ecommerce_product_category', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->index();
             $table->bigInteger('category_id')->index();
         });
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('ecommerce_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
             $table->text('description')->index();
@@ -56,9 +56,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_file');
-        Schema::dropIfExists('products');
-        Schema::dropIfExists('product_category');
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('ecommerce_product_file');
+        Schema::dropIfExists('ecommerce_products');
+        Schema::dropIfExists('ecommerce_product_category');
+        Schema::dropIfExists('ecommerce_categories');
     }
 };

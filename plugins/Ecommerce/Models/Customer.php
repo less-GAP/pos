@@ -19,7 +19,7 @@ class Customer extends Authenticatable
      */
     use HasFactory, HasApiTokens;
 
-    protected $table = 'customers';
+    protected $table = 'ecommerce_customers';
 
     public $timestamps = false;
 

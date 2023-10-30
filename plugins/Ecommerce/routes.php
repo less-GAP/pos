@@ -3,26 +3,29 @@
 use App\Builder\EloquentRouter;
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Middleware\AdminIsAuthenticated;
+use Plugins\Ecommerce\Models\Category;
+use Plugins\Ecommerce\Models\Product;
 use Plugins\Sale\Models\SalesOrder;
 use Spatie\QueryBuilder\AllowedFilter;
 
 Route::middleware([AdminIsAuthenticated::class])->prefix(ADMIN_ROUTE_PREFIX)->group(function () {
-    EloquentRouter::prefix('/sales/order')
+    EloquentRouter::prefix('/ecommerce/product')
         ->handle(
-            SalesOrder::class,
+            Product::class,
             [
-                'allowedIncludes' => ['products', 'customer'],
+                'allowedIncludes' => [ 'images'],
                 'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
             ]
         )->routes(function () {
         });
-    EloquentRouter::prefix('/sales/customer')
+    EloquentRouter::prefix('/ecommerce/category')
         ->handle(
-            \Plugins\Sale\Models\Customer::class,
+            Category::class,
             [
-                'allowedIncludes' => [],
+                'allowedIncludes' => [ 'images'],
                 'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
             ]
         )->routes(function () {
         });
+
 });

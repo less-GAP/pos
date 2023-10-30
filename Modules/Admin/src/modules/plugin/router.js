@@ -17,7 +17,6 @@ export default [
         name: "plugin",
         component: () => import("./index.vue"),
         children: [
-
         ]
       }
     ]

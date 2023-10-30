@@ -10,10 +10,10 @@ const props = defineProps(['menus', 'title'])
   <div id="sidebar-menu" class="sidebar-menu mt-5  ">
     <ul>
       <template v-for="(menu, key) in menus" :key="key">
-        <li :class="$route.matched.filter(matched=>matched.path.includes(menu.path)).length?'active':''"
+        <li
             v-if="$auth.hasPermission(menu.permission)">
           <template v-if="menu.path">
-            <router-link :to="menu.path" class="subdrop flex items-center text-slate-600  w-full">
+            <router-link :class="$route.matched.filter(matched=>matched.path.includes(menu.path)).length?'router-link-active router-link-exact-active':''" :to="menu.path" class="subdrop flex items-center text-slate-600  w-full">
               <BaseIcon v-if="menu.icon" :path="menu.icon" class="flex-none"
                         :w="'w-' + $style.menu.iconSize" :size="$style.menu.iconSize"/>
               <span class="flex-1 ml-3 text-left whitespace-nowrap"> {{ menu.meta?.title }}</span>

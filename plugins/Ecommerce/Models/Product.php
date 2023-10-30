@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Sale\Models;
+namespace Plugins\Ecommerce\Models;
 
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -19,7 +19,7 @@ class Product extends Model
      */
     use HasFactory, HasRealtimeData;
 
-    protected $table = 'products';
+    protected $table = 'ecommerce_products';
 
     public $timestamps = true;
 

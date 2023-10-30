@@ -19,12 +19,17 @@ return [
             ]
             , 'redirect' => $prefix . '/product'
             , 'children' => [
-
                 $prefix . '/product' => [
                     'meta' => [
                         'title' => 'Product management',
                     ],
                     'view' => '/product/index.vue'
+                ],
+                $prefix . '/product/:id' => [
+                    'meta' => [
+                        'title' => 'Product management',
+                    ],
+                    'view' => '/product/form.vue'
                 ],
 
             ],
@@ -52,6 +57,13 @@ return [
             ],
             'permission' => 'Ecommerce.branch',
             'path' => $prefix . '/branch'
+        ],
+        [
+            'meta' => [
+                'title' => "Units",
+            ],
+            'permission' => 'Ecommerce.unit',
+            'path' => $prefix . '/unit'
         ],
         [
             'meta' => [

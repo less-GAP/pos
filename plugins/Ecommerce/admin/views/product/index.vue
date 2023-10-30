@@ -3,7 +3,7 @@
 function main(props) {
     let {Api, plugin, computed, component, h, compile, ref, reactive, currentRoute, router} = props
     Object.assign(this, props)
-    this.prefix = '/sales/order'
+    this.prefix = '/ecommerce/product'
     const routePrefix = this.prefix
     const self = this
     const itemActions = [
@@ -26,7 +26,7 @@ function main(props) {
         {
             label: 'Delete',
             icon: 'fa fa-trash',
-            confirm:true,
+            confirm: true,
             class: 'font-medium !text-red-600 dark:!text-red-500 hover:underline',
             action(item, reload) {
                 Api.delete(self.prefix + '/' + item.id).then(rs => {
@@ -84,12 +84,12 @@ function main(props) {
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Order List</h4>
-                <h6>Manage your sales</h6>
+                <h4>Product List</h4>
+                <h6>Manage your products</h6>
             </div>
             <div class="page-btn">
 
-                <router-link :to="plugin.url('/order/new')" class="btn btn-added"><img
+                <router-link :to="plugin.url('/product/new')" class="btn btn-added"><img
                     :src="plugin?.assets('/img/icons/plus.svg')"
                     alt="img"
                     class="mr-1">Add

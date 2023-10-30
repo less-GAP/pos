@@ -19,7 +19,7 @@ class ProductFile extends Model
      */
     use HasFactory, HasRealtimeData;
 
-    protected $table = 'product_file';
+    protected $table = 'ecommerce_product_file';
 
     public $timestamps = true;
 
