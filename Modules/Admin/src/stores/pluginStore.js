@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import Api from "@/utils/Api";
 import createMatcher from 'feather-route-matcher';
 import {url} from "@/utils/Url";
+import {UseEloquentRouter} from "@/utils/UseEloquentRouter";
 
 export async function createPluginStore(pluginName, config = {cache: false, autoload: true, versionKey: null}) {
   const apiPrefix = '/plugin/' + pluginName
@@ -47,6 +48,9 @@ export async function createPluginStore(pluginName, config = {cache: false, auto
       version: 1
     }),
     actions: {
+      model(model) {
+        return UseEloquentRouter(this.config.prefix + '/' + model)
+      },
       sideMenus() {
         return this.config.sideMenus
       },
@@ -66,15 +70,15 @@ export async function createPluginStore(pluginName, config = {cache: false, auto
         return this.config.prefix
       },
       async view($path, props) {
-        const route = this.routeMatcher($path)
-        this.route = route
-        if (!route) {
-          return {
-            template: '',
-            props: {}
-          }
-        }
-        const {data} = await Api.get(apiPrefix + '/view/?path=' + route.value.view)
+        // const route = this.routeMatcher($path)
+        // this.route = route
+        // if (!route) {
+        //   return {
+        //     template: '',
+        //     props: {}
+        //   }
+        // }
+        const {data} = await Api.get(apiPrefix + '/view/?path=' + $path)
         const main = parseFunction(data.script.trim())
 
         return {

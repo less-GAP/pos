@@ -26,10 +26,11 @@ import {ApiData, ApiSelect, ApiStore, DataTable, PluginSideBar} from "@/componen
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {createApiStore} from "@/stores/apiStore";
 import {EloquentRouter} from "@/utils/EloquentRouter";
-
+import PluginView from "@/modules/plugin/PluginView.vue";
 /* Init Pinia */
 const pinia = createPinia();
 pinia.use(piniaPersist)
+
 /* Create Vue app */
 const myApp = createApp(App).use(Vue3Signature)
   .use(router)
@@ -41,6 +42,7 @@ const myApp = createApp(App).use(Vue3Signature)
   .component('ApiData', ApiData)
   .component('ApiSelect', ApiSelect)
   .component('DataTable', DataTable)
+  .component('PluginView', PluginView)
 /* Init Pinia stores */
 const mainStore = useMainStore(pinia);
 const styleStore = useStyleStore(pinia);

@@ -31,7 +31,18 @@ return [
                     ],
                     'view' => '/product/form.vue'
                 ],
-
+                $prefix . '/branch' => [
+                    'meta' => [
+                        'title' => 'Branch management',
+                    ],
+                    'view' => '/branch/index.vue'
+                ],
+                $prefix . '/branch/:id' => [
+                    'meta' => [
+                        'title' => 'Branch management',
+                    ],
+                    'view' => '/branch/form.vue'
+                ],
             ],
 
         ]
@@ -44,7 +55,15 @@ return [
             ],
             'permission' => 'Ecommerce.product',
             'path' => $prefix . '/product'
-        ], [
+        ],
+        [
+            'meta' => [
+                'title' => "Add Product",
+            ],
+            'permission' => 'Ecommerce.product',
+            'path' => $prefix . '/product/new'
+        ],
+        [
             'meta' => [
                 'title' => "Categories",
             ],

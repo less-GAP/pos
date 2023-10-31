@@ -53,7 +53,7 @@ function getApiRoutes(name, routes, isChildren = false) {
       component: !isChildren ? () => import('@/modules/plugin/PluginRoot.vue') : () => import('@/modules/plugin/PluginView.vue'),
       name: path,
       children: route.children ? getApiRoutes(name, route.children, true) : [],
-      meta: {plugin: name, ...route.meta}
+      meta: {plugin: name, view: route.view, ...route.meta}
     }
     result.push(newRoute)
   }

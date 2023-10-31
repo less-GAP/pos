@@ -1,8 +1,14 @@
 import Api from "@/utils/Api";
 import {notification} from "ant-design-vue";
+import {createApiStore} from "@/stores/apiStore";
 
 export function UseEloquentRouter(prefix, options = {}) {
-
+  const find = function (id, params) {
+    return createApiStore(prefix + '/' + id, {params})
+  }
+  const paginate = function (id, params) {
+    return createApiStore(prefix + '/list', {params})
+  }
   const getListApi = function (params) {
     return Api.get(prefix + '/list', {params: {...options, ...params}})
   };
@@ -28,6 +34,7 @@ export function UseEloquentRouter(prefix, options = {}) {
     return Api.delete(prefix + '/' + id)
   };
   return {
+    find,
     getListApi,
     attachRelationShipApi,
     detachRelationShipApi,

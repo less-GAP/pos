@@ -22,7 +22,16 @@ Route::middleware([AdminIsAuthenticated::class])->prefix(ADMIN_ROUTE_PREFIX)->gr
         ->handle(
             Category::class,
             [
-                'allowedIncludes' => [ 'images'],
+                'allowedIncludes' => [],
+                'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
+            ]
+        )->routes(function () {
+        });
+    EloquentRouter::prefix('/ecommerce/branch')
+        ->handle(
+            \Plugins\Ecommerce\Models\Branch::class,
+            [
+                'allowedIncludes' => [],
                 'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
             ]
         )->routes(function () {

@@ -3,6 +3,7 @@
 namespace Plugins\Ecommerce\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\CreatedUpdatedByAdmin;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,7 @@ class Category extends Model
      *
      * @var array<int, string>
      */
-    use HasFactory, HasRealtimeData;
+    use HasFactory, CreatedUpdatedByAdmin, HasRealtimeData;
 
     protected $table = 'ecommerce_categories';
 

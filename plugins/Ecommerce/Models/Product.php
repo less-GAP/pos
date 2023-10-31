@@ -4,6 +4,7 @@ namespace Plugins\Ecommerce\Models;
 
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\File;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -72,7 +73,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->belongsToMany(File::class, 'product_images', 'product_id', 'file_id');
+        return $this->hasMany(ProductFile::class, 'product_id');
     }
 
     public function files()

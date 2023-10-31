@@ -2,14 +2,11 @@
 
 namespace Plugins\Ecommerce\Models;
 
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Plugins\Sale\Factories\ProductFileFactory;
 
-class ProductFile extends Model
+class Unit extends Model
 {
 
     /**
@@ -17,17 +14,16 @@ class ProductFile extends Model
      *
      * @var array<int, string>
      */
-    use HasFactory, HasRealtimeData;
+    use  HasRealtimeData;
 
-    protected $table = 'ecommerce_product_file';
+    protected $table = 'ecommerce_units';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'product_id',
-        'file_path',
-        'type',
-        'is_primary',
+        'name',
+        'symbol',
+        'description',
     ];
 
     /**
@@ -51,23 +47,7 @@ class ProductFile extends Model
     ];
 
     protected $appends = [
-        'file_url'
     ];
 
-    public function getFileUrlAttribute()
-    {
-        return env('APP_URL') . '/' . $this->file_path;
-    }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class,'product_id');
-    }
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory()
-    {
-        return ProductFileFactory::new();
-    }
 }

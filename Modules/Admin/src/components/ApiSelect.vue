@@ -1,32 +1,44 @@
 <template>
-  <a-select
-    class="w-full"
-    show-search
-    allow-clear
-    v-bind="$attrs"
-    :filterOption="onFilter"
-    @search="filterOption"
-    v-model:value="inputValue"
-    @change="handleChange"
-  >
-    <template :key="option[valueKey]" v-for="option in filteredOptions">
-      <slot name="option" v-bind="{option,valueKey,labelKey}">
-        <a-select-option :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]">
-          {{ option[labelKey] }}
-        </a-select-option>
-      </slot>
-    </template>
+  <div class="w-full h-full flex flex-row">
+    <a-select
+      class="flex-1  !w-full"
+      show-search
+      allow-clear
+      v-bind="$attrs"
+      :filterOption="onFilter"
+      @search="filterOption"
+      v-model:value="inputValue"
+      @change="handleChange"
+    >
+      <template :key="option[valueKey]" v-for="option in filteredOptions">
+        <slot name="option" v-bind="{option,valueKey,labelKey}">
+          <a-select-option :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]">
+            {{ option[labelKey] }}
+          </a-select-option>
+        </slot>
+      </template>
 
-  </a-select>
+    </a-select>
+    <a-button  v-if="$slots.create" class="ml-2  !h-[40px] !w-[40px] " type="primary" ghost @click="showCreate=true">
+      <template #icon>
+        <plus-outlined/>
+      </template>
+    </a-button>
+  </div>
+
+  <a-modal v-model:open="showCreate" v-if="$slots.create">
+    <slot v-if="showCreate" name="create" v-bind="{fetch,hideModal,setValue}"></slot>
+    <template #footer></template>
+  </a-modal>
 </template>
 <script lang="ts">
 import {defineComponent, ref, watch, unref, computed, toRaw} from 'vue';
 import Api from "@/utils/Api";
 import {createApiStore} from '@/stores/apiStore'
+import {PlusOutlined} from '@ant-design/icons-vue'
 
 export default defineComponent({
-  name: 'InputUpload',
-  components: {},
+  components: {PlusOutlined},
   props: {
     value: [String, Number, Array],
     url: String,
@@ -45,6 +57,7 @@ export default defineComponent({
   setup(props, {emit}) {
     const inputValue = ref(toRaw(props.value));
     const store = ref({data: []});
+    const showCreate = ref(false);
     const options = computed(() => {
       return store.value.data
     });
@@ -58,7 +71,6 @@ export default defineComponent({
     }
 
     const filterOption = (input: string) => {
-      console.log(999, options)
       if (!input || input == '') {
         filteredOptions.value = toRaw(options.value)
         return
@@ -81,6 +93,16 @@ export default defineComponent({
     fetch()
     return {
       store,
+      fetch,
+      hideModal() {
+        showCreate.value = false
+      },
+      setValue(value) {
+        inputValue.value = value
+        emit('update:value', inputValue.value);
+        emit('change', inputValue.value);
+      },
+      showCreate,
       filteredOptions,
       inputValue,
       onFilter,

@@ -10,14 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-
-
         Schema::create('ecommerce_units', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('image')->nullable();
+            $table->string('symbol')->index();
+            $table->text('description')->nullable();
             $table->timestamps();
-
         });
     }
 

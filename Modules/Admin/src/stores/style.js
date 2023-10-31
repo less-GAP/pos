@@ -19,7 +19,7 @@ export const useStyleStore = defineStore("style", {
     },
     antdv: {
       autoInsertSpaceInButton: true,
-      componentSize: "mini",
+      componentSize: "large",
       theme: {
         token: {
           colorPrimary: 'rgb(255 159 67 / var(--tw-text-opacity))',
@@ -80,6 +80,6 @@ export const useStyleStore = defineStore("style", {
     },
   },
   persist: {
-    enabled: true
+    enabled: false
   }
 });
