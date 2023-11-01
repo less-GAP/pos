@@ -34,6 +34,7 @@
     "surrealdb.js": "^0.9.1",
     "unws": "^0.2.4",
     "vue": "^3.0.0",
+    "vue-cal": "^4.8.1",
     "vue-live": "^2.5.4",
     "vue-router": "^4.0.0",
     "vue-sweetalert2": "^5.0.5",

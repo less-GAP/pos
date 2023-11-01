@@ -37,6 +37,18 @@ return [
                     ],
                     'view' => '/product/form.vue'
                 ],
+                $prefix . '/category' => [
+                    'meta' => [
+                        'title' => 'Category management',
+                    ],
+                    'view' => '/category/index.vue'
+                ],
+                $prefix . '/category/:id' => [
+                    'meta' => [
+                        'title' => 'Category management',
+                    ],
+                    'view' => '/category/form.vue'
+                ],
                 $prefix . '/brand' => [
                     'meta' => [
                         'title' => 'Brand management',

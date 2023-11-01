@@ -29,6 +29,9 @@ import {createApiStore} from "@/stores/apiStore";
 import {EloquentRouter} from "@/utils/EloquentRouter";
 import PluginView from "@/modules/plugin/PluginView.vue";
 import ModelManager from "@/utils/ModelManager";
+import VueCal from 'vue-cal'
+import 'vue-cal/dist/vuecal.css'
+import {createCacheStore} from "@/stores/cacheStore";
 /* Init Pinia */
 const pinia = createPinia();
 pinia.use(piniaPersist)
@@ -40,6 +43,7 @@ const myApp = createApp(App).use(Vue3Signature)
   .use(pinia)
   .component('LayoutAuthenticated', LayoutAuthenticated)
   .component('PluginSideBar', PluginSideBar)
+  .component('Calendar', VueCal)
   .component('ApiStore', ApiStore)
   .component('ApiData', ApiData)
   .component('InputUpload', InputUpload)
@@ -65,6 +69,7 @@ myApp.config.globalProperties.$style = styleStore;
 myApp.config.globalProperties.$appState = appState;
 myApp.config.globalProperties.$profileState = profileState;
 myApp.config.globalProperties.$createApiStore = createApiStore;
+myApp.config.globalProperties.$createCacheStore = createCacheStore;
 myApp.config.globalProperties.$eloquentRouter = EloquentRouter();
 myApp.config.globalProperties.__ = translation.__;
 myApp.config.globalProperties.$url = url;

@@ -3,17 +3,17 @@
 function main(props) {
     let {Api, plugin, computed, component, h, compile, ref, reactive, currentRoute, modelManager, router} = props
     Object.assign(this, props)
-    this.prefix = '/ecommerce/product'
+    this.prefix = '/ecommerce/category'
     const routePrefix = this.prefix
     const self = this
-    this.store = modelManager.model('product').paginate({include: 'images'})
+    this.store = modelManager.model('category').paginate({})
     const itemActions = [
         {
-            label: 'Edit Product',
+            label: 'Edit Category',
             icon: 'fa fa-edit',
             action: (item, reload) => {
                 //showEditUser({}, reload)
-                router.replace(routePrefix + '/' + item.id + '/detail')
+                router.replace(routePrefix + '/' + item.id )
             }
         },
         // {
@@ -72,16 +72,16 @@ function main(props) {
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Product</h4>
-                <h6>Manage your products</h6>
+                <h4>Category</h4>
+                <h6>Manage your categories</h6>
             </div>
             <div class="page-btn">
 
-                <router-link :to="plugin.url('/product/new')" class="btn btn-added"><img
+                <router-link :to="plugin.url('/category/new')" class="btn btn-added"><img
                     :src="plugin?.assets('/img/icons/plus.svg')"
                     alt="img"
                     class="mr-1">Add
-                    Product
+                    Category
                 </router-link>
             </div>
         </div>

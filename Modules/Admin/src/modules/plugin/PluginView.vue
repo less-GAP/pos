@@ -7,6 +7,8 @@ import {getPlugin} from "@/utils/PluginManager"
 import router from "@/router";
 import {onActivated, onDeactivated} from 'vue'
 import ModelManager from "@/utils/ModelManager";
+import {createApiStore} from "@/stores/apiStore";
+import {createCacheStore} from "@/stores/cacheStore";
 
 const template = ref();
 const templateProps = ref({});
@@ -28,6 +30,8 @@ getPlugin(props.pluginName).then(_plugin => {
     reactive,
     onActivated,
     onDeactivated,
+    createApiStore,
+    createCacheStore,
     component: $instance,
     modelManager: ModelManager,
     currentRoute: router.currentRoute,

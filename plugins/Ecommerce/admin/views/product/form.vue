@@ -3,7 +3,7 @@
     const self = this;
     Object.assign(this, props);
     this.store = modelManager.model('product').find(currentRoute.value.params.id, {include: 'images'})
-    this.closeDetail = function () {
+    this.backToList = function () {
         router.replace(plugin.url('/product'))
     }
 }</script>
@@ -12,7 +12,7 @@
     <div class="content" data-select2-id="27">
         <div class="page-header">
             <div class="page-title">
-                <h4>Product Add</h4>
+                <h4>Product</h4>
                 <h6>Create new product</h6>
             </div>
         </div>
@@ -59,15 +59,15 @@
                             </a-form-item>
                         </div>
                         <a-form-item name="unit_id" label="Unit" class="form-group">
-                            <ApiSelect labelKey="name" valueKey="name" url="/model/unit/all"
-                                       v-model:value="store.data.unit_id">
-                            </ApiSelect>
+                            <a-input labelKey="name" valueKey="name" url="/model/unit/all"
+                                       v-model:value="store.data.unit">
+                            </a-input>
                         </a-form-item>
                         <a-form-item name="sku" :rules="[{ required: true }]" label="SKU" class="form-group">
                             <a-input v-model:value="store.data.sku" type="text"/>
                         </a-form-item>
                         <a-form-item :rules="[{ required: true }]" name="price" label="Price" class="form-group">
-                            <a-input-number v-model:value="store.data.price"/>
+                            <a-input-number style="width: 200px" v-model:value="store.data.price"/>
                         </a-form-item>
 
                         <div class="sm:col-span-2 lg:col-span-4">
@@ -86,9 +86,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-span-2">
+                        <div class="w-full">
                             <a-button html-type="submit" type="primary" class="btn btn-submit mr-2">Submit</a-button>
-                            <a href="productlist.html" class="btn btn-cancel">Cancel</a>
+                            <a-button @click="backToList"  class="btn btn-cancel">Cancel</a-button>
                         </div>
                     </div>
                 </div>
