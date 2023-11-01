@@ -1,8 +1,8 @@
 <script>function main(props) {
-    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router} = props;
+    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router, modelManager} = props;
     const self = this;
     Object.assign(this, props);
-    this.store = plugin.model('product').find(currentRoute.value.params.id)
+    this.store = modelManager.model('product').find(currentRoute.value.params.id, {include: 'images'})
     this.closeDetail = function () {
         router.replace(plugin.url('/product'))
     }
@@ -16,7 +16,6 @@
                 <h6>Create new product</h6>
             </div>
         </div>
-
         <a-form class="w-full h-full " layout="vertical" v-bind="$config.formConfig"
                 ref="formRef"
                 :model="store.data"
@@ -25,14 +24,16 @@
                 <div class="card-body" data-select2-id="25">
                     <div class="sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6" data-select2-id="24">
                         <div>
-                            <a-form-item :rules="[{ required: true }]" label="Product Name" class="form-group">
+                            <a-form-item name="name" :rules="[{ required: true }]" label="Product Name"
+                                         class="form-group">
 
                                 <a-input v-model:value="store.data.name" type="text"></a-input>
                             </a-form-item>
                         </div>
                         <div>
-                            <a-form-item :rules="[{ required: true }]" label="Category" class="form-group">
-                                <ApiSelect labelKey="name" valueKey="id" url="/ecommerce/category/all"
+                            <a-form-item name="category_id" :rules="[{ required: true }]" label="Category"
+                                         class="form-group">
+                                <ApiSelect labelKey="name" valueKey="id" url="/model/category/all"
                                            v-model:value="store.data.category_id">
                                     <template #create="{fetch,hideModal,setValue}">
                                         <PluginView @close="hideModal"
@@ -44,138 +45,49 @@
                             </a-form-item>
                         </div>
                         <div>
-                            <a-form-item :rules="[{ required: true }]" label="Branch" class="form-group">
-                                <ApiSelect labelKey="name" valueKey="id" url="/ecommerce/branch/all"
-                                           v-model:value="store.data.branch_id">
+                            <a-form-item name="brand_id" :rules="[{ required: true }]" label="Brand"
+                                         class="form-group">
+                                <ApiSelect labelKey="name" valueKey="id" url="/model/brand/all"
+                                           v-model:value="store.data.brand_id">
                                     <template #create="{fetch,hideModal,setValue}">
                                         <PluginView @close="hideModal"
                                                     @created="result=>{hideModal();fetch();setValue(result.id)}"
                                                     pluginName="ecommerce"
-                                                    view="/branch/QuickCreateForm.vue"/>
+                                                    view="/brand/QuickCreateForm.vue"/>
                                     </template>
                                 </ApiSelect>
                             </a-form-item>
                         </div>
-                        <div>
-                            <a-form-item :rules="[{ required: true }]" label="Unit" class="form-group">
-                                <ApiSelect labelKey="name" valueKey="id" url="/ecommerce/unit/all"
-                                           v-model:value="store.data.unit_id">
-                                </ApiSelect>
-                            </a-form-item>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label>SKU</label>
-                                <a-input v-model:value="store.data.sku" type="text">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label>Minimum Qty</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="text">
-                            </div>
-                        </div>
+                        <a-form-item name="unit_id" label="Unit" class="form-group">
+                            <ApiSelect labelKey="name" valueKey="name" url="/model/unit/all"
+                                       v-model:value="store.data.unit_id">
+                            </ApiSelect>
+                        </a-form-item>
+                        <a-form-item name="sku" :rules="[{ required: true }]" label="SKU" class="form-group">
+                            <a-input v-model:value="store.data.sku" type="text"/>
+                        </a-form-item>
+                        <a-form-item :rules="[{ required: true }]" name="price" label="Price" class="form-group">
+                            <a-input-number v-model:value="store.data.price"/>
+                        </a-form-item>
+
                         <div class="sm:col-span-2 lg:col-span-4">
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control"></textarea>
+                                <a-textarea v-model:value="store.data.description" class="form-control"></a-textarea>
                             </div>
                         </div>
-                        <div>
-                            <div class="form-group" data-select2-id="50">
-                                <label>Tax</label>
-                                <select class="select select2-hidden-accessible" data-select2-id="13"
-                                        tabindex="-1"
-                                        aria-hidden="true">
-                                    <option data-select2-id="15">Choose Tax</option>
-                                    <option data-select2-id="51">2%</option>
-                                </select><span
-                                class="select2 select2-container select2-container--default select2-container--below"
-                                dir="ltr" data-select2-id="14" style="width: 100%;"><span
-                                class="selection"><span
-                                class="select2-selection select2-selection--single" role="combobox"
-                                aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false"
-                                aria-labelledby="select2-3vjf-container"><span
-                                class="select2-selection__rendered"
-                                id="select2-3vjf-container"
-                                role="textbox" aria-readonly="true"
-                                title="Choose Tax">Choose Tax</span><span
-                                class="select2-selection__arrow" role="presentation"><b
-                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                                                                   aria-hidden="true"></span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label>Discount Type</label>
-                                <select class="select select2-hidden-accessible" data-select2-id="16"
-                                        tabindex="-1"
-                                        aria-hidden="true">
-                                    <option data-select2-id="18">Percentage</option>
-                                    <option>10%</option>
-                                    <option>20%</option>
-                                </select><span class="select2 select2-container select2-container--default"
-                                               dir="ltr" data-select2-id="17" style="width: 100%;"><span
-                                class="selection"><span class="select2-selection select2-selection--single"
-                                                        role="combobox" aria-haspopup="true"
-                                                        aria-expanded="false"
-                                                        tabindex="0" aria-disabled="false"
-                                                        aria-labelledby="select2-6h01-container"><span
-                                class="select2-selection__rendered" id="select2-6h01-container" role="textbox"
-                                aria-readonly="true" title="Percentage">Percentage</span><span
-                                class="select2-selection__arrow" role="presentation"><b
-                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                                                                   aria-hidden="true"></span></span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label> Status</label>
-                                <select class="select select2-hidden-accessible" data-select2-id="19"
-                                        tabindex="-1"
-                                        aria-hidden="true">
-                                    <option data-select2-id="21">Closed</option>
-                                    <option>Open</option>
-                                </select><span class="select2 select2-container select2-container--default"
-                                               dir="ltr" data-select2-id="20" style="width: 100%;"><span
-                                class="selection"><span class="select2-selection select2-selection--single"
-                                                        role="combobox" aria-haspopup="true"
-                                                        aria-expanded="false"
-                                                        tabindex="0" aria-disabled="false"
-                                                        aria-labelledby="select2-qqj6-container"><span
-                                class="select2-selection__rendered" id="select2-qqj6-container" role="textbox"
-                                aria-readonly="true" title="Closed">Closed</span><span
-                                class="select2-selection__arrow" role="presentation"><b
-                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                                                                                   aria-hidden="true"></span></span>
-                            </div>
-                        </div>
+
+
                         <div class="sm:col-span-2 lg:col-span-4">
                             <div class="form-group">
                                 <label> Product Image</label>
                                 <div class="image-upload">
-                                    <input type="file">
-                                    <div class="image-uploads">
-                                        <img src="assets/img/icons/upload.svg" alt="img">
-                                        <h4>Drag and drop a file to upload</h4>
-                                    </div>
+                                    <InputUpload multiple="true" v-model:value="store.data.images"></InputUpload>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-2">
-                            <a-button html-type="submit" type="primary"  class="btn btn-submit mr-2">Submit</a-button>
+                            <a-button html-type="submit" type="primary" class="btn btn-submit mr-2">Submit</a-button>
                             <a href="productlist.html" class="btn btn-cancel">Cancel</a>
                         </div>
                     </div>

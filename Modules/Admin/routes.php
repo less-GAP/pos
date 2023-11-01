@@ -2,6 +2,7 @@
 
 use App\Builder\EloquentRouter;
 use Illuminate\Support\Facades\Route;
+use Lessgap\ModelManager;
 use Lessgap\Models\EventSetting;
 use Modules\Admin\Actions\GetUserInfoAction;
 use Modules\Admin\Actions\Customer\DeleteCustomerAction;
@@ -83,16 +84,17 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
 
 
     EloquentRouter::prefix('file')
+        ->routes(function () {
+            Route::get('list', \Modules\Admin\Actions\File\GetListAction::class . '@handle');
+            Route::post('/Upload', \Modules\Admin\Actions\File\PostUploadAction::class . '@handle');
+            Route::post('/Info', \Modules\Admin\Actions\File\PostInfoAction::class . '@handle');
+        })
         ->handle(
             \App\Models\File::class,
             [
                 'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'file_name')]
             ]
-        )->routes(function () {
-            Route::get('list', \Modules\Admin\Actions\File\GetListAction::class . '@handle');
-            Route::post('/Upload', \Modules\Admin\Actions\File\PostUploadAction::class . '@handle');
-            Route::post('/Info', \Modules\Admin\Actions\File\PostInfoAction::class . '@handle');
-        });
+        );
 
     EloquentRouter::prefix('email')
         ->handle(
@@ -136,6 +138,12 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
 
     Route::get('notifications', \Modules\Admin\Actions\Notification\GetNotifications::class . '@handle');
     Route::post('notification/read', \Modules\Admin\Actions\Notification\ReadAction::class . '@handle');
+    Route::prefix('model')->group(function () {
+        Route::get('/{model}/paginate', ModelManager::class . '@paginate');
+        Route::get('/{model}/all', ModelManager::class . '@all');
+        Route::post('/{model}/{id?}', ModelManager::class . '@updateOrCreate');
+        Route::get('/{model}/{id?}', ModelManager::class . '@getDetail');
+    });
     Route::prefix('plugin')->group(function () {
         Route::get('/detail/{plugin}', \Modules\Admin\Actions\Plugin\GetPluginDetailAction::class . '@handle');
         Route::post('/status', \Modules\Admin\Actions\Plugin\PostPluginStatusAction::class . '@handle');

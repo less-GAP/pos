@@ -12,7 +12,7 @@ return new class extends Migration {
     {
 
 
-        Schema::create('ecommerce_branch', function (Blueprint $table) {
+        Schema::create('ecommerce_brands', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
             $table->string('image')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('ecommerce_branch');
+        Schema::dropIfExists('ecommerce_brands');
     }
 };

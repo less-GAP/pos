@@ -31,17 +31,23 @@ return [
                     ],
                     'view' => '/product/form.vue'
                 ],
-                $prefix . '/branch' => [
+                $prefix . '/product/:id/detail' => [
                     'meta' => [
-                        'title' => 'Branch management',
+                        'title' => 'Product management',
                     ],
-                    'view' => '/branch/index.vue'
+                    'view' => '/product/form.vue'
                 ],
-                $prefix . '/branch/:id' => [
+                $prefix . '/brand' => [
                     'meta' => [
-                        'title' => 'Branch management',
+                        'title' => 'Brand management',
                     ],
-                    'view' => '/branch/form.vue'
+                    'view' => '/brand/index.vue'
+                ],
+                $prefix . '/brand/:id' => [
+                    'meta' => [
+                        'title' => 'Brand management',
+                    ],
+                    'view' => '/brand/form.vue'
                 ],
             ],
 

@@ -1,11 +1,12 @@
 <script>
 
 function main(props) {
-    let {Api, plugin, computed, component, h, compile, ref, reactive, currentRoute, router} = props
+    let {Api, plugin, computed, component, h, compile, ref, reactive, currentRoute, modelManager, router} = props
     Object.assign(this, props)
     this.prefix = '/ecommerce/product'
     const routePrefix = this.prefix
     const self = this
+    this.store = modelManager.model('product').paginate({include:'images'})
     const itemActions = [
         {
             label: 'Sale Detail',
@@ -37,7 +38,6 @@ function main(props) {
         }
     ]
     this.tableConfig = {
-        params: {include: 'customer'},
         itemActions,
         columns: [
             {
@@ -97,85 +97,83 @@ function main(props) {
                 </router-link>
             </div>
         </div>
-        <ApiStore @load="loadStore" url="/sales/order/list" :config="{autoload:false}">
-            <template #default="{store}">
-                <DataTable v-bind="tableConfig" :store="store">
-                    <template #listActions="{selectedItems}">
-                        <ul>
-                            <li>
-                                <a title="pdf"><img
-                                    :src="plugin?.assets('/img/icons/pdf.svg')" alt="img"></a>
-                            </li>
-                            <li>
-                                <a title="excel"><img
-                                    :src="plugin?.assets('/img/icons/excel.svg')" alt="img"></a>
-                            </li>
-                            <li>
-                                <a title="print"><img
-                                    :src="plugin?.assets('/img/icons/printer.svg')" alt="img"></a>
-                            </li>
-                        </ul>
-                    </template>
-                    <template #advanceSearch="{reload,filter,toggleSearch,loading}">
-                        <div class="row">
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input v-model="filter.name" type="text" placeholder="Enter Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input v-model="filter.ref_no" type="text" placeholder="Enter Reference No">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <select v-model="filter.status" class="select select2-hidden-accessible"
-                                            data-select2-id="1"
-                                            tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="3">Completed</option>
-                                        <option>Paid</option>
-                                    </select>
 
-                                </div>
-
-                            </div>
-                            <a-space class="form-group">
-                                <a-button outline @click="toggleSearch">
-                                    Close
-                                </a-button>
-                                <a-button :loading="loading" type="primary" @click="reload">
-                                    <template #icon>
-                                        <i class="fa fa-search mr-3"></i>
-                                    </template>
-                                    Filter
-                                </a-button>
-                            </a-space>
+        <DataTable v-bind="tableConfig" :store="store">
+            <template #listActions="{selectedItems}">
+                <ul>
+                    <li>
+                        <a title="pdf"><img
+                            :src="plugin?.assets('/img/icons/pdf.svg')" alt="img"></a>
+                    </li>
+                    <li>
+                        <a title="excel"><img
+                            :src="plugin?.assets('/img/icons/excel.svg')" alt="img"></a>
+                    </li>
+                    <li>
+                        <a title="print"><img
+                            :src="plugin?.assets('/img/icons/printer.svg')" alt="img"></a>
+                    </li>
+                </ul>
+            </template>
+            <template #advanceSearch="{reload,filter,toggleSearch,loading}">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <input v-model="filter.name" type="text" placeholder="Enter Name">
                         </div>
-                    </template>
-                    <template #cell[order_status]="{ item, column, index }">
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <input v-model="filter.ref_no" type="text" placeholder="Enter Reference No">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <select v-model="filter.status" class="select select2-hidden-accessible"
+                                    data-select2-id="1"
+                                    tabindex="-1" aria-hidden="true">
+                                <option data-select2-id="3">Completed</option>
+                                <option>Paid</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+                    <a-space class="form-group">
+                        <a-button outline @click="toggleSearch">
+                            Close
+                        </a-button>
+                        <a-button :loading="loading" type="primary" @click="reload">
+                            <template #icon>
+                                <i class="fa fa-search mr-3"></i>
+                            </template>
+                            Filter
+                        </a-button>
+                    </a-space>
+                </div>
+            </template>
+            <template #cell[order_status]="{ item, column, index }">
                         <span v-if="item.order_status=='success'" class="badges bg-lightgreen">{{
                                 item.order_status
                             }}</span>
-                        <span v-if="item.order_status=='pending'" class="badges bg-yellow-500">{{
-                                item.order_status
-                            }}</span>
-                        <span v-if="item.order_status=='cancel'" class="badges bg-red-500">{{
-                                item.order_status
-                            }}</span>
-                    </template>
-                    <template #cell[payment_status]="{ item, column, index }">
-                        <span class="badges bg-lightgreen">{{ item.payment_status }}</span>
-                    </template>
-                    <template #cell[customer.type]="{ item, column, index }">
-                        {{ item.customer?.type }}
-                    </template>
-                    <template #cell[customer.name]="{ item, column, index }">
-                        {{ item.customer?.name }}
-                    </template>
-                </DataTable>
+                <span v-if="item.order_status=='pending'" class="badges bg-yellow-500">{{
+                        item.order_status
+                    }}</span>
+                <span v-if="item.order_status=='cancel'" class="badges bg-red-500">{{
+                        item.order_status
+                    }}</span>
             </template>
-        </ApiStore>
+            <template #cell[payment_status]="{ item, column, index }">
+                <span class="badges bg-lightgreen">{{ item.payment_status }}</span>
+            </template>
+            <template #cell[customer.type]="{ item, column, index }">
+                {{ item.customer?.type }}
+            </template>
+            <template #cell[customer.name]="{ item, column, index }">
+                {{ item.customer?.name }}
+            </template>
+        </DataTable>
+
 
     </div>
 </template>

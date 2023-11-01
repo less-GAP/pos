@@ -1,18 +1,20 @@
 <script setup>
-import {computed, h, compile, ref,unref, reactive, getCurrentInstance} from "vue";
+import {computed, h, compile, ref, unref, reactive, getCurrentInstance} from "vue";
 import Api from "@/utils/Api";
 import VRuntimeTemplate from "vue3-runtime-template";
 import {AsyncData} from "@/components";
 import {getPlugin} from "@/utils/PluginManager"
 import router from "@/router";
 import {onActivated, onDeactivated} from 'vue'
+import ModelManager from "@/utils/ModelManager";
 
 const template = ref();
 const templateProps = ref({});
 const props = defineProps(['name', 'path', 'view', 'pluginName'])
-const emit = defineEmits(['leave','created','close'])
+const emit = defineEmits(['leave', 'created', 'close'])
 const $instance = getCurrentInstance()
 const plugin = ref()
+
 getPlugin(props.pluginName).then(_plugin => {
   plugin.value = _plugin
   plugin.value.view(props.view, {
@@ -27,6 +29,7 @@ getPlugin(props.pluginName).then(_plugin => {
     onActivated,
     onDeactivated,
     component: $instance,
+    modelManager: ModelManager,
     currentRoute: router.currentRoute,
     router
   }).then(rs => {

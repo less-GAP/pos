@@ -47,8 +47,10 @@ export function createApiStore(url, config = {
           {params: {...config.params, ...params}}
         )
           .then((rs) => {
-            this.data = rs.data
-            this.originalData = {...rs.data}
+            if (rs.data) {
+              this.data = rs.data
+              this.originalData = {...rs.data}
+            }
             return rs
           })
 

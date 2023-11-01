@@ -1,11 +1,11 @@
 <script>function main(props) {
-    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router, unref, emit} = props;
+    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router, unref,modelManager, emit} = props;
     const self = this;
     Object.assign(this, props);
 
     this.formState = reactive({})
     this.submit = async function () {
-        const result = await plugin.model('category').createApi(self.formState);
+        const result = await modelManager.model('category').createApi(self.formState);
         Object.assign(self.formState, {})
         setTimeout(() => {
             emit('created', result.data.result)

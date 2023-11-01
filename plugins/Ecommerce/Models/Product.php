@@ -5,6 +5,7 @@ namespace Plugins\Ecommerce\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\File;
+use App\Traits\HasImages;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,7 @@ class Product extends Model
         'name',
         'category_id',
         'brand_id',
+        'sku',
         'price',
         'price_discount',
         'status',
@@ -73,13 +75,14 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany(ProductFile::class, 'product_id');
+        return $this->belongsToMany(File::class, 'ecommerce_product_file', 'file_id', 'product_id');
     }
 
     public function files()
     {
         return $this->hasMany(ProductFile::class, 'product_id');
     }
+
     /**
      * Create a new factory instance for the model.
      */
@@ -87,4 +90,18 @@ class Product extends Model
     {
         return ProductFactory::new();
     }
+
+    public function saveImages($files)
+    {
+        if (!is_array($files) || !count($files)) {
+            return;
+        }
+        $data = [];
+        foreach ($files as $file) {
+            $data[] = $file['id'];
+        }
+        $this->images()->sync($data);
+        return $this->load('images');
+    }
+
 }

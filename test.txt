@@ -1,0 +1,15 @@
+Evisa:
+- Linh hoạt trong việc cấu hình các dịch vụ evisa (thời gian giá tiền)
+- Phân chia khách hàng ra nhiều phân khúc với các chiết khấu khác
+nhau
+- Dữ liệu của hệ thống được thể hiên realtime trong dashboard
+- Chăm sóc khách hàng qua email và sms
+- Hệ thống thanh toán đa dạng (paypal, square ,stripe ... )
+P05:
+- Hệ thống sản phẩm đa dạng , khách hàng có thể mua theo từng sản phẩm hoặc theo gói sản phẩm
+- Hệ thống thanh toán đa dạng (paypal, square ,stripe ... )
+- Kết nối với các đơn vị vận chuyển phổ biến (giao hàng tiết kiêm, giao hàng nhanh ...)
+- Dữ liệu của hệ thống được thể hiên realtime trong dashboard
+- Phân khúc khách hàng làm 3 cấp với các mức chiết khấu khác nhau cho referral
+- Chăm sóc khách hàng qua email và sms
+

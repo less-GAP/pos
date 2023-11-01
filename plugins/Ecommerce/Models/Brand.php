@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Plugins\Sale\Factories\CategoryFactory;
 
-class Branch extends Model
+class Brand extends Model
 {
     use CreatedUpdatedByAdmin;
 
@@ -20,7 +20,7 @@ class Branch extends Model
      */
     use  HasRealtimeData;
 
-    protected $table = 'ecommerce_branch';
+    protected $table = 'ecommerce_brands';
 
     public $timestamps = true;
 

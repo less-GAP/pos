@@ -4,10 +4,10 @@ import {createApiStore} from "@/stores/apiStore";
 
 export function UseEloquentRouter(prefix, options = {}) {
   const find = function (id, params) {
-    return createApiStore(prefix + '/' + id, {params})
+    return createApiStore(prefix + '/' + id, {params, autoload: true})
   }
-  const paginate = function (id, params) {
-    return createApiStore(prefix + '/list', {params})
+  const paginate = function (params) {
+    return createApiStore(prefix + '/paginate', {params})
   }
   const getListApi = function (params) {
     return Api.get(prefix + '/list', {params: {...options, ...params}})
@@ -35,6 +35,7 @@ export function UseEloquentRouter(prefix, options = {}) {
   };
   return {
     find,
+    paginate,
     getListApi,
     attachRelationShipApi,
     detachRelationShipApi,

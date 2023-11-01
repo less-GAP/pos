@@ -14,10 +14,12 @@ return new class extends Migration {
         Schema::create('ecommerce_products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->bigInteger('brand_id')->nullable();
+            $table->integer('brand_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->bigInteger('price')->nullable();
             $table->bigInteger('price_discount')->nullable();
             $table->string('status')->default('active')->index();
+            $table->string('sku')->nullable();
             $table->string('unit')->nullable();
             $table->string('product_code')->nullable();
             $table->string('short_description')->nullable();
@@ -29,8 +31,7 @@ return new class extends Migration {
         Schema::create('ecommerce_product_file', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->index();
-            $table->string('file_path')->index();
-            $table->string('type')->default('image');
+            $table->string('file_id')->index();
             $table->tinyInteger('is_primary')->default(0);
             $table->timestamps();
 
@@ -49,6 +50,7 @@ return new class extends Migration {
             $table->timestamps();
 
         });
+
     }
 
     /**

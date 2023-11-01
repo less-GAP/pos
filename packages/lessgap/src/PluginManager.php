@@ -8,9 +8,11 @@ class PluginManager
 {
     public $plugins = [];
 
-    public function add($name, $config)
+    public function active($name, $config)
     {
         $this->plugins[strtolower($name)] = new LessgapPlugin($name, $config);
+
+
     }
 
     public function loadPlugin($name)

@@ -1,11 +1,11 @@
 <script>function main(props) {
-    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router, unref, emit} = props;
+    let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, modelManager, router, unref, emit} = props;
     const self = this;
     Object.assign(this, props);
 
     this.formState = reactive({})
     this.submit = async function () {
-        const result = await plugin.model('branch').createApi(self.formState);
+        const result = await modelManager.model('brand').createApi(self.formState);
         Object.assign(self.formState, {})
         setTimeout(() => {
             emit('created', result.data.result)
@@ -20,8 +20,7 @@
             :model="formState"
             @finish="submit">
 
-        <a-form-item :rules="[{ required: true }]" label="Branch Name" class="form-group">
-
+        <a-form-item :rules="[{ required: true }]" label="Brand Name" class="form-group">
             <a-input v-model:value="formState.name" type="text"></a-input>
         </a-form-item>
 

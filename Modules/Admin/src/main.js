@@ -21,12 +21,14 @@ import {useAppStateStore} from "@/stores/appState";
 import Format from "@/utils/Format";
 import Vue3Signature from "vue3-signature"
 import * as config from "@/config";
+
 import {useProfileState} from "@/lessgap/stores/ProfileStore";
-import {ApiData, ApiSelect, ApiStore, DataTable, PluginSideBar} from "@/components";
+import {ApiData, ApiSelect, ApiStore, DataTable, InputUpload, PluginSideBar} from "@/components";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {createApiStore} from "@/stores/apiStore";
 import {EloquentRouter} from "@/utils/EloquentRouter";
 import PluginView from "@/modules/plugin/PluginView.vue";
+import ModelManager from "@/utils/ModelManager";
 /* Init Pinia */
 const pinia = createPinia();
 pinia.use(piniaPersist)
@@ -40,6 +42,7 @@ const myApp = createApp(App).use(Vue3Signature)
   .component('PluginSideBar', PluginSideBar)
   .component('ApiStore', ApiStore)
   .component('ApiData', ApiData)
+  .component('InputUpload', InputUpload)
   .component('ApiSelect', ApiSelect)
   .component('DataTable', DataTable)
   .component('PluginView', PluginView)
@@ -54,6 +57,7 @@ profileState.fetch()
 const translation = useTranslation();
 
 myApp.config.globalProperties.$config = config;
+myApp.config.globalProperties.$modelManager = ModelManager;
 myApp.config.globalProperties.$auth = authStore;
 myApp.config.globalProperties.$api = Api;
 myApp.config.globalProperties.$format = Format;
