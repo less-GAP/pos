@@ -1,7 +1,17 @@
 version: '3'
 
 services:
-
+  salon_dev:
+    user: ${MY_UID}:${MY_GID}
+    image: node:19
+    working_dir: /var/www
+    command: bash -c "npm i && npm run dev --host"
+    environment:
+      - "USER=${USER}"
+    volumes:
+      - ./Modules/Salon:/var/www
+    ports:
+      - 9400:9200
   admin_dev:
     user: ${MY_UID}:${MY_GID}
     image: node:19

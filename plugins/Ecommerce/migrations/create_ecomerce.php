@@ -34,7 +34,6 @@ return new class extends Migration {
             $table->string('file_id')->index();
             $table->tinyInteger('is_primary')->default(0);
             $table->timestamps();
-
         });
         Schema::create('ecommerce_product_category', function (Blueprint $table) {
             $table->id();

@@ -66,11 +66,20 @@ function main(props) {
         </a-button>
     </a-space>
     <a-card style="margin-top:15px">
-        <a-form class="clearfix" :model="filter.data">
+        <a-form layout="vertical" class="clearfix" :model="filter.data">
 
             <a-space>
-                <a-select placeholder="Vị trí" style="width:200px" v-model:value="filter.data.place"></a-select>
-                <a-select placeholder="Nhân viên" style="width:200px" v-model:value="filter.data.place"></a-select>
+                <a-form-item label="Vị trí">
+                    <a-select placeholder="Vị trí" v-model:value="filter.data.place_id"></a-select>
+                </a-form-item>
+                <a-form-item label="Nhân viên">
+                    <ApiSelect url="/model/user/all" labelKey="full_name" valueKey="id" placeholder="Nhân viên"
+                               v-model:value="filter.data.staff_id"></ApiSelect>
+                </a-form-item>
+                <a-form-item label="Khách Hàng">
+                    <a-select
+                        v-model:value="filter.data.customer_id"></a-select>
+                </a-form-item>
             </a-space>
             <a-space class="float-right">
                 <a-select v-model:value="filter.data.view">
@@ -100,7 +109,7 @@ function main(props) {
                   :on-event-click="onEventClick"
                   :events="calendar.events"
                   @cell-focus="selectedDate = $event.date || $event"
-                  style="height: 800px">
+        >
             <template #split-label="{ split, view }">
                 {{ split.label }}
             </template>
