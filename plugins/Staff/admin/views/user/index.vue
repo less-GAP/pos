@@ -7,21 +7,27 @@ function main(props) {
     this.tableConfig = {
         params: {include: 'roles'},
         columns: [
-            {title: 'Username', width: 200, key: 'username'}
+            {
+                title: 'Username',
+                width: 200,
+                key: 'username',
+                sorter: (a, b) => a.username.localeCompare(b.username),
+                sortDirections: ['descend', 'ascend'],
+            }
             , {title: 'Name', key: 'full_name'}
             , {title: 'Role', key: 'roles'}
         ],
         itemActions: [
             {
-                label: 'User Detail',
                 icon: 'fa fa-eye',
                 action: (item, reload) => {
                     router.replace(self.prefix + '/' + item.id)
                 }
             },
             {
-                label: 'Delete',
+                label: '',
                 icon: 'fa fa-trash',
+                class: '!text-red-600',
                 confirm: true,
                 action(item, reload) {
                     Api.delete(self.prefix + '/' + item.id).then(rs => {
@@ -40,7 +46,6 @@ function main(props) {
         <div class="page-header">
             <div class="page-title">
                 <h4>User List</h4>
-                <h6>Manage your sales</h6>
             </div>
             <div class="page-btn">
                 <router-link to="/staff/user/new" class="btn btn-added">
@@ -98,6 +103,7 @@ function main(props) {
                           v-model:checked="item.deleted"/>
             </template>
             <template #cell[roles]="{item,column}">
+                &nbsp;
                 <div v-for="role in item.roles" :key="role.id">
                     <a-tag>{{ role.name }}</a-tag>
                 </div>

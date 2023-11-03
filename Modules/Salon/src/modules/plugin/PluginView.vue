@@ -16,7 +16,6 @@ const props = defineProps(['name', 'path', 'view', 'pluginName'])
 const emit = defineEmits(['leave', 'created', 'close'])
 const $instance = getCurrentInstance()
 const plugin = ref()
-
 getPlugin(props.pluginName).then(_plugin => {
   plugin.value = _plugin
   plugin.value.view(props.view, {
@@ -49,7 +48,8 @@ getPlugin(props.pluginName).then(_plugin => {
     <v-runtime-template :template-props="templateProps" :template="template"></v-runtime-template>
     <router-view v-slot="{ Component }">
       <transition>
-        <component :is="Component" :plugin="plugin"
+        <component :is="Component" :pluginName="pluginName"
+                   :view="$route.meta.view"
                    :key="$route.path"/>
       </transition>
     </router-view>

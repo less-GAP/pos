@@ -1,30 +1,31 @@
 <?php
 
-namespace Plugins\Sale\Models;
+namespace Plugins\Staff\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\CreatedUpdatedByAdmin;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Plugins\Sale\Factories\CategoryFactory;
 
-class Category extends Model
+class PlaceGroup extends Model
 {
+    use CreatedUpdatedByAdmin;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    use HasFactory, HasRealtimeData;
+    use  HasRealtimeData;
 
-    protected $table = 'categories';
+    protected $table = 'staff_place_groups';
 
     public $timestamps = true;
 
     protected $fillable = [
         'name',
-        'description',
     ];
 
     /**
@@ -50,11 +51,5 @@ class Category extends Model
     protected $appends = [
     ];
 
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory()
-    {
-        return CategoryFactory::new();
-    }
+
 }

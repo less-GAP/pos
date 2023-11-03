@@ -1,36 +1,35 @@
 <?php
 
-namespace Plugins\Sale\Models;
+namespace Plugins\Staff\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\CreatedUpdatedByAdmin;
 use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Plugins\Sale\Factories\SalesOrderFactory;
+use Plugins\Sale\Factories\CategoryFactory;
 
-class SalesOrder extends Model
+class Place extends Model
 {
+    use CreatedUpdatedByAdmin;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    use HasFactory, HasFactory, HasRealtimeData;
+    use  HasRealtimeData;
 
-    protected $table = 'sales_orders';
+    protected $table = 'staff_places';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'customer_id',
-        'company_id',
-        'order_code',
-        'order_status',
-        'payment_status',
-        'total_price',
-        'total_paid',
-        'sale_id',
+        'name',
+        'status',
+        'group_id',
+        'type',
+        'description',
     ];
 
     /**
@@ -56,18 +55,5 @@ class SalesOrder extends Model
     protected $appends = [
     ];
 
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'sales_order_product', 'sale_orders_id', 'product_id','id','id');
-    }
-    public function customer(){
-        return $this->belongsTo(Customer::class,'customer_id');
-    }
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory()
-    {
-        return SalesOrderFactory::new();
-    }
+
 }

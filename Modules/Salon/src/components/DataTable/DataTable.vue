@@ -109,7 +109,7 @@ function reload(showLoading = false) {
     page: props.pagination.page,
     ...props.params,
     ...getFilter(),
-  }) .then((rs) => {
+  }).then((rs) => {
     if (rs.data?.total) {
       props.pagination.total = rs.data?.total ? rs.data.total : 0;
     }
@@ -159,7 +159,7 @@ reload()
           <a-form layout="inline">
             <a-space>
               <div><label>
-                <a-input allow-clear  @keyup.enter.native="reload"
+                <a-input allow-clear @keyup.enter.native="reload"
                          v-model:value="filter.search"
                          placeholder="Search..."
                 >
@@ -183,104 +183,62 @@ reload()
           <slot name="advanceSearch" v-bind="{reload,filter,toggleSearch,loading}"></slot>
         </div>
       </div>
-
       <div v-if="store.data?.data?.length" class="table-responsive">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-          <table class="table datanew dataTable no-footer" id="DataTables_Table_0" role="grid"
-                 aria-describedby="DataTables_Table_0_info">
-            <thead>
-            <tr role="row">
-              <th v-if="showSelection" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                  colspan="1"
-                  aria-sort="ascending" aria-label="
-: activate to sort column descending" style="width: 50.65px;">
-                <label class="checkboxs">
-                  <input v-model="checkAll" @change="toggleCheckAll" type="checkbox" id="select-all">
-                  <span class="checkmarks"></span>
-                </label>
-              </th>
-              <th v-for="column in columns" :key="column.key" scope="col" :width="column.width ? column.width : 'auto'"
-                  class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                  aria-label="Date: activate to sort column ascending">
-                <slot :name="'header['+column.key+']'">
-                  {{ column.title }}
-                </slot>
-              </th>
-              <th v-if="itemActions.length" :width="80" scope="col"
-                  class="p-2 text-center whitespace-nowrap">
-                {{ __("Action") }}
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in store.data?.data" :class="{ 'odd': index % 2 === 0 }">
-              <td v-if="showSelection" class="sorting_1">
-                <label class="checkboxs">
-                  <input :id="item[tableConfig.item_key]" v-model="selectedItems" :value="item" type="checkbox">
-                  <span class="checkmarks"></span>
-                </label>
-              </td>
-              <td v-for="column in columns" :key="column.key">
-                <slot :name="'cell[' + column.key + ']'" v-bind="{ item, column, index }">
-                  {{
-                    $style["format"][column.key]
-                      ? $style["format"][column.key]($format.getObjValue(item, column.key))
-                      : $format.getObjValue(item, column.key)
-                  }}
-                </slot>
-              </td>
-
-              <td v-if="itemActions.length" class="text-center relative ">
-                <a-dropdown trigger="click" placement="bottomRight">
-                  <a-button class="action-set"
-                            aria-expanded="true">
-                    <template #icon>
-                      <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                    </template>
-                  </a-button>
-                  <template #overlay>
-                    <a-menu>
-                      <template v-for="itemAction in itemActions">
-                        <a-menu-item>
-                          <slot :name="'cellAction[' + itemAction.key + ']'" v-bind="{
+          <a-table v-bind="$props" :dataSource="store.data.data"
+                   :columns="columns.map(item=>{return {...item,dataIndex:item.key}}).concat({key:'action',width:100})"
+                   :pagination="false"
+                   class="table datanew dataTable no-footer" id="DataTables_Table_0" role="grid"
+                   aria-describedby="DataTables_Table_0_info">
+            <template #headerCell="{ column }">
+              <slot :name="'header['+column.key+']'">
+                {{ column.title }}
+              </slot>
+            </template>
+            <template #bodyCell="{ column, record,index }">
+              <template v-if="itemActions?.length && column.key=='action'">
+                <template v-for="itemAction in itemActions">
+                  <slot :name="'cellAction[' + itemAction.key + ']'" v-bind="{
                     item,
                     itemAction,
                     actionMethod() {
-                      itemAction.action(item, reload);
+                      itemAction.action(record, reload);
                     },
                   }">
-                            <a-popconfirm v-if="itemAction.confirm" title="Are you sure？"
-                                          @confirm="itemAction.action(item, reload)">
-                              <a-button type="link" class="dropdown-item" :class="itemAction.class
+                    <a-popconfirm v-if="itemAction.confirm" title="Are you sure？"
+                                  @confirm="itemAction.action(record, reload)">
+                      <a-button type="link" class="dropdown-item" :class="itemAction.class
                           ? itemAction.class
                           : ''
                         ">
-                                <template v-if="itemAction.icon" #icon>
-                                  <i :class="itemAction.icon" class="flex-none mr-2"/>
-                                </template>
-                                {{ itemAction.label }}
-                              </a-button>
-                            </a-popconfirm>
-                            <a-button v-else class="dropdown-item" :class="itemAction.class
+                        <template v-if="itemAction.icon" #icon>
+                          <i :class="itemAction.icon" class="flex-none mr-2"/>
+                        </template>
+                        {{ itemAction.label }}
+                      </a-button>
+                    </a-popconfirm>
+                    <a-button v-else class="dropdown-item" :class="itemAction.class
                         ? itemAction.class
                         : ''
-                      " type="link" @click="itemAction.action(item, reload)">
-                              <template v-if="itemAction.icon" #icon>
-                                <i :class="itemAction.icon" class="flex-none mr-2"/>
-                              </template>
-                              {{ itemAction.label }}
-                            </a-button>
-                          </slot>
-                        </a-menu-item>
+                      " type="link" @click="itemAction.action(record, reload)">
+                      <template v-if="itemAction.icon" #icon>
+                        <i :class="itemAction.icon" class="flex-none mr-2"/>
                       </template>
-                    </a-menu>
-                  </template>
-                </a-dropdown>
-              </td>
-            </tr>
+                      {{ itemAction.label }}
+                    </a-button>
+                  </slot>
+                </template>
+              </template>
+              <slot v-else :name="'cell[' + column.key + ']'" v-bind="{ item:record, column, index }">
+                {{
+                  $style["format"][column.key]
+                    ? $style["format"][column.key]($format.getObjValue(record, column.key))
+                    : $format.getObjValue(record, column.key)
+                }}
+              </slot>
+            </template>
 
-            </tbody>
-          </table>
+          </a-table>
           <a-pagination v-if="showPagination && store.data && pagination?.total > pagination.perPage"
                         v-model:current="pagination.page" v-model:pageSize="pagination.perPage" style="height: 40px"
                         class="pt-2 !mt-5"

@@ -9,7 +9,7 @@
 
 <template>
     <a-drawer :closable="false" style="position:relative;display:flex;flex-direction:column;height:100vh;" :open="true"
-              @close="closeDetail" width="30vw">
+              @close="closeDetail" width="500px">
         <ApiStore :url="'/staff/user/'+$route.params.id" :config="{autoload:$route.params.id=='new'?false:true}"
                   :params="{include:'customer,products'}" v-slot="{ store }">
             <a-form autocomplete="off" :loading="store.loading" autocomplete="off" v-bind="$config.formConfig"
@@ -17,29 +17,19 @@
                     @finish="store.submitUpdate()"
                     ref="formRef">
                 <div class="p-3 bg-gray-200">
-                    <a-button class="!hidden md:!inline-block" type="link" @click="closeDetail">
-                        <template #icon>
-                            <div class="flex">
-                                <BaseIcon :path="mdiBackspace" class="w-4 text-stone-500"/>
-                                <span class="ml-1 text-stone-500">Back</span>
-                            </div>
-                        </template>
-                    </a-button>
-                    <a-button class="!inline-flex items-center justify-center md:!hidden !w-8 !h-8 !p-0" type="link"
+                    <a-button class="!inline-flex items-center justify-center md:!hidden !w-8 !h-8 !p-0" type="text"
                               @click="closeDetail">
                         <template #icon>
-                            <div class="flex">
-                                <BaseIcon :path="mdiBackspace" class="w-4 text-stone-500"/>
-                                <span class="ml-1 text-stone-500">Back</span>
+                            <div class="fa fa-arrow-left">
                             </div>
                         </template>
                     </a-button>
                     <a-space class="float-right">
                         <a-button html-type="submit" type="primary" class="uppercase">
-                            <div class="flex">
-                                <BaseIcon :path="mdiContentSave" class="w-4 text-white"/>
-                                <span class="ml-1 text-white">Save</span>
-                            </div>
+                            <template #icon>
+                                <i class="fa fa-save mr-3"></i>
+                            </template>
+                            <span class="ml-1 text-white">Save</span>
                         </a-button>
                     </a-space>
                 </div>

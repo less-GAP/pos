@@ -22,9 +22,7 @@ export const useStyleStore = defineStore("style", {
       componentSize: "medium",
       theme: {
         token: {
-          colorPrimary: 'rgb(255 159 67 / var(--tw-text-opacity))',
-          colorLinkHover: 'rgb(255 159 67 / var(--tw-text-opacity))',
-          colorLink: 'rgb(9 44 76 / var(--tw-text-opacity))',
+
         }
       },
       space: {size: "small"},

@@ -55,28 +55,25 @@ function main(props) {
                 cancel-text="No"
                 @confirm="ordersStore.data.splice(index,1)"
             >
-                <span style="position: absolute ;right:10px;top:10px" class="fa fa-times-circle-o"/>
+                <span style="position: absolute ;right:10px;top:10px" class="fa fa-times"/>
 
             </a-popconfirm>
         </a-button>
         <a-button @click="ordersStore.data.push({})" type="primary" ghost shape="circle">
-            <template #icon>
-                <span class="fa fa-plus "/>
-            </template>
+            <span class="fa fa-plus "/>
         </a-button>
     </a-space>
     <a-card style="margin-top:15px">
-        <a-form layout="vertical" class="clearfix" :model="filter.data">
-
+        <a-form layout="horizontal" class="clearfix" :model="filter.data">
             <a-space>
-                <a-form-item label="Vị trí">
+                <a-form-item style="width: 250px"  label="Vị trí">
                     <a-select placeholder="Vị trí" v-model:value="filter.data.place_id"></a-select>
                 </a-form-item>
-                <a-form-item label="Nhân viên">
+                <a-form-item style="width: 250px"  label="Nhân viên">
                     <ApiSelect url="/model/user/all" labelKey="full_name" valueKey="id" placeholder="Nhân viên"
                                v-model:value="filter.data.staff_id"></ApiSelect>
                 </a-form-item>
-                <a-form-item label="Khách Hàng">
+                <a-form-item style="width: 250px"  label="Khách Hàng">
                     <a-select
                         v-model:value="filter.data.customer_id"></a-select>
                 </a-form-item>

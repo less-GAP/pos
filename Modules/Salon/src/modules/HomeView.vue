@@ -14,6 +14,10 @@ import CardBoxTransaction from "@/components/CardBoxTransaction.vue";
 import CardBoxClient from "@/components/CardBoxClient.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+import {
+  ArrowUpOutlined,
+  ArrowDownOutlined,
+} from '@ant-design/icons-vue';
 
 const chartData = ref(null);
 
@@ -34,15 +38,50 @@ const transactionBarItems = computed(() => mainStore.history);
 
 <template>
   <LayoutAuthenticated>
-    <h1 class="text-2xl">Kết quả bán hàng hôm nay</h1>
-    <a-row>
-      <a-col :span="12">
-        <a-statistic title="Active Users" :value="112893" style="margin-right: 50px" />
-      </a-col>
-      <a-col :span="12">
-        <a-statistic title="Account Balance (CNY)" :precision="2" :value="112893" />
-      </a-col>
-    </a-row>
+    <a-layout>
+      <a-layout-content style="padding: 0 15px;margin-top:20px;margin-bottom: 20px">
+        <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+
+          <h1 class="text-2xl mb-5">Kết quả bán hàng hôm nay</h1>
+          <a-row>
+            <a-col :span="6">
+              <a-statistic title="Doanh thu 15 hóa đơn" value="1500 $" :value-style="{ color: '#3f8600' }"
+                           style="margin-right: 50px">
+                <template #prefix>
+                  <ArrowUpOutlined/>
+                </template>
+              </a-statistic>
+            </a-col>
+            <a-col :span="6">
+              <a-statistic title="Khách hàng" value="8" :value-style="{ color: '#3f8600' }" style="margin-right: 50px">
+                <template #prefix>
+                  <ArrowUpOutlined/>
+                </template>
+              </a-statistic>
+            </a-col>
+          </a-row>
+          <a-row class="mt-5">
+            <a-col :span="6">
+              <a-statistic title="Khách đang phục vụ" value="10"
+                           style="margin-right: 50px">
+              </a-statistic>
+            </a-col>
+            <a-col :span="6">
+              <a-statistic title="Khách sắp đến" value="5"
+                           style="margin-right: 50px">
+              </a-statistic>
+            </a-col>
+          </a-row>
+        </div>
+      </a-layout-content>
+      <a-layout-sider width="300"
+                      style="padding: 0;padding-right: 15px ;margin-top:20px;margin-bottom: 20px;background: transparent">
+        <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+          sider
+        </div>
+      </a-layout-sider>
+    </a-layout>
+
   </LayoutAuthenticated>
 </template>
 <style type="text/css">
