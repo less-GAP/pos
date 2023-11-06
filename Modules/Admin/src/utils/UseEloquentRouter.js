@@ -3,8 +3,8 @@ import {notification} from "ant-design-vue";
 import {createApiStore} from "@/stores/apiStore";
 
 export function UseEloquentRouter(prefix, options = {}) {
-  const find = function (id, params) {
-    return createApiStore(prefix + '/' + id, {params, autoload: true})
+  const find = function (id, params, defaultData) {
+    return createApiStore(prefix + '/' + id, {params, autoload: true},defaultData)
   }
   const paginate = function (params) {
     return createApiStore(prefix + '/paginate', {params})

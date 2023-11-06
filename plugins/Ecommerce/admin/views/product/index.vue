@@ -129,8 +129,7 @@ function main(props) {
 
             </div>
         </div>
-
-        <DataTable v-bind="tableConfig" :store="store">
+        <DataTable v-if="store" v-bind="tableConfig" :store="store">
             <template #lineSearch>
                 <a-select allow-clear style="width:200px" @change="store.fetch" placeholder="Loại sản phẩm"
                           v-model:value="store.params['filter[type]']">

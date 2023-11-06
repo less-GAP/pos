@@ -28,7 +28,7 @@ export function createApiStore(url, _config = {}, defaultData) {
     state: () => ({
       /* User */
       data: defaultData,
-      params: config.params,
+      params: config.params?config.params:{},
       originalData: {},
       loaded: false,
       loading: false,
