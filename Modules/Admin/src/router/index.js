@@ -61,15 +61,20 @@ function getApiRoutes(name, routes, isChildren = false) {
 
 }
 
-const rs = await Api.get('/plugin/routes')
-const pluginRoutes = rs.data
 
-for (const name in pluginRoutes) {
-  routes = [...routes, ...getApiRoutes(name, pluginRoutes[name])]
+async function getRoutes() {
+  const rs = await Api.get('/plugin/routes')
+  const pluginRoutes = rs.data
+
+  for (const name in pluginRoutes) {
+    routes = [...routes, ...getApiRoutes(name, pluginRoutes[name])]
+  }
+  return routes
 }
+
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: await getRoutes(),
   scrollBehavior(to, from, savedPosition) {
     return savedPosition || {
       top: 0
