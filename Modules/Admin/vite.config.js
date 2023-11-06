@@ -23,7 +23,8 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'public'
+    outDir: 'public',
+    target: 'esnext'
   },
   configureWebpack: {
     resolve: {
