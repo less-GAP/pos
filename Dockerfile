@@ -20,7 +20,7 @@ WORKDIR /app
 COPY ./Modules/Salon/package*.json ./
 # install project dependencies
 RUN npm install
-COPY ./Modules/Admin .
+COPY ./Modules/Salon .
 # build app for production with minification
 RUN npm run build
 FROM node:19 AS node
