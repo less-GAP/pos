@@ -36,6 +36,8 @@ class LessgapServiceProvider extends ServiceProvider
         $this->app->singleton(ModelManager::class, function (Application $app) {
             return new ModelManager();
         });
+        try{
+
         $activePlugins = \DB::table('plugins')->where('status', 'active')->pluck('name');
         $pluginDir = base_path('/plugins');
         foreach ($activePlugins as $activePlugin) {
@@ -45,5 +47,6 @@ class LessgapServiceProvider extends ServiceProvider
                 app(ModelManager::class)->active($config['models']);
             }
         }
+        }catch (\Throwable $e){}
     }
 }
