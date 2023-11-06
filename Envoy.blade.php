@@ -1,7 +1,7 @@
 @servers(['web' => 'root@134.122.4.168'])
 
 @task('deploy')
-    cd /home/unify_laravel
+    cd /home/pos
     git pull origin main -X theirs
     sh build.sh
     docker-compose down -v && docker-compose up -d
