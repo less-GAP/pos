@@ -45,31 +45,6 @@ import {createCacheStore} from "@/stores/cacheStore";
 const pinia = createPinia();
 pinia.use(piniaPersist)
 let pluginRoutes = []
-const rs = await Api.get('/plugin/routes')
-pluginRoutes = rs.data
-
-function getApiRoutes(name, routes, isChildren = false) {
-  let result = []
-  for (let path in routes) {
-    const route = routes[path]
-    const newRoute = {
-      path: path,
-      component: !isChildren ? () => import('@/modules/plugin/PluginRoot.vue') : () => import('@/modules/plugin/PluginView.vue'),
-      name: path,
-      children: route.children ? getApiRoutes(name, route.children, true) : [],
-      meta: {plugin: name, view: route.view, ...route.meta}
-    }
-    result.push(newRoute)
-  }
-  return result
-
-}
-
-let apiRoutes = []
-for (const name in pluginRoutes) {
-  apiRoutes = [...getApiRoutes(name, pluginRoutes[name])]
-}
-router.addRoute(apiRoutes)
 /* Create Vue app */
 const myApp = createApp(App).use(Vue3Signature)
   .use(router)
