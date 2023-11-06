@@ -17,7 +17,7 @@ FROM node:19 as nail
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY ./Modules/Admin/package*.json ./
+COPY ./Modules/Salon/package*.json ./
 # install project dependencies
 RUN npm install
 COPY ./Modules/Admin .
