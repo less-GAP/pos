@@ -29,7 +29,7 @@ export default defineConfig({
   configureWebpack: {
     resolve: {
       alias: {
-        vue$: "vue/dist/vue.common"
+        vue$: 'vue/dist/vue.esm-bundler.js',
       }
     }
   },
