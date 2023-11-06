@@ -1,16 +1,34 @@
 import {defineStore} from "pinia";
+import {watch} from "vue";
 import Api from "@/utils/Api";
 
-export function createApiStore(url, config = {
-  cache: false,
-  params: {},
-  autoload: true,
-  versionKey: null
-}) {
+export function createApiStore(url, _config = {}, defaultData) {
+  const config = {
+    ...{
+      cache: false,
+      params: {
+        filter: {}
+      },
+      autoload: true,
+      versionKey: null
+    }, ..._config
+  }
+  function getFilter(filter) {
+    if (!filter) {
+      return {}
+    }
+    let rs = {};
+    for (let filterKey in filter.value) {
+      rs["filter[" + filterKey + "]"] = filter.value[filterKey];
+    }
+    return rs;
+  }
+
   const store = defineStore(url, {
     state: () => ({
       /* User */
-      data: {},
+      data: defaultData,
+      params: config.params,
       originalData: {},
       loaded: false,
       loading: false,
@@ -42,9 +60,11 @@ export function createApiStore(url, config = {
             this.loading = false
           });
       },
-      async fetch(params = null) {
+
+      async fetch(params = {}) {
+        Object.assign(this.params, params)
         return Api.get(url,
-          {params: {...config.params, ...params}}
+          {params: {...this.params, ...getFilter(this.params.filter)}}
         )
           .then((rs) => {
             if (rs.data) {
@@ -53,7 +73,6 @@ export function createApiStore(url, config = {
             }
             return rs
           })
-
       },
       async init(params) {
         if (this.loaded) {

@@ -1,6 +1,7 @@
 <template>
   <div style="background:#4b6580;padding:0 50px;display:flex;justify-content:space-between;align-items: center;">
-    <a-menu @click="({item})=>{$router.replace(item.to)}" theme="dark" style="color:white;background:transparent;width:80%;" v-model:selectedKeys="current"
+    <a-menu @click="({item})=>{$router.replace(item.to)}" theme="dark"
+            style="color:white;background:transparent;width:80%;" v-model:selectedKeys="current"
             mode="horizontal" :items="items"/>
     <router-link to="/sales/pos">
       <a-button style=" display: block;
@@ -30,10 +31,11 @@ import {
 import {MenuProps} from 'ant-design-vue';
 
 const current = ref<string[]>(['mail']);
-const items = ref<MenuProps['items']>([
+const items = ref([
   {
     key: 'dashboard',
     icon: () => h(EyeOutlined),
+    to: '/',
     label: 'Tổng quan',
     title: 'Tổng quan',
   }, {
@@ -44,6 +46,7 @@ const items = ref<MenuProps['items']>([
     children: [
       {
         key: 'items-1',
+        to: '/ecommerce/product/',
         label: 'Danh mục',
       },
       {
@@ -61,6 +64,7 @@ const items = ref<MenuProps['items']>([
     key: 'place',
     icon: () => h(ApartmentOutlined),
     label: 'Vị trí/Phòng',
+    to: '/ecommerce/service-place',
     title: 'Vị trí/Phòng',
   },
   {
@@ -112,7 +116,7 @@ const items = ref<MenuProps['items']>([
       {
         key: 'items-1',
         label: 'Nhân viên',
-        to:'/staff/user'
+        to: '/staff/user'
       },
       {
         key: 'items-2',

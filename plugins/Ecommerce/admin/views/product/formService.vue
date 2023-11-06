@@ -1,16 +1,29 @@
-<script>function main(props) {
+<script>
+
+function main(props) {
     let {Api, plugin, computed, h, compile, ref, reactive, currentRoute, router, modelManager} = props;
     const self = this;
     Object.assign(this, props);
-    this.store = modelManager.model('product').find(currentRoute.value.params.id, {include: 'images,variants,places'}, {
+    this.store = modelManager.model('product').find(currentRoute.value.params.id, {include: 'images,places,cost_items,cost_items.images'}, {
+        type: 'service',
+        cost_items: [],
         images: [],
-        variants: [],
         places: [],
     })
     this.backToList = function () {
         router.replace(plugin.url('/product'))
     }
-}</script>
+    this.getTotal = function (items, key) {
+        let total = 0
+        items.map(item => {
+            total += parseFloat(item[key]) * parseInt(item.pivot.quantity)
+        })
+        return total
+    }
+}
+
+
+</script>
 
 <template>
 
@@ -49,7 +62,7 @@
                                     <a-form-item name="sku" :rules="[{required:true}]">
                                         <template #label>
                                             <a-space>
-                                                Mã sản phẩm
+                                                Mã dịch vụ
                                                 <a-popover>
                                                     <template #content>
                                                         Mã sản phẩm được tạo tự động hoặc nhập vào
@@ -62,9 +75,32 @@
 
                                     </a-form-item>
 
-                                    <a-form-item name="name" :rules="[{required:true}]" label="Tên sản phẩm">
+                                    <a-form-item name="name" :rules="[{required:true}]" label="Tên dịch vụ">
                                         <a-input v-model:value="store.data.name"></a-input>
                                     </a-form-item>
+                                    <a-form-item name="name" :rules="[{required:true}]" label="Thời lượng">
+                                        <a-space>
+
+                                            <a-input-number :min="0"
+                                                            v-model:value="store.data.quantity"></a-input-number>
+                                            <ApiSelect style="width:100px" labelKey="name" valueKey="name"
+                                                       url="/model/taxonomy/all"
+                                                       :params="{'filter[type]':'service_unit'}"
+                                                       v-model:value="store.data.unit">
+                                                <template #create="{fetch,hideModal,setValue}">
+                                                    <PluginView @close="hideModal"
+                                                                @created="result=>{hideModal();fetch();setValue(result.name)}"
+                                                                pluginName="ecommerce"
+                                                                type="service_unit"
+                                                                title="Tạo đơn vị"
+                                                                view="/taxonomy/QuickCreateForm.vue"/>
+                                                </template>
+                                            </ApiSelect>
+                                        </a-space>
+
+                                    </a-form-item>
+
+
                                     <a-form-item label="Nhóm sản phẩm">
                                         <ApiSelect labelKey="name" valueKey="id" url="/model/taxonomy/all"
                                                    v-model:value="store.data.category_id"
@@ -94,7 +130,7 @@
                                         <ApiSelectObject mode="multiple" labelKey="name" valueKey="id"
                                                          url="/model/taxonomy/all"
                                                          v-model:value="store.data.places"
-                                                         :params="{'filter[type]':'product_place'}">
+                                                         :params="{'filter[type]':'service-place'}">
                                             <template #create="{fetch,hideModal,setValue}">
                                                 <PluginView @close="hideModal"
                                                             @created="result=>{hideModal();fetch();setValue(result.id)}"
@@ -107,7 +143,7 @@
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="10">
-                                    <a-form-item :rules="[{required:true}]">
+                                    <a-form-item name="cost_price" :rules="[{required:true}]">
                                         <template #label>
                                             <a-space>
                                                 Giá vốn
@@ -121,7 +157,7 @@
                                         </template>
                                         <InputMoney v-model:value="store.data.cost_price"></InputMoney>
                                     </a-form-item>
-                                    <a-form-item :rules="[{required:true}]">
+                                    <a-form-item name="sell_price" :rules="[{required:true}]">
                                         <template #label>
                                             <a-space>
                                                 Giá bán
@@ -135,35 +171,7 @@
                                         </template>
                                         <InputMoney v-model:value="store.data.sell_price"></InputMoney>
                                     </a-form-item>
-                                    <a-form-item name="unit" :rules="[{ required: true }]" label="Đơn vị"
-                                                 class="form-group">
-                                        <ApiSelect labelKey="name" valueKey="name" url="/model/taxonomy/all"
-                                                   :params="{'filter[type]':'product_unit'}"
-                                                   v-model:value="store.data.unit">
-                                            <template #create="{fetch,hideModal,setValue}">
-                                                <PluginView @close="hideModal"
-                                                            @created="result=>{hideModal();fetch();setValue(result.name)}"
-                                                            pluginName="ecommerce"
-                                                            type="product_unit"
-                                                            title="Tạo đơn vị"
-                                                            view="/taxonomy/QuickCreateForm.vue"/>
-                                            </template>
-                                        </ApiSelect>
-                                    </a-form-item>
-                                    <a-form-item name="stock" :rules="[{required:true}]">
-                                        <template #label>
-                                            <a-space>
-                                                Tồn kho
-                                                <a-popover>
-                                                    <template #content>
-                                                        Dùng để tính lợi nhuận
-                                                    </template>
-                                                    <i class="fa fa-info-circle"></i>
-                                                </a-popover>
-                                            </a-space>
-                                        </template>
-                                        <a-input-number v-model:value="store.data.stock"></a-input-number>
-                                    </a-form-item>
+
                                 </a-col>
                             </a-row>
                             <a-row>
@@ -173,70 +181,105 @@
                             </a-row>
                         </a-card>
                     </a-tab-pane>
-                    <a-tab-pane key="2" tab="Mô tả chi tiết">
-                        <a-card style="background: #eee">
-                            <div class="mb-5">
-                                Thuộc tính (Màu sắc, Kích thước...)
-                            </div>
-                            <div class="flex justify-items-start" v-for="(attribute,index) in store.data.variants">
-                                <a-form-item>
-                                    <a-space>
-                                        <div style="width:200px">
-                                            <ApiSelect
-                                                :disableValues="store.data.variants.map(value=>value.name)"
-                                                labelKey="name" valueKey="name" url="/model/taxonomy/all"
-                                                v-model:value="attribute.name"
-                                                :params="{'filter[type]':'product_variant'}">
-                                                <template #create="{fetch,hideModal,setValue}">
-                                                    <PluginView @close="hideModal"
-                                                                @created="result=>{hideModal();fetch();setValue(result.id)}"
-                                                                pluginName="ecommerce"
-                                                                title="Thêm thuộc tính"
-                                                                type="product_variant"
-                                                                view="/taxonomy/QuickCreateForm.vue"/>
-                                                </template>
-                                            </ApiSelect>
-                                        </div>
+                    <a-tab-pane key="2" tab="Nguyên liệu tiêu hao">
+                        <a-form-item>
+                            <template #label>
+                                <a-space>
+                                    Nguyên liệu tiêu hao
+                                    <a-popover>
+                                        <template #content>
+                                            Vị trí hàng hóa được cất giữ. Ví dụ tủ lạnh, bếp...
+                                        </template>
+                                        <i class="fa fa-info-circle"></i>
 
-                                        <!--                                <ApiSelect v-if="attribute.taxonomy_id" labelKey="name" valueKey="id"-->
-                                        <!--                                           url="/model/taxonomy/all"-->
-                                        <!--                                           v-model:value="attribute.value"-->
-                                        <!--                                           :params="{'filter[type]':'product_variant_value_'+attribute.taxonomy_id}">-->
-                                        <!--                                    <template #create="{fetch,hideModal,setValue}">-->
-                                        <!--                                        <PluginView @close="hideModal"-->
-                                        <!--                                                    @created="result=>{hideModal();fetch();setValue(result.id)}"-->
-                                        <!--                                                    pluginName="ecommerce"-->
-                                        <!--                                                    title="Thêm thuộc tính"-->
-                                        <!--                                                    :type="'product_variant_value_'+attribute.taxonomy_id"-->
-                                        <!--                                                    view="/taxonomy/QuickCreateForm.vue"/>-->
-                                        <!--                                    </template>-->
-                                        <!--                                </ApiSelect>-->
-                                        <a-input style="width:200px" v-model:value="attribute.value"></a-input>
-                                        <a-popconfirm
-                                            title="Are you sure?"
-                                            ok-text="Yes"
-                                            cancel-text="No"
-                                            @confirm="store.data.variants.splice(index,1)"
-                                        >
-                                            <a-button
-                                                type="text" danger>
-                                                <i class="fa fa-trash"></i>
-                                            </a-button>
-                                        </a-popconfirm>
-                                    </a-space>
+                                    </a-popover>
+                                </a-space>
+                            </template>
+                            <ApiSelectObject
+                                mode="multiple"
+                                :transformOption="(option)=>{
+                                    return {
+                                        pivot:{
+                                             item_id:option.id,
+                                             quantity:1
 
-                                </a-form-item>
-
-                                <a-form-item style="width: 200px;margin-right:20px">
-
-                                </a-form-item>
-
-                            </div>
-                            <a-button @click="store.data.variants.push({})">
-                                <i class="fa fa-plus mr-3"></i>
-                                Thêm thuộc tính
-                            </a-button>
-                        </a-card>
+                                        },...option
+                                    }
+                                }"
+                                mode="multiple" labelKey="name" valueKey="id" selectValueKey="item_id"
+                                url="/model/product/all"
+                                v-model:value="store.data.cost_items"
+                                :params="{'filter[type]':'product','include':'images'}">
+                            </ApiSelectObject>
+                        </a-form-item>
+                        <a-table
+                            v-if="store.data.cost_items.length"
+                            :pagination="false"
+                            :columns=" [{title: 'Hình ảnh',width:100,dataIndex: 'images'}
+                            , {title: 'Tên',dataIndex: 'name'}
+                            ,{title: 'Mã',dataIndex: 'sku'}
+                            ,{title: 'Số lương',dataIndex: 'quantity',width:100}
+                            ,{title: 'Giá vốn',dataIndex: 'cost_price',width:200}
+                            ,{title: 'Thành tiền',dataIndex: 'total_price',width:200}
+                            ]"
+                            :data-source="store.data.cost_items" bordered>
+                            <template #bodyCell="{record,column}">
+                                <template v-if="column.dataIndex === 'images'">
+                                    <a-image
+                                        v-if="record.images?.length"
+                                        :preview="{ visible: record.visible }"
+                                        :width="100"
+                                        :src="record.images[0].file_url"
+                                        @click="record.visible = true"
+                                    />
+                                    <div style="display: none">
+                                        <a-image-preview-group
+                                            :preview="{ visible:record.visible, onVisibleChange: vis => (record.visible = vis) }">
+                                            <a-image
+                                                :style="{width:'50px',height:'50px'}"
+                                                v-for="image in record.images"
+                                                :src="image.file_url"
+                                            />
+                                        </a-image-preview-group>
+                                    </div>
+                                </template>
+                                <template v-if="column.dataIndex === 'quantity'">
+                                    <a-input-number :min="1" v-model:value="record.pivot.quantity"></a-input-number>
+                                </template>
+                                <template v-if="column.dataIndex === 'name'">
+                                    {{ record.name }}
+                                </template>
+                                <template v-if="column.dataIndex === 'sku'">
+                                    {{ record.sku }}
+                                </template>
+                                <template v-if="column.dataIndex === 'cost_price'">
+                                    {{ $format.formatMoney(record.cost_price) }}
+                                </template>
+                                <template v-if="column.dataIndex === 'total_price'">
+                                    {{ $format.formatMoney(record.cost_price * record.pivot.quantity) }}
+                                </template>
+                            </template>
+                            <template #summary>
+                                <a-table-summary fixed>
+                                    <a-table-summary-row>
+                                        <a-table-summary-cell class="text-right" :col-span="4"><b>Tổng giá vốn nguyên
+                                            liệu</b></a-table-summary-cell>
+                                        <a-table-summary-cell :col-span="2">
+                                            {{ $format.formatMoney(getTotal(store.data.cost_items, 'cost_price')) }}
+                                        </a-table-summary-cell>
+                                    </a-table-summary-row>
+                                    <a-table-summary-row>
+                                        <a-table-summary-cell class="text-right" :col-span="4"><b>Tổng giá bán nguyên
+                                            liệu</b></a-table-summary-cell>
+                                        <a-table-summary-cell :col-span="2">
+                                            {{ $format.formatMoney(getTotal(store.data.cost_items, 'sell_price')) }}
+                                        </a-table-summary-cell>
+                                    </a-table-summary-row>
+                                </a-table-summary>
+                            </template>
+                        </a-table>
+                    </a-tab-pane>
+                    <a-tab-pane key="3" tab="Mô tả chi tiết">
                         <a-card class="!mt-5" style="background: #eee">
                             <a-form-item label="Mô tả">
                                 <a-textarea v-model:value="store.data.description"></a-textarea>

@@ -12,10 +12,11 @@ class SearchLikeMultipleField implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $fields = explode(',', $property);
-
-        foreach ($fields as $field) {
-            $query = $query->orWhere($field, 'like', '%'.$value.'%');
-        }
+        $query->where(function ($subquery) use ($fields, $value) {
+            foreach ($fields as $field) {
+                $subquery->orWhere($field, 'like', '%' . $value . '%');
+            }
+        });
 
         return $query;
     }

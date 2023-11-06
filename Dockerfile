@@ -11,10 +11,23 @@ COPY ./Modules/Admin .
 # build app for production with minification
 RUN npm run build
 
+FROM node:19 as nail
+#LABEL stage=frontend
+# make the 'app' folder the current working directory
+WORKDIR /app
+
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY ./Modules/Admin/package*.json ./
+# install project dependencies
+RUN npm install
+COPY ./Modules/Admin .
+# build app for production with minification
+RUN npm run build
 FROM node:19 AS node
 FROM registry.digitalocean.com/lessgap/laravel-php82:latest
 WORKDIR /app
-COPY --from=admin /app/public ./public/cpn1234
+COPY --from=admin /app/public ./public/lessgap
+COPY --from=nail /app/public ./public/nail
 RUN mkdir ./storage
 RUN mkdir ./storage/logs
 RUN mkdir ./storage/upload

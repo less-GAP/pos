@@ -1,10 +1,10 @@
 <template>
   <div class="w-full h-full flex flex-row">
-
     <a-select
       class="flex-1  !w-full"
       show-search
       allow-clear
+      :mode="mode"
       v-bind="$attrs"
       :filterOption="onFilter"
       @search="filterOption"
@@ -13,18 +13,30 @@
     >
       <template :key="option[valueKey]" v-for="option in filteredOptions">
         <slot name="option" v-bind="{option,valueKey,labelKey}">
-          <a-select-option :disabled="disableValues.includes(typeof inputValue == 'string'?String(option[valueKey]):option[valueKey])" :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]">
-            {{ option[labelKey] }}
+          <a-select-option
+            :disabled="disableValues.includes(typeof inputValue == 'string'?String(option[valueKey]):option[valueKey])"
+            :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]"
+            :dataOption="option"
+          >
+            {{ $format.getObjValue(option, labelKey) }}
           </a-select-option>
         </slot>
       </template>
+      <template #dropdownRender="{ menuNode: menu }">
+        <v-nodes :vnodes="menu"/>
+        <a-divider v-if="$slots.create" style="margin: 4px 0"/>
+        <a-button v-if="$slots.create" size="mini" class="ml-2 d-block text-center  "
+                  @click="showCreate=true" type="link">
+          <template #icon>
+            <plus-outlined/>
+          </template>
+          Add
+        </a-button>
+      </template>
+
 
     </a-select>
-    <a-button v-if="$slots.create" class="ml-2  !h-[40px] !w-[40px] " type="primary" ghost @click="showCreate=true">
-      <template #icon>
-        <plus-outlined/>
-      </template>
-    </a-button>
+
   </div>
 
   <a-modal v-model:open="showCreate" v-if="$slots.create">
@@ -38,29 +50,53 @@ import Api from "@/utils/Api";
 import {createApiStore} from '@/stores/apiStore'
 import {PlusOutlined} from '@ant-design/icons-vue'
 
+const VNodes = defineComponent({
+  props: {
+    vnodes: {
+      type: Object,
+      required: true,
+    },
+  },
+  render() {
+    return this.vnodes;
+  },
+});
 export default defineComponent({
-  components: {PlusOutlined},
+  components: {PlusOutlined, VNodes},
   props: {
     value: [String, Number, Array],
     url: String,
+    mode: String,
+    disableValues: {
+      type: Array
+      , default: []
+    },
     valueKey: {
       type: String
       , default: 'value'
+    }, selectValueKey: {
+      type: String
+      , default: 'value'
+    },
+    transformOption: {
+      type: Function
+      , default: function (option) {
+        return option
+      }
     },
     labelKey: {
       type: String
       , default: 'label'
-    },
-    disableValues: {
-      type: Array
-      , default: []
     },
     params: Object,
   },
   emits: ['change', 'update:value'],
 
   setup(props, {emit}) {
-    const inputValue = ref(toRaw(props.value));
+    const inputValue = ref([])
+    if (props.value) {
+      inputValue.value = toRaw(props.value).map(item => item[props.valueKey]);
+    }
     const store = ref({data: []});
     const showCreate = ref(false);
     const options = computed(() => {
@@ -68,7 +104,9 @@ export default defineComponent({
     });
     const filteredOptions = ref([]);
     watch(() => props.value, function () {
-      inputValue.value = toRaw(props.value)
+      if (props.value) {
+        inputValue.value = toRaw(props.value).map(item => item[props.valueKey])
+      }
     })
 
     function onFilter() {
@@ -77,10 +115,10 @@ export default defineComponent({
 
     const filterOption = (input: string) => {
       if (!input || input == '') {
-        filteredOptions.value = toRaw(options.value)
+        filteredOptions.value = store.value.data
         return
       }
-      const filters = toRaw(options.value).filter(option => {
+      const filters = store.value.data.filter(option => {
         return String(option[props.labelKey]).toLowerCase().indexOf(String(input).toLowerCase()) >= 0 || String(option[props.valueKey]).toLowerCase().indexOf(String(input).toLowerCase()) >= 0;
       })
       filteredOptions.value = filters
@@ -89,13 +127,23 @@ export default defineComponent({
 
 
     async function fetch() {
-      store.value = await createApiStore(props.url, {autoload: false})
-      store.value.fetch({params: props.params}).then(() => {
+      store.value.fetch(props.params).then(() => {
         filterOption('')
       })
     }
 
+    store.value = createApiStore(props.url, {autoload: false})
     fetch()
+
+
+    async function handleChange() {
+      const values = filteredOptions.value.filter(item => {
+        return inputValue.value.includes(item[props.valueKey])
+      }).map(props.transformOption)
+      emit('update:value', values);
+      emit('change', values);
+    }
+
     return {
       store,
       fetch,
@@ -103,20 +151,21 @@ export default defineComponent({
         showCreate.value = false
       },
       setValue(value) {
-        inputValue.value = value
-        emit('update:value', inputValue.value);
-        emit('change', inputValue.value);
+        if (props.mode == 'multiple') {
+          inputValue.value.push(value[props.valueKey])
+        } else {
+          inputValue.value = value[props.valueKey]
+        }
+        handleChange()
       },
+      handleChange,
       showCreate,
       filteredOptions,
       inputValue,
       onFilter,
       filterOption,
       options,
-      async handleChange() {
-        emit('update:value', inputValue.value);
-        emit('change', inputValue.value);
-      },
+
     };
   },
 });

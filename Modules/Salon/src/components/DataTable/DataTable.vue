@@ -169,7 +169,7 @@ reload()
                 </a-input>
               </label>
               </div>
-              <slot name="lineSearch" v-bind="{reload,filter,toggleSearch,loading}"></slot>
+              <slot name="lineSearch" v-bind="{reload,filter,toggleSearch,loading,store}"></slot>
             </a-space>
 
           </a-form>
@@ -230,11 +230,17 @@ reload()
                 </template>
               </template>
               <slot v-else :name="'cell[' + column.key + ']'" v-bind="{ item:record, column, index }">
-                {{
-                  $style["format"][column.key]
-                    ? $style["format"][column.key]($format.getObjValue(record, column.key))
-                    : $format.getObjValue(record, column.key)
-                }}
+                <template v-if="column.render">
+                  {{ column.render(record,column) }}
+                </template>
+                <template v-else>
+                  {{
+                    $style["format"][column.key]
+                      ? $style["format"][column.key]($format.getObjValue(record, column.key))
+                      : $format.getObjValue(record, column.key)
+                  }}
+                </template>
+
               </slot>
             </template>
 

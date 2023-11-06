@@ -15,5 +15,18 @@ return [
             'allowedIncludes' => [],
             'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name')]
         ],
+        'place' => [
+            'class' => \Plugins\Staff\Models\Place::class,
+            'allowedIncludes' => ['group'],
+            'allowedFilters' => [
+                AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name'),
+                AllowedFilter::exact('group','group_id')
+            ]
+        ],
+        'place_group' => [
+            'class' => \Plugins\Staff\Models\PlaceGroup::class,
+            'allowedIncludes' => [],
+            'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name')]
+        ],
     ]
 ];

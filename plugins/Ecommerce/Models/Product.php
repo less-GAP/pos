@@ -27,13 +27,17 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'category_id',
         'brand_id',
         'sku',
-        'price',
-        'price_discount',
+        'quantity',
+        'stock',
+        'cost_price',
+        'sell_price',
         'status',
         'unit',
+        'note',
         'product_code',
         'short_description',
         'description',
@@ -78,6 +82,70 @@ class Product extends Model
         return $this->belongsToMany(File::class, 'ecommerce_product_file', 'file_id', 'product_id');
     }
 
+    public function places()
+    {
+        return $this->belongsToMany(Taxonomy::class, 'ecommerce_product_taxonomy', 'taxonomy_id', 'product_id');
+    }
+
+    public function cost_items()
+    {
+        return $this->belongsToMany(Product::class, 'ecommerce_product_cost_items', 'item_id', 'product_id')
+            ->where('item_class', Product::class)
+            ->orderByDesc('id')
+            ->withPivot('quantity');
+    }
+
+    public function saveCost_items($items)
+    {
+        if (!is_array($items)) {
+            return;
+        }
+
+        $data = [];
+        foreach ($items as $item) {
+            $data[$item['id']] = [
+                'quantity' => $item['pivot']['quantity'],
+                'item_class' => Product::class
+            ];
+        }
+        $this->cost_items()->sync($data);
+        return $this->load('cost_items','cost_items.images');
+    }
+
+    public function savePlaces($data)
+    {
+        if (!is_array($data)) {
+            return;
+        }
+
+        $ids = [];
+        foreach ($data as $item) {
+            $ids[] = $item['id'];
+        }
+        $this->places()->sync($ids);
+        return $this->load('places');
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function saveVariants($data)
+    {
+        $ids = [];
+        foreach ($data as $variant) {
+            $model = ProductVariant::updateOrCreate([
+                'value' => $variant['value']
+            ], ['name' => $variant['name']
+                , 'product_id' => $this->id
+            ]);
+            $ids[] = $model->id;
+        }
+        ProductVariant::whereNotIn('id', $ids)->delete();
+        return $this->load('variants');
+    }
+
     public function files()
     {
         return $this->hasMany(ProductFile::class, 'product_id');
@@ -93,9 +161,10 @@ class Product extends Model
 
     public function saveImages($files)
     {
-        if (!is_array($files) || !count($files)) {
+        if (!is_array($files)) {
             return;
         }
+
         $data = [];
         foreach ($files as $file) {
             $data[] = $file['id'];

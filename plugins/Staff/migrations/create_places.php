@@ -11,8 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
 
-
-        Schema::create('staff_places', function (Blueprint $table) {
+        Schema::create('staff_place', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
             $table->string('type')->index()->nullable();
@@ -23,7 +22,7 @@ return new class extends Migration {
             $table->string('updated_by')->nullable();
             $table->timestamps();
         });
-        Schema::create('staff_place_groups', function (Blueprint $table) {
+        Schema::create('staff_place_group', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
         });
@@ -34,6 +33,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('staff_places');
+        Schema::dropIfExists('staff_place');
+        Schema::dropIfExists('staff_place_group');
     }
 };

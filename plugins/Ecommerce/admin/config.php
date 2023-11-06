@@ -23,20 +23,39 @@ return [
                     'meta' => [
                         'title' => 'Product management',
                     ],
-                    'view' => '/product/index.vue'
+                    'view' => '/product/index.vue',
+                    'children' => [
+                        $prefix . '/product/:id' => [
+                            'meta' => [
+                                'title' => 'Product management',
+                            ],
+                            'view' => '/product/formProduct.vue'
+                        ],
+
+                        $prefix . '/service/:id' => [
+                            'meta' => [
+                                'title' => 'Service management',
+                            ],
+                            'view' => '/product/formService.vue'
+                        ],
+                    ]
                 ],
-                $prefix . '/product/:id' => [
+                $prefix . '/service-place' => [
                     'meta' => [
-                        'title' => 'Product management',
+                        'title' => 'Place management',
                     ],
-                    'view' => '/product/form.vue'
+                    'view' => '/service-place/index.vue',
+                    'children' => [
+                        $prefix . '/service-place/:id' => [
+                            'meta' => [
+                                'title' => 'Place management',
+                            ],
+                            'view' => '/service-place/form.vue'
+                        ],
+                    ]
                 ],
-                $prefix . '/product/:id/detail' => [
-                    'meta' => [
-                        'title' => 'Product management',
-                    ],
-                    'view' => '/product/form.vue'
-                ],
+
+
                 $prefix . '/category' => [
                     'meta' => [
                         'title' => 'Category management',

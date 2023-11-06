@@ -1,27 +1,27 @@
 <?php
 
-namespace Plugins\Staff\Models;
+namespace Plugins\Ecommerce\Models;
+
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRealtimeData;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\Sale\Factories\ProductFileFactory;
 
-class PlaceGroup extends Model
+class ProductVariant extends Model
 {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    use  HasRealtimeData;
 
-    protected $table = 'staff_place_group';
+
+    protected $table = 'ecommerce_product_variants';
 
     public $timestamps = false;
 
     protected $fillable = [
+        'product_id',
         'name',
+        'value',
     ];
 
     /**
@@ -47,5 +47,11 @@ class PlaceGroup extends Model
     protected $appends = [
     ];
 
+
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
 
 }

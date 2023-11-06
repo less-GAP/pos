@@ -3,6 +3,7 @@
     const self = this;
     Object.assign(this, props);
     this.store = modelManager.model('product').find(currentRoute.value.params.id, {include: 'images,variants,places'}, {
+        type: 'product',
         images: [],
         variants: [],
         places: [],
@@ -92,9 +93,9 @@
                                             </a-space>
                                         </template>
                                         <ApiSelectObject mode="multiple" labelKey="name" valueKey="id"
-                                                         url="/model/taxonomy/all"
-                                                         v-model:value="store.data.places"
-                                                         :params="{'filter[type]':'product_place'}">
+                                                   url="/model/taxonomy/all"
+                                                   v-model:value="store.data.places"
+                                                   :params="{'filter[type]':'product_place'}">
                                             <template #create="{fetch,hideModal,setValue}">
                                                 <PluginView @close="hideModal"
                                                             @created="result=>{hideModal();fetch();setValue(result.id)}"
@@ -107,7 +108,7 @@
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="10">
-                                    <a-form-item :rules="[{required:true}]">
+                                    <a-form-item name="cost_price" :rules="[{required:true}]">
                                         <template #label>
                                             <a-space>
                                                 Giá vốn
@@ -121,7 +122,7 @@
                                         </template>
                                         <InputMoney v-model:value="store.data.cost_price"></InputMoney>
                                     </a-form-item>
-                                    <a-form-item :rules="[{required:true}]">
+                                    <a-form-item name="sell_price" :rules="[{required:true}]">
                                         <template #label>
                                             <a-space>
                                                 Giá bán

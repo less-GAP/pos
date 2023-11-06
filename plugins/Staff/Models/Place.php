@@ -20,7 +20,7 @@ class Place extends Model
      */
     use  HasRealtimeData;
 
-    protected $table = 'staff_places';
+    protected $table = 'staff_place';
 
     public $timestamps = true;
 
@@ -55,5 +55,8 @@ class Place extends Model
     protected $appends = [
     ];
 
-
+    public function group()
+    {
+        return $this->belongsTo(PlaceGroup::class, 'group_id');
+    }
 }

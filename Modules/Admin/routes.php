@@ -142,6 +142,7 @@ Route::middleware([AdminIsAuthenticated::class])->group(function () {
         Route::get('/{model}/paginate', ModelManager::class . '@paginate');
         Route::get('/{model}/all', ModelManager::class . '@all');
         Route::post('/{model}/{id?}', ModelManager::class . '@updateOrCreate');
+        Route::put('/{model}/{id?}', ModelManager::class . '@update');
         Route::get('/{model}/{id?}', ModelManager::class . '@getDetail');
     });
     Route::prefix('plugin')->group(function () {

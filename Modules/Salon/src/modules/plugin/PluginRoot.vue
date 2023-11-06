@@ -22,10 +22,14 @@ watch(router.currentRoute, (data) => {
     <template #moduleSidebar>
       <PluginSideBar :key="plugin?.getName()" :title="plugin.getTitle()" :menus="plugin.sideMenus()"></PluginSideBar>
     </template>
-    <router-view>
-      <PluginView v-if="$route?.matched[1]" :hasChildRoute="true" :pluginName="$route?.matched[1]?.meta.plugin"
-                  :view="$route?.matched[1]?.meta.view"
-                  :key="plugin?.getName()+$route?.fullPath"/>
-    </router-view>
+    <a-layout>
+      <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+        <router-view>
+          <PluginView v-if="$route?.matched[1]" :hasChildRoute="true" :pluginName="$route?.matched[1]?.meta.plugin"
+                      :view="$route?.matched[1]?.meta.view"
+                      :key="plugin?.getName()+$route?.fullPath"/>
+        </router-view>
+      </div>
+    </a-layout>
   </LayoutAuthenticated>
 </template>

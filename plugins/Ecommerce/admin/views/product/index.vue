@@ -13,7 +13,11 @@ function main(props) {
             icon: 'fa fa-edit',
             action: (item, reload) => {
                 //showEditUser({}, reload)
-                router.replace(routePrefix + '/' + item.id + '/detail')
+                if (item.type == 'product') {
+                    router.replace(routePrefix + '/' + item.id)
+                } else {
+                    router.replace('/ecommerce/service/' + item.id)
+                }
             }
         },
         // {
@@ -41,13 +45,30 @@ function main(props) {
         itemActions,
         columns: [
             {
-                title: 'Name',
+                title: 'Hình ảnh',
+                key: 'images',
+                width: '100px'
+            },
+            {
+                title: 'Tên sản phẩm',
                 key: 'name',
                 width: '100px'
             },
             {
-                title: 'Price',
-                key: 'price',
+                title: 'Loại sản phẩm',
+                key: 'type',
+                render(item) {
+                    if (item.type == 'product') {
+                        return 'Sản Phẩm'
+                    }
+                    return 'Dịch vụ'
+
+                },
+                width: '150px'
+            },
+            {
+                title: 'Giá bán',
+                key: 'sell_price',
 
             },
             {
@@ -72,21 +93,54 @@ function main(props) {
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Product</h4>
-                <h6>Manage your products</h6>
+                <h4>Quản lý hàng hóa</h4>
             </div>
             <div class="page-btn">
+                <a-dropdown>
+                    <template #overlay>
+                        <a-menu @click="handleMenuClick">
+                            <a-menu-item key="1">
+                                <router-link :to="plugin.url('/product/new')" class="btn btn-added">
+                                    Sản phẩm
+                                </router-link>
+                            </a-menu-item>
+                            <a-menu-item key="2">
+                                <router-link :to="plugin.url('/service/new')" class="btn btn-added">
+                                    Dịch vụ
+                                </router-link>
+                            </a-menu-item>
+                            <a-menu-item key="3">
+                                <router-link :to="plugin.url('/product/new')" class="btn btn-added">
+                                    Gói Dịch Vụ
+                                </router-link>
+                            </a-menu-item>
+                            <a-menu-item key="3">
+                                <router-link :to="plugin.url('/product/new')" class="btn btn-added">
+                                    Thẻ tài khoản
+                                </router-link>
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                    <a-button type="primary" ghost>
+                        <i class="ml-3 fa fa-plus mr-3"/>
+                        Thêm mới
+                    </a-button>
+                </a-dropdown>
 
-                <router-link :to="plugin.url('/product/new')" class="btn btn-added"><img
-                    :src="plugin?.assets('/img/icons/plus.svg')"
-                    alt="img"
-                    class="mr-1">Add
-                    Product
-                </router-link>
             </div>
         </div>
 
         <DataTable v-bind="tableConfig" :store="store">
+            <template #lineSearch>
+                <a-select allow-clear style="width:200px" @change="store.fetch" placeholder="Loại sản phẩm"
+                          v-model:value="store.params['filter[type]']">
+                    <a-select-option value="product">Sản Phẩm</a-select-option>
+                    <a-select-option value="product_package">Gói Sản Phẩm</a-select-option>
+                    <a-select-option value="service">Dịch Vụ</a-select-option>
+                    <a-select-option value="service_package">Gói Dịch Vụ</a-select-option>
+                    <a-select-option value="membership">Thẻ Tài Khoản</a-select-option>
+                </a-select>
+            </template>
             <template #listActions="{selectedItems}">
                 <ul>
                     <li>
@@ -102,43 +156,6 @@ function main(props) {
                             :src="plugin?.assets('/img/icons/printer.svg')" alt="img"></a>
                     </li>
                 </ul>
-            </template>
-            <template #advanceSearch="{reload,filter,toggleSearch,loading}">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <input v-model="filter.name" type="text" placeholder="Enter Name">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <input v-model="filter.ref_no" type="text" placeholder="Enter Reference No">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select v-model="filter.status" class="select select2-hidden-accessible"
-                                    data-select2-id="1"
-                                    tabindex="-1" aria-hidden="true">
-                                <option data-select2-id="3">Completed</option>
-                                <option>Paid</option>
-                            </select>
-
-                        </div>
-
-                    </div>
-                    <a-space class="form-group">
-                        <a-button outline @click="toggleSearch">
-                            Close
-                        </a-button>
-                        <a-button :loading="loading" type="primary" @click="reload">
-                            <template #icon>
-                                <i class="fa fa-search mr-3"></i>
-                            </template>
-                            Filter
-                        </a-button>
-                    </a-space>
-                </div>
             </template>
             <template #cell[order_status]="{ item, column, index }">
                         <span v-if="item.order_status=='success'" class="badges bg-lightgreen">{{
@@ -159,6 +176,25 @@ function main(props) {
             </template>
             <template #cell[customer.name]="{ item, column, index }">
                 {{ item.customer?.name }}
+            </template>
+            <template #cell[images]="{item,column}">
+                <a-image
+                    v-if="item.images?.length"
+                    :preview="{ visible: item.visible }"
+                    :width="100"
+                    :src="item.images[0].file_url"
+                    @click="item.visible = true"
+                />
+                <div style="display: none">
+                    <a-image-preview-group
+                        :preview="{ visible:item.visible, onVisibleChange: vis => (item.visible = vis) }">
+                        <a-image
+                            :style="{width:'50px',height:'50px'}"
+                            v-for="image in item.images"
+                            :src="image.file_url"
+                        />
+                    </a-image-preview-group>
+                </div>
             </template>
         </DataTable>
 

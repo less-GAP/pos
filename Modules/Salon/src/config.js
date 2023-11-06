@@ -17,6 +17,7 @@ const formConfig = {
   "validateTrigger": ["submit"],
   "label-align": "top",
   "layout": "vertical",
+  "colon": false,
   labelCol: {span: 24},
   wrapperCol: {span: 24},
   "validate-messages": validateMessages,

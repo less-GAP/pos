@@ -23,7 +23,16 @@ import Vue3Signature from "vue3-signature"
 import * as config from "@/config";
 
 import {useProfileState} from "@/lessgap/stores/ProfileStore";
-import {ApiData, ApiSelect, ApiStore, DataTable, InputUpload, PluginSideBar} from "@/components";
+import {
+  ApiData,
+  ApiSelect,
+  InputMoney,
+  ApiStore,
+  DataTable,
+  InputUpload,
+  PluginSideBar,
+  ApiSelectObject
+} from "@/components";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import {createApiStore} from "@/stores/apiStore";
 import {EloquentRouter} from "@/utils/EloquentRouter";
@@ -41,10 +50,12 @@ const myApp = createApp(App).use(Vue3Signature)
   .use(router)
   .use(VueSweetalert2)
   .use(pinia)
+  .component('ApiSelectObject', ApiSelectObject)
   .component('LayoutAuthenticated', LayoutAuthenticated)
   .component('PluginSideBar', PluginSideBar)
   .component('Calendar', VueCal)
   .component('ApiStore', ApiStore)
+  .component('InputMoney', InputMoney)
   .component('ApiData', ApiData)
   .component('InputUpload', InputUpload)
   .component('ApiSelect', ApiSelect)

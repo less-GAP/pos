@@ -33,6 +33,20 @@ return [
                         ]
                     ]
                 ],
+                $prefix . '/place' => [
+                    'meta' => [
+                        'title' => 'Manage Place',
+                    ]
+                    , 'view' => '/place/index.vue'
+                    , 'children' => [
+                        $prefix . '/place/:id' => [
+                            'meta' => [
+                                'title' => 'Place Detail'
+                            ]
+                            , 'view' => '/place/form.vue'
+                        ]
+                    ]
+                ],
                 $prefix . '/role' => [
                     'meta' => [
                         'title' => 'Manage Role',

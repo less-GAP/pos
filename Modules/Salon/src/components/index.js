@@ -17,7 +17,11 @@ import Breadcrumb from "./Breadcrumb.vue"
 import ApiStore from "./ApiStore.vue"
 import PluginSideBar from "./PluginSideBar.vue"
 import ApiSelect from "./ApiSelect.vue"
+import InputMoney from "./InputMoney.vue"
+import ApiSelectObject from "./ApiSelectObject.vue"
 export {
+  ApiSelectObject,
+  InputMoney,
   ApiSelect,
   PluginSideBar,
   ApiStore,

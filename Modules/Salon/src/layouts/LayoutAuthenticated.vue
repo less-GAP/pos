@@ -127,11 +127,8 @@ const menuClick = (event, item) => {
     </div>
     <TopMenu></TopMenu>
     <a-layout>
-      <a-layout-content style="padding: 0 15px;margin-top:20px;margin-bottom: 20px">
-
-
+      <a-layout-content style="padding: 0 50px;margin-top:20px;margin-bottom: 20px">
         <slot/>
-
       </a-layout-content>
 
     </a-layout>

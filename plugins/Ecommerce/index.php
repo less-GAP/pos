@@ -9,13 +9,20 @@ return [
     'models' => [
         'product' => [
             'class' => \Plugins\Ecommerce\Models\Product::class,
-            'allowedIncludes' => ['images'],
-            'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
+            'allowedIncludes' => ['images', 'variants', 'places', 'cost_items', 'cost_items.images'],
+            'allowedFilters' => [
+                AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'name,sku'),
+                AllowedFilter::exact('type', 'type')
+            ]
         ],
-        'category' => [
-            'class' => \Plugins\Ecommerce\Models\Category::class,
+
+        'taxonomy' => [
+            'class' => \Plugins\Ecommerce\Models\Taxonomy::class,
             'allowedIncludes' => [],
-            'allowedFilters' => [AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code')]
+            'allowedFilters' => [
+                AllowedFilter::custom('search', new \App\Builder\Filters\SearchLikeMultipleField, 'order_code'),
+                AllowedFilter::exact('type', 'type')
+            ]
         ],
         'brand' => [
             'class' => \Plugins\Ecommerce\Models\Brand::class,

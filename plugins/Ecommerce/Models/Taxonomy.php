@@ -1,12 +1,12 @@
 <?php
 
-namespace Plugins\Staff\Models;
+namespace Plugins\Ecommerce\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Traits\HasRealtimeData;
 use Illuminate\Database\Eloquent\Model;
+use Plugins\Sale\Factories\CategoryFactory;
 
-class PlaceGroup extends Model
+class Taxonomy extends Model
 {
 
     /**
@@ -14,14 +14,16 @@ class PlaceGroup extends Model
      *
      * @var array<int, string>
      */
-    use  HasRealtimeData;
 
-    protected $table = 'staff_place_group';
+    protected $table = 'ecommerce_taxonomies';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'name',
+        'type',
+        'parent_id',
+        'description',
     ];
 
     /**
@@ -47,5 +49,11 @@ class PlaceGroup extends Model
     protected $appends = [
     ];
 
-
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return CategoryFactory::new();
+    }
 }

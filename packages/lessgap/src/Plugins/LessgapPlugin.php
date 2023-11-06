@@ -152,8 +152,7 @@ class LessgapPlugin
         \Log::info("Migrated for plugin $this->name!");
         Artisan::call('migrate',
             array(
-                '--path' => $this->getRelativePath('/migrations'),
-                '--force' => true));
+                '--path' => $this->getRelativePath('/migrations')));
 
     }
 
@@ -161,8 +160,7 @@ class LessgapPlugin
     {
         Artisan::call('migrate:rollback',
             array(
-                '--path' => $this->getRelativePath('/migrations'),
-                '--force' => true));
+                '--path' => $this->getRelativePath('/migrations')));
     }
 
     /**

@@ -72,6 +72,31 @@ class ModelManager
         ];
     }
 
+    public function update(Request $request, $modelName)
+    {
+        $config = $this->models[$modelName] ?? null;
+        if (!$config) {
+            throw new \Exception('Model not yet registered!');
+        }
+        $class = $config['class'];
+        $model = new $class;
+        $data = $request->all();
+        $result = $class::where([$model->getKeyName() => $request->route('id')])->first();
+        if (!$result) {
+            throw new \Exception('Model not exists!');
+        }
+
+        foreach ($config['allowedIncludes'] as $relation) {
+            if (!empty($request->input($relation)) && method_exists($result, 'save' . ucfirst($relation))) {
+                $result->{'save' . ucfirst($relation)}($request->input($relation));
+            }
+        }
+        return [
+            'result' => $result,
+            'message' => 'Update Successfully!'
+        ];
+    }
+
     public function getDetail(Request $request, $modelName)
     {
         $config = $this->models[$modelName] ?? null;

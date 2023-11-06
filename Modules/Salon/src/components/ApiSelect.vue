@@ -1,9 +1,10 @@
 <template>
-  <div class="w-full h-full flex flex-row">
+  <div  v-bind="$attrs" class="w-full h-full flex flex-row">
     <a-select
       class="flex-1  !w-full"
       show-search
       allow-clear
+      :mode="mode"
       v-bind="$attrs"
       :filterOption="onFilter"
       @search="filterOption"
@@ -12,18 +13,28 @@
     >
       <template :key="option[valueKey]" v-for="option in filteredOptions">
         <slot name="option" v-bind="{option,valueKey,labelKey}">
-          <a-select-option :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]">
+          <a-select-option
+            :disabled="disableValues.includes(typeof inputValue == 'string'?String(option[valueKey]):option[valueKey])"
+            :value="typeof inputValue == 'string'?String(option[valueKey]):option[valueKey]">
             {{ option[labelKey] }}
           </a-select-option>
         </slot>
       </template>
+      <template #dropdownRender="{ menuNode: menu }">
+        <v-nodes :vnodes="menu"/>
+        <a-divider v-if="$slots.create" style="margin: 4px 0"/>
+        <a-button v-if="$slots.create" size="mini" class="ml-2 d-block text-center  "
+                  @click="showCreate=true" type="link">
+          <template #icon>
+            <plus-outlined/>
+          </template>
+          Add
+        </a-button>
+      </template>
+
 
     </a-select>
-    <a-button  v-if="$slots.create" class="ml-2  !h-[40px] !w-[40px] " type="primary" ghost @click="showCreate=true">
-      <template #icon>
-        <plus-outlined/>
-      </template>
-    </a-button>
+
   </div>
 
   <a-modal v-model:open="showCreate" v-if="$slots.create">
@@ -37,11 +48,27 @@ import Api from "@/utils/Api";
 import {createApiStore} from '@/stores/apiStore'
 import {PlusOutlined} from '@ant-design/icons-vue'
 
+const VNodes = defineComponent({
+  props: {
+    vnodes: {
+      type: Object,
+      required: true,
+    },
+  },
+  render() {
+    return this.vnodes;
+  },
+});
 export default defineComponent({
-  components: {PlusOutlined},
+  components: {PlusOutlined, VNodes},
   props: {
     value: [String, Number, Array],
     url: String,
+    mode: String,
+    disableValues: {
+      type: Array
+      , default: []
+    },
     valueKey: {
       type: String
       , default: 'value'
@@ -85,7 +112,7 @@ export default defineComponent({
 
     async function fetch() {
       store.value = await createApiStore(props.url, {autoload: false})
-      store.value.fetch({params: props.params}).then(() => {
+      store.value.fetch(props.params).then(() => {
         filterOption('')
       })
     }
@@ -98,10 +125,15 @@ export default defineComponent({
         showCreate.value = false
       },
       setValue(value) {
-        inputValue.value = value
+        if (props.mode == 'multiple') {
+          inputValue.value.push(value)
+        } else {
+          inputValue.value = value
+        }
         emit('update:value', inputValue.value);
         emit('change', inputValue.value);
       },
+
       showCreate,
       filteredOptions,
       inputValue,
