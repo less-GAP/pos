@@ -43,6 +43,7 @@ const items = ref([
     icon: () => h(ShopOutlined),
     label: 'Hàng hóa',
     title: 'Hàng hóa',
+    to: '/ecommerce/product/',
     children: [
       {
         key: 'items-1',
@@ -72,10 +73,13 @@ const items = ref([
     icon: () => h(InteractionOutlined),
     label: 'Giao dịch',
     title: 'Giao dịch',
+    to: '/sales/order',
     children: [
       {
         key: 'items-1',
         label: 'Hóa đơn',
+        to: '/sales/order',
+
       },
       {
         key: 'items-2',
@@ -96,14 +100,18 @@ const items = ref([
     icon: () => h(UserSwitchOutlined),
     label: 'Đối tác',
     title: 'Đối tác ',
+    to: '/ecommerce/customer',
     children: [
       {
         key: 'items-1',
         label: 'Khách hàng',
+        to: '/ecommerce/customer',
       },
       {
         key: 'items-2',
         label: 'Nhà cung cấp',
+        to: '/ecommerce/supplier',
+
       },
     ]
   },
@@ -112,6 +120,7 @@ const items = ref([
     icon: () => h(TeamOutlined),
     label: 'Nhân viên',
     title: 'Nhân viên',
+    to: '/staff/user',
     children: [
       {
         key: 'items-1',
