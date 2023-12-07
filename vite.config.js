@@ -7,6 +7,7 @@ export default defineConfig({
         port:9300,
         hmr: {
             host: 'localhost',
+            overlay: false
         },
         watch: {
             usePolling: true
